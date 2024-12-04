@@ -1,12 +1,19 @@
 ---
 import background from "../assets/background.svg";
+const siteName = import.meta.env.SITE_NAME;
 ---
 
 <div id="container">
 	<img id="background" src={background.src} alt="" fetchpriority="high" />
 	<main>
 		<section id="hero">
-			<h1>Goose Insurance</h1>
+			<h1>
+				Welcome to {
+					siteName.includes("goose")
+						? "Goose Insurance"
+						: "SmartBunny Insurance"
+				}
+			</h1>
 		</section>
 	</main>
 </div>
