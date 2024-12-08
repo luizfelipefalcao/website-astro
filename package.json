@@ -3,6 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "dev:goose": "SITE_NAME=goose astro dev",
+    "dev:smartbunny": "SITE_NAME=smartbunny astro dev",
     "build": "node scripts/build-script.js",
     "preview": "astro preview",
     "astro": "astro"
