@@ -5,7 +5,7 @@
   "scripts": {
     "dev:goose": "SITE_NAME=goose astro dev",
     "dev:smartbunny": "SITE_NAME=smartbunny astro dev",
-    "build": "astro build",
+    "build:goose": "node scripts/build-script.js",
     "preview": "astro preview",
     "astro": "astro"
   },
