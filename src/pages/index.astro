@@ -1,6 +1,6 @@
 ---
 const siteName = import.meta.env.SITE_NAME;
-const siteLang = siteName.includes("goose") ? "en-ca" : "en-us";
+const SITE_LANG = siteName.includes("goose") ? "en-ca" : "en-us";
 ---
 
-<meta http-equiv="refresh" content=`0;url=/${siteLang}/` />
+<meta http-equiv="refresh" content=`0;url=/${SITE_LANG}/` />

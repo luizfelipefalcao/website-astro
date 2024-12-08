@@ -5,17 +5,18 @@
   "scripts": {
     "dev:goose": "SITE_NAME=goose astro dev",
     "dev:smartbunny": "SITE_NAME=smartbunny astro dev",
-    "build:goose": "SITE_NAME=goose astro build",
-    "build:smartbunny": "SITE_NAME=smartbunny astro build",
+    "build:goose": "astro build && node scripts/clean-folder.js",
+    "build:smartbunny": "astro build && node scripts/clean-folder.js",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.0.2",
-    "dotenv": "^16.4.7",
     "@astrojs/vercel": "^7.8.2",
     "@vercel/analytics": "^1.1.2",
     "@vercel/edge": "^1.1.1",
+    "astro": "^5.0.2",
+    "dotenv": "^16.4.7",
+    "fs-extra": "^11.2.0",
     "vite": "^4.5.0"
   },
   "devDependencies": {
