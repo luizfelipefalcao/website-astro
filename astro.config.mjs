@@ -1,11 +1,13 @@
 import { defineConfig } from 'astro/config';
-//import vercel from "@astrojs/vercel/static";
-import dotenv from 'dotenv';
+import { redirectsGoose } from "./redirects/goose";
+import { redirectsSmartbunny } from "./redirects/smartbunny";
+import vercel from "@astrojs/vercel/static";
 
-dotenv.config({ path: `.env.${process.env.SITE_NAME || 'blablabla'}` });
+const redirects = process.env.SITE_NAME === 'goose' ? redirectsGoose : redirectsSmartbunny;
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.BASE_URL,
-  //outDir: `dist-${process.env.SITE_NAME}`,
+  redirects,
+  output: "static",
+  adapter: vercel()
 });

@@ -10,7 +10,7 @@ const distDirsToRemove = (() => {
 
 async function removeFolders() {
   for (const dir of distDirsToRemove) {
-    const dirPath = path.resolve(`./dist/${dir}`);
+    const dirPath = path.resolve(`.vercel/output/static/${dir}`);
     const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
     try {
       await fs.rm(dirPath, { recursive: true, force: true });
