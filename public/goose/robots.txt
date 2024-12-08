@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /wp-content/
+
+Sitemap: https://www.goose-web.site/en-ca/sitemap-0.xml

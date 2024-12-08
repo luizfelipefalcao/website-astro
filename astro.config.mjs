@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
+import vercel from "@astrojs/vercel/static";
 import { redirectsGoose } from "./redirects/goose";
 import { redirectsSmartbunny } from "./redirects/smartbunny";
-import vercel from "@astrojs/vercel/static";
 
-const redirects = process.env.SITE_NAME === 'goose' ? redirectsGoose : redirectsSmartbunny;
+const redirects = process.env.BRAND.includes('goose') ? redirectsGoose : redirectsSmartbunny;
 
 // https://astro.build/config
 export default defineConfig({

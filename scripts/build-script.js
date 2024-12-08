@@ -12,5 +12,4 @@ function runScriptFile(command) {
 
 runScriptFile('astro build');
 runScriptFile('node ./scripts/clean-folder.js');
-runScriptFile('node ./scripts/copy-robots.js');
-runScriptFile('node ./scripts/generate-sitemap.js');
+

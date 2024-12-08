@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /wp-content/
+
+Sitemap: https://www.smartbunny-web.site/en-us/sitemap-0.xml

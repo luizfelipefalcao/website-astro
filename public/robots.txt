@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /wp-content/
-
-Sitemap: https://www.gooseinsurance.com/sitemap-0.xml
