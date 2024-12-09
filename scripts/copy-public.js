@@ -5,7 +5,7 @@ import path from 'path';
 async function copyPublicFiles() {
   const brand = process.env.BRAND || 'goose';
   const publicDistDir = path.resolve('.vercel/output/static');
-  const filesToBeCopied = ['robots.txt', 'favicon.svg', 'sitemap-0.xml'];
+  const filesToBeCopied = ['robots.txt', 'favicon.ico', 'sitemap-0.xml'];
   const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
 
   for (const file of filesToBeCopied) {
