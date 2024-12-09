@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -17,9 +18,9 @@ async function removeUnecessaryFolders() {
       await fs.rm(siteDirPath, { recursive: true, force: true });
       await fs.rm(path.resolve(`.vercel/output/static/goose`), { recursive: true, force: true });
       await fs.rm(path.resolve(`.vercel/output/static/smartbunny`), { recursive: true, force: true });
-      console.log(`${timestamp} [removed folder]: /${dir} Successfully!`);
+      console.log(`${chalk.grey(timestamp)} ${chalk.blue('[removed folder]')} /${dir} ${chalk.green(' ✓ Successfull!')}`);
     } catch (error) {
-      console.error(`Error removing /${dir} folder: ${error.message}`);
+      console.log(`${chalk.red(`Error on removing /${dir} folder: ${error.message}`)}`);
     }
   }
 }

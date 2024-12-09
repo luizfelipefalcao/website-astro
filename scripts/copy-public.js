@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -13,9 +14,9 @@ async function copyPublicFiles() {
 
     try {
       await fs.copyFile(source, destination);
-      console.log(`${timestamp} [copied ${file}]: ${brand} Successfully!`);
+      console.log(`${chalk.grey(timestamp)} ${chalk.blue(`[copied ${file}]`)} ${brand} ${chalk.green(` ✓ Successfull!!`)}`);
     } catch (err) {
-      console.error(`Error copying ${file}: ${err.message}`);
+      console.log(`${chalk.red(`Error on copying ${file}: ${err.message}`)}`);
       process.exit(1);
     }
   }

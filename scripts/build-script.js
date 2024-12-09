@@ -1,11 +1,12 @@
+import chalk from "chalk";
 import { execSync } from 'child_process';
 
 function runScriptFile(command) {
   try {
-    console.log(`Running: ${command}`);
+    console.log(`${chalk.bgGreen(` running custom scripts: ${command}`)}`);
     execSync(command, { stdio: 'inherit' });
   } catch (error) {
-    console.error(`Error running command: ${command}`);
+    console.log(`${chalk.red(`Error running command: ${command}!!`)}`);
     process.exit(1);
   }
 }
