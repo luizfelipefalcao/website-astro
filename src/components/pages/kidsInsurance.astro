@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import heroImage from "@assets/productHeros/MJ_kids_insurance1.webp";
+import heroIcon from "@assets/products/Kids3x.png";
+import { kidsInsuranceStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Faq from "@components/faq.astro";
+import { kidsInsuranceFAQ } from "strings/faqs.ts";
+import Testimonials from "@components/testimonials.astro";
+import Cta from "@components/cta.astro";
+import { getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink, title } = kidsInsuranceStrings[language];
+---
+
+<Layout title={title} footerMargin={false}>
+  <ProductHero
+    strings={kidsInsuranceStrings}
+    heroImage={heroImage}
+    heroIcon={heroIcon}
+  />
+  <Faq faq={kidsInsuranceFAQ} image={null} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>

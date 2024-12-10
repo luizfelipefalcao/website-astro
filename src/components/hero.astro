@@ -1,0 +1,205 @@
+---
+import { Image, Picture } from "astro:assets";
+import HeroUsEn from "@assets/v5-Home-US-En.png";
+import HeroCaEn from "@assets/v5-Home-CA-En.png";
+import HeroCaFr from "@assets/v5-Home-CA-Fr.png";
+import Container from "@components/container.astro";
+import Apple from "@assets/App Store Download.png";
+import Google from "@assets/Play Store Download.png";
+import StarRating from "@assets/starRating.svg";
+import { enUS, enCA, frCA, getLangFromUrl } from "strings/routing";
+import QRContainer from "@components/qr.astro";
+import { miscellaneousStrings } from "strings/miscellaneous";
+
+type Props = { QR: ImageMetadata; downloadLink?: string };
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+  [enCA]: {
+    heroTitle: "The Only Insurance App You Need.",
+    heroSubtitle:
+      "Goose has designed and curated quality insurance products to help you protect what matters most.",
+    qr: "QR code to download the app.",
+    dlAppstore: "Download the app in the Apple AppStore",
+    dlPlaystore: "Download the app in the Google Playstore",
+    downloadLink: "https://go.onelink.me/EMjq/fkbg96c1",
+    appPreview: "Preview of the Goose Insurance App",
+    rating: "The Goose Insurance App has an average rating of 4.6 stars.",
+    trustedBy: "Trusted by ",
+    members: " members",
+  },
+  [enUS]: {
+    heroTitle: "The Only Insurance App You Need.",
+    heroSubtitle:
+      "SmartBunny has designed and curated quality insurance products to help you protect what matters most.",
+    qr: "QR code to download the app.",
+    dlAppstore: "Download the app in the Apple AppStore",
+    dlPlaystore: "Download the app in the Google Playstore",
+    downloadLink: "https://smartbunny.onelink.me/1vKg/if3d9vtw",
+    appPreview: "Preview of the SmartBunny Insurance App",
+    rating: "The SmartBunny Insurance App has an average rating of 4.6 stars.",
+    trustedBy: "Trusted by ",
+    members: " members",
+  },
+  [frCA]: {
+    heroTitle: "La seule application d'assurance dont vous avez besoin.",
+    heroSubtitle: "Goose est votre guichet unique pour les assurances.",
+    qr: "Code QR pour télécharger l'application.",
+    dlAppstore: "Téléchargez l'application sur l'App Store d'Apple.",
+    dlPlaystore: "Téléchargez l'application sur le Google Play Store.",
+    downloadLink: "https://go.onelink.me/EMjq/a8yjs52d",
+    appPreview: "Aperçu de l'application Goose Assurance.",
+    rating: "L'application Goose Assurance a une note moyenne de 4,6 étoiles.",
+    trustedBy: "Fait confiance par plus de ",
+    members: " membres",
+  },
+}[language];
+
+const i = {
+  [enUS]: {
+    mainImage: HeroUsEn,
+  },
+  [enCA]: {
+    mainImage: HeroCaEn,
+  },
+  [frCA]: {
+    mainImage: HeroCaFr,
+  },
+}[language];
+
+const { QR, downloadLink } = Astro.props;
+---
+
+<div class="overflow-x-clip px-6">
+  <Container>
+    <main
+      class="grid lg:grid-cols-6 place-items-center relative border-goose-pink border-b-2"
+    >
+      <div
+        class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-subtle-pink right-0 top-0"
+      >
+      </div>
+      <div
+        class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-subtle-pink right-56 top-52"
+      >
+      </div>
+
+      <div class="max-w-sm md:max-w-max lg:col-span-3 lg:pb-20">
+        <h1
+          class="text-3xl font-semibold tracking-[-0.07813rem] xl:text-6xl text-center lg:text-start text-night-sky"
+        >
+          {s.heroTitle}
+        </h1>
+        <p
+          class="text-[1.125rem] font-normal mt-4 text-grey-text max-w-lg text-center lg:text-start pt-[1rem]"
+        >
+          {s.heroSubtitle}
+        </p>
+        <div
+          class="hidden lg:flex mt-6 flex-col sm:flex-row sm:justify-center lg:justify-start gap-3"
+        >
+          <QRContainer qrCode={QR} />
+        </div>
+        <div class="flex flex-col lg:hidden pt-[2rem]">
+          <div class="flex justify-center">
+            <a
+              href={downloadLink ? downloadLink : s.downloadLink}
+              id="track-conversion"
+              target="_blank"
+              class="flex items-center justify-center"
+              rel="noopener"
+            >
+              <div
+                class="px-6 py-4 text-white font-medium rounded-lg bg-goose-pink"
+              >
+                <p>{miscellaneousStrings[language].downloadTheApp}</p>
+              </div>
+            </a>
+          </div>
+          <div class="h-[1rem]"></div>
+          <div class="flex lg:hidden pb-[2rem] justify-center gap-1">
+            <a
+              href={downloadLink ? downloadLink : s.downloadLink}
+              target="_blank"
+              class="flex gap-1 items-center justify-center"
+              rel="noopener"
+            >
+              <Image
+                src={Apple}
+                alt={s.dlAppstore}
+                height={55}
+                densities={[1.5, 2]}
+              />
+            </a>
+            <a
+              rel="noopener"
+              href={downloadLink ? downloadLink : s.downloadLink}
+              class="flex gap-1 items-center justify-center"
+              target="_blank"
+            >
+              <Image
+                src={Google}
+                alt={s.dlPlaystore}
+                height={55}
+                densities={[1.5, 2]}
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="pt-3 lg:col-span-3 -ml-[6rem] md:-ml-[16rem] lg:ml-0">
+        <Picture
+          src={i.mainImage}
+          alt={s.appPreview}
+          formats={["avif", "webp"]}
+          height={i.mainImage.height}
+          densities={[1.5, 2]}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div
+        class="hidden lg:flex absolute flex-col py-4 gap-y-2 bottom-0 left-0"
+      >
+        <Image src={StarRating} alt={s.rating} />
+        <p class="text-blg">
+          {s.trustedBy}
+          <span class="font-medium">150,000+</span>
+          {s.members}
+        </p>
+      </div>
+    </main>
+  </Container>
+</div>
+<script is:inline define:vars={{ language, enUS }}>
+  document.addEventListener("astro:page-load", function () {
+    var button = document.getElementById("track-conversion");
+    button?.addEventListener("click", function () {
+      if (window.localStorage.getItem("cookie-consent") || true && language === enUS) {
+        // Re-initialize Google Tag
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "AW-788220788");
+        // Report conversion.
+        const url = window.location.href;
+        var callback = function () {
+          if (typeof url != "undefined") {
+            // window.location = url;
+          }
+        };
+        gtag("event", "conversion", {
+          send_to: "AW-788220788/9IRyCIKP1_MCEPSW7fcC",
+          event_callback: callback,
+        });
+
+        // Meta Pixel Tracking
+        // if (leadName) fbq("track", "Lead", { content_name: leadName });
+      }
+    });
+  });
+</script>
+
+  

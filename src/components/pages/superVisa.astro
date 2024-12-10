@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import heroImage from "@assets/productHeros/MJ_supervisa.png";
+import heroIcon from "@assets/products/vtc.png";
+import { superVisaInsuranceStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Faq from "@components/faq.astro";
+import { superVisaInsuranceFAQ } from "strings/faqs.ts";
+import Testimonials from "@components/testimonials.astro";
+import Cta from "@components/cta.astro";
+import { getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink, title } = superVisaInsuranceStrings[language];
+---
+
+<Layout title={title} footerMargin={false}>
+  <ProductHero
+    strings={superVisaInsuranceStrings}
+    heroImage={heroImage}
+    heroIcon={heroIcon}
+  />
+  <Faq faq={superVisaInsuranceFAQ} image={null} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>

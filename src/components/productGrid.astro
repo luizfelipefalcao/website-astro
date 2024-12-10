@@ -1,0 +1,176 @@
+---
+import { enCA, enUS, frCA, getLangFromUrl, routes } from "strings/routing";
+// Canada
+import Life from "@assets/products/Life-Insurance3x.png";
+import Travel from "@assets/products/Travel@3x.webp";
+import ADD from "@assets/products/ADD3x.png";
+import Kids from "@assets/products/Kids3x.png";
+import IncomeProtection from "@assets/products/Income-Protection3x.png";
+import HospitalCash from "@assets/products/Hospital-Cash3x.png";
+import CI from "@assets/products/Critical-Illness3x.png";
+// USA
+import Renters from "@assets/products/Renters.png";
+import PhoneInsurance from "@assets/products/Phone-Protection3x.png";
+import FinalExpense from "@assets/products/Final Expenses Big@3x.png";
+
+import { Image } from "astro:assets";
+import type { ProductName } from "types";
+
+const language = getLangFromUrl(Astro.url);
+const baseUrl = `/${language}`;
+
+const s = {
+  [enCA]: {
+    title: "Other Offerings",
+  },
+  [frCA]: {
+    title: "Autres offres",
+  },
+  [enUS]: {
+    title: "Other Offerings",
+  },
+}[language];
+
+const products = {
+  [enCA]: [
+    {
+      image: Life,
+      name: "Life Insurance",
+      path: `/${language}/${routes[enCA].lifeInsurance}`,
+    },
+    {
+      image: Travel,
+      name: "Travel Insurance",
+      path: `/${language}/${routes[enCA].travelInsurance}`,
+    },
+    {
+      image: ADD,
+      name: "AD&D Insurance",
+      path: `/${language}/${routes[enCA].ADD}`,
+    },
+    {
+      image: Kids,
+      name: "Kids Insurance",
+      path: `/${language}/${routes[enCA].kidsInsurance}`,
+    },
+    {
+      image: HospitalCash,
+      name: "Hospital Cash",
+      path: `/${language}/${routes[enCA].hospitalCash}`,
+    },
+    {
+      image: CI,
+      name: "Critical Illness",
+      path: `/${language}/${routes[enCA].criticalIllness}`,
+    },
+  ],
+  [frCA]: [
+    {
+      image: Life,
+      name: "Assurance Vie",
+      path: `/${language}/${routes[frCA].lifeInsurance}`,
+    },
+    {
+      image: Travel,
+      name: "Assurance voyage",
+      path: `/${language}/${routes[frCA].travelInsurance}`,
+    },
+    {
+      image: ADD,
+      name: "Assurance D&MA",
+      path: `/${language}/${routes[frCA].ADD}`,
+    },
+    {
+      image: Kids,
+      name: "Assurance enfants",
+      path: `/${language}/${routes[frCA].kidsInsurance}`,
+    },
+    {
+      image: HospitalCash,
+      name: "Prestation hospitalière",
+      path: `/${language}/${routes[frCA].hospitalCash}`,
+    },
+    {
+      image: CI,
+      name: "Maladies graves",
+      path: `/${language}/${routes[frCA].criticalIllness}`,
+    },
+  ],
+  [enUS]: [
+    {
+      image: Life,
+      name: "Life Insurance",
+      path: `/${language}/${routes[enUS].lifeInsurance}`,
+    },
+    {
+      image: Travel,
+      name: "Travel Insurance",
+      path: `/${language}/${routes[enUS].travelInsurance}`,
+    },
+    {
+      image: Renters,
+      name: "Renters Insurance",
+      path: `/${language}/${routes[enUS].rentersInsurance}`,
+    },
+    {
+      title: "Final Expenses",
+      image: FinalExpense,
+      path: `${baseUrl}/${routes[enUS].finalExpense}`,
+    },
+    {
+      title: "Phone Insurance",
+      image: PhoneInsurance,
+      path: `${baseUrl}/${routes[enUS].phoneInsurance}`,
+    },
+  ],
+}[language];
+
+type Props = {
+  omit?: Array<ProductName>;
+  className?: string;
+  title?: string;
+  otherProducts?: Products;
+};
+
+const {
+  omit = [],
+  className = "bg-white",
+  title = s.title,
+  otherProducts = products,
+} = Astro.props;
+---
+
+<div class={`flex flex-col w-full p-4 sm:p-20 text-night-sky ${className}`}>
+  <div class="flex w-full justify-center pb-10">
+    <h1 class="text-4xl font-medium">
+      {title}
+    </h1>
+  </div>
+  <div
+    class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-10 max-w-screen-xl mx-auto"
+  >
+    {
+      otherProducts
+        .filter(({ name }) => !omit.includes(name))
+        .map(({ image, name, path }) => (
+          <a
+            href={path}
+            class="flex flex-col shadow-lg rounded-xl items-center justify-center w-[10rem] h-[10rem] cursor-pointer transition-transform duration-300 transform hover:scale-105 active:scale-95"
+          >
+            <div class="flex flex-col justify-center h-full">
+              <Image
+                class="pt-1 -mb-1"
+                src={image}
+                height={80}
+                alt={name || ""}
+                densities={[1.5, 2]}
+              />
+            </div>
+            <div class="flex items-end pb-4 ">
+              <p class="text-lg leading-[1.3rem] px-8 text-center">{name}</p>
+            </div>
+          </a>
+        ))
+    }
+  </div>
+</div>

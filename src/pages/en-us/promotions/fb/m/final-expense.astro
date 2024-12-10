@@ -1,0 +1,72 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Cta from "@components/cta.astro";
+import FinalExpenseMobileLandingPageHero, {
+  type FinalExpensePromoHeroStrings,
+} from "@components/landingPageComponents/FinalExpenseMobileLandingPageHero.astro";
+import Testimonials from "@components/testimonials.astro";
+import Faq from "@components/faq.astro";
+import { finalExpenseInsuranceFAQ, type FaqStrings } from "strings/faqs";
+import Logos from "@components/logos.astro";
+import ProductGrid from "@components/productGrid.astro";
+import type { ProductName } from "types";
+import heroImage from "@assets/productHeros/MJ_final-espense-1.webp";
+import QR from "@assets/landingPage/QRCodes/finalExpenseFB.png";
+import RowGrid from "@components/RowGrid.astro";
+
+type Props = {
+  strings: FinalExpensePromoHeroStrings;
+  heroImage: ImageMetadata;
+  faqStrings: FaqStrings;
+  productGridOmit: ProductName[];
+};
+
+const strings: FinalExpensePromoHeroStrings = {
+  title: "Get Final Expense Insurance in 60 Seconds",
+  paragraph: "",
+  bullets: [
+    "Premiums start as low as $14/month",
+    "Get up to $25,000 of coverage",
+    "No medical exams are required",
+    "Flexibility to cancel the policy at any time",
+    "Lifelong coverage",
+  ],
+  QRAlt: "QR code to download the app",
+  QR,
+  downloadLink: "https://go.onelink.me/LJT5/t6b8lbhb",
+  conversionName: "CFE",
+  leadName: "final-expense",
+};
+const { conversionName, leadName, downloadLink } = strings;
+const attributes = [
+  [null, "Funeral Expense Coverage - Financial support for funeral expenses."],
+  [
+    null,
+    "Debt Settlement Insurance - Assistance in settling outstanding debts.",
+  ],
+  [
+    null,
+    "Final Expenses Protection - Coverage for essential end-of-life expenses.",
+  ],
+  [
+    null,
+    "Family Support Benefit - Financial support for your loved ones during difficult times.",
+  ],
+] as Array<[ImageMetadata | null, string]>;
+---
+
+<Layout footerMargin={false}>
+  <FinalExpenseMobileLandingPageHero strings={strings} heroImage={heroImage} />
+  <!-- <Logos /> -->
+  <RowGrid
+    attributes={attributes}
+    title="Preserve your legacy by providing for your family's financial needs."
+    tracking={{ conversionName, leadName, downloadLink }}
+  />
+  <Faq faq={finalExpenseInsuranceFAQ} image={null} />
+  <ProductGrid omit={["Final Expense"]} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={strings.QR} downloadLink={strings.downloadLink} />
+</Layout>

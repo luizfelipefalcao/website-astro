@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import Sectionhead from "./sectionhead.astro";
+import { ArrowIcon } from "./ui/icons";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import type { FaqStrings } from "strings/faqs";
+
+type QuestionsAndAnswers = Array<{ question: string; answer: string }>;
+type Faq = { title: string; faq: QuestionsAndAnswers };
+type Props = {
+  faq: FaqStrings;
+  image: { src: ImageMetadata; alt: string } | null;
+  bgColour?: string;
+  textColour?: string;
+};
+const {
+  faq,
+  image,
+  bgColour = "bg-pale-turquoise",
+  textColour = "text-deep-turquoise",
+} = Astro.props;
+const l = getLangFromUrl(Astro.url);
+const i = {
+  [enUS]: {
+    // mainImage: SmartBunny,
+  },
+  [enCA]: {
+    // mainImage: GooseFamily,
+  },
+  [frCA]: {
+    // mainImage: GooseFamily,
+  },
+}[l];
+---
+
+<div
+  class=`flex flex-col lg:flex-row items-center justify-center p-8 pb-20
+  ${bgColour} `
+>
+  {
+    image && (
+      <Image
+        class="lg:mr-28 lg:mt-20 lg:self-start h-full block"
+        width={400}
+        densities={[1.5, 2]}
+        src={image.src}
+        alt={image.alt}
+      />
+    )
+  }
+  <div class:list={" h-full"}>
+    <Sectionhead>
+      <Fragment slot="title">
+        <p class=` ${textColour} `>
+          {faq[l].title}
+        </p>
+      </Fragment>
+      <Fragment slot="desc"></Fragment>
+    </Sectionhead>
+
+    <div
+      class="grid divide-y px-2 divide-neutral-200 max-w-xl mx-auto mt-8 min-w-[350px]"
+    >
+      {
+        faq[l].faq.map(({ question, answer, link }) => (
+          <div class="py-5 border-none ">
+            <details class="group max-w-[500px] ">
+              <summary
+                class:list={[
+                  "flex justify-between text-deep-turquoise items-center font-medium cursor-pointer list-none",
+                  textColour,
+                ]}
+              >
+                <p class=""> {question}</p>
+                <span class="transition group-open:rotate-180">
+                  <ArrowIcon />
+                </span>
+              </summary>
+              <p class="text-grey-text mt-4 -mb-4 pr-4 group-open:animate-fadeIn ">
+                {link ? (
+                  <>
+                    {answer[0]}
+                    <a class="text-dark-pink" href={link}>
+                      {answer[1]}
+                    </a>
+                    {answer[2]}
+                  </>
+                ) : (
+                  answer
+                )}
+              </p>
+            </details>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

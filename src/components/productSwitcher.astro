@@ -1,0 +1,222 @@
+---
+import { Image } from "astro:assets";
+import Tick from "@assets/Turquoise_Tick_filled@3x.png";
+import {
+  phoneInsuranceStrings,
+  rentersInsuranceStrings,
+  finalExpenseInsuranceStrings,
+} from "strings/productHeros";
+import { getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+
+const products = [
+  phoneInsuranceStrings[language],
+  rentersInsuranceStrings[language],
+  finalExpenseInsuranceStrings[language],
+];
+const initialProduct = products[0];
+const tickImagePath = new URL(
+  "src/assets/Turquoise_Tick_filled@3x.png",
+  import.meta.url
+).href;
+
+type Props = { oneLink: string };
+const { oneLink } = Astro.props;
+---
+
+<!-- Desktop layout -->
+<div class="hidden lg:flex flex-col">
+  <div class="flex gap-16">
+    <!-- The tiles. -->
+    {
+      products.map(({ title, icon }, index) => (
+        <div
+          class={`tile flex w-[160px] h-[160px] p-4 flex-col items-center justify-around bg-white \
+          shadow-lg rounded-xl leading-[5px] \
+          cursor-pointer transition-transform duration-300 transform hover:scale-105 active:scale-95 ${index === 0 ? "border-2 border-goose-pink" : ""}`}
+          data-index={index}
+        >
+          <Image src={icon} height={75} alt={title} densities={[1.5, 2]} />
+          {title.split(" ").map((word) => (
+            <p class="">{word}</p>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+  <div id="product-info" class="py-8">
+    <div class="flex flex-col">
+      <div class="max-w-md">
+        <p id="description" class="text-[16px] leading-[24px]">
+          {initialProduct.subTitle}
+        </p>
+      </div>
+      <div class="h-8"></div>
+      <div id="bullets" class="flex flex-col gap-2">
+        {
+          initialProduct.bullets.map((phrase, index) => (
+            <div
+              class="bullet-item flex items-center gap-2 max-w-md"
+              data-index={index}
+            >
+              <Image src={Tick} width={18} alt="" densities={[1.5, 2]} />
+              <p class="text-[0.9375rem] bullet-text">{phrase}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <script define:vars={{ products, tickImagePath }}>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tiles = document.querySelectorAll(".tile");
+      const descriptionElement = document.getElementById("description");
+      const bulletsElement = document.getElementById("bullets");
+
+      function selectTile(tile) {
+        tiles.forEach((t) =>
+          t.classList.remove("border-2", "border-goose-pink")
+        );
+        tile.classList.add("border-2", "border-goose-pink");
+
+        const productIndex = tile.getAttribute("data-index");
+        const selectedProduct = products[productIndex];
+
+        // Update the description
+        descriptionElement.textContent = selectedProduct.subTitle;
+
+        // Update the bullets
+        const bulletTexts = document.querySelectorAll(".bullet-text");
+        bulletTexts.forEach((bullet, index) => {
+          if (selectedProduct.bullets[index]) {
+            bullet.textContent = selectedProduct.bullets[index];
+          } else {
+            bullet.parentElement.remove();
+          }
+        });
+
+        // Add new bullet items if necessary
+        if (selectedProduct.bullets.length > bulletTexts.length) {
+          for (
+            let i = bulletTexts.length;
+            i < selectedProduct.bullets.length;
+            i++
+          ) {
+            const bulletItem = document.createElement("div");
+            bulletItem.className =
+              "bullet-item flex items-center gap-2 max-w-md";
+            bulletItem.innerHTML = `
+              <img src="/icons/tick.png" width="18" alt="" />
+              <p class="text-[0.9375rem] bullet-text">${selectedProduct.bullets[i]}</p>
+            `;
+            bulletsElement.appendChild(bulletItem);
+          }
+        }
+      }
+
+      // Add click event to each tile
+      tiles.forEach((tile) => {
+        tile.addEventListener("click", () => selectTile(tile));
+        tile.addEventListener("touchstart", () => selectTile(tile));
+      });
+
+      // Select the first tile by default
+      if (tiles.length > 0) {
+        selectTile(tiles[0]);
+      }
+    });
+  </script>
+</div>
+
+<!-- Mobile layout -->
+<div class="flex lg:hidden flex-col justify-center items-center">
+  {
+    products.map(({ icon, title, subTitle, bullets }, index) => (
+      <details
+        class="product-section pb-4 border-b last:border-b-0 border-deep-yellow min-w-[300px] max-w-[350px] justify-center items-center group"
+        data-index={index}
+      >
+        <summary class="flex items-center justify-center gap-2 py-3">
+          <div
+            class={`flex w-[140px] h-[140px] p-4 flex-col items-center justify-around bg-white \
+          shadow-lg rounded-xl leading-4 \
+          cursor-pointer `}
+          >
+            <Image src={icon} height={75} alt={title} densities={[1.5, 2]} />
+            {title.split(" ").map((word) => (
+              <p class="">{word}</p>
+            ))}
+          </div>
+          <div class="flex justify-center w-32">
+            <div class="flex flex-col items-center justify-center">
+              <div class="border-2 border-goose-pink rounded-full w-12 h-12 flex justify-center items-center transition-transform rotate-180 group-open:rotate-0">
+                <p class="text-2xl text-goose-pink font-medium">↑</p>
+              </div>
+              <div class="h-2" />
+              <p
+                class=" text-lg leading-6 transition-opacity duration-300 ease-in-out"
+                data-open-text
+              >
+                Learn More
+              </p>
+            </div>
+          </div>
+        </summary>
+        <div class="product-details  transition-all duration-1000 ease-in-out">
+          <p class="text-[16px] leading-[24px] p-4">{subTitle}</p>
+          <div class="pl-5">
+            <ul class="">
+              {bullets.map((bullet, idx) => (
+                <li class="flex items-center mb-0">
+                  <Image
+                    src={Tick}
+                    width={18}
+                    alt="Tick"
+                    densities={[1.5, 2]}
+                  />
+                  <span class="ml-2 text-[0.9375rem]">{bullet}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="h-5" />
+            <a
+              href={oneLink}
+              target="_blank"
+              class="bg-dark-turquoise rounded-full px-8 py-3 text-white text-center font-bold"
+            >
+              Get The App
+            </a>
+            <div class="h-2" />
+          </div>
+        </div>
+      </details>
+    ))
+  }
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const detailsElements = document.querySelectorAll(".product-section");
+
+      detailsElements.forEach((details) => {
+        const textElement = details.querySelector("[data-open-text]");
+
+        details.addEventListener("toggle", (event) => {
+          if (details.open) {
+            // Update text to "Collapse"
+            textElement.textContent = "Collapse";
+          } else {
+            // Update text to "Learn More"
+            textElement.textContent = "Learn More";
+          }
+        });
+
+        // Set initial text based on the open state
+        if (!details.open) {
+          textElement.textContent = "Learn More";
+        } else {
+          textElement.textContent = "Collapse";
+        }
+      });
+    });
+  </script>
+</div>

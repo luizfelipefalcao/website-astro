@@ -1,0 +1,317 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import Geese from "@assets/careers/hero.png";
+import Bunnies from "@assets/smartBunny/Careers.png"
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import Medical from "@assets/careers/benefits_extended medical@3x 1.png";
+import Vacation from "@assets/careers/benefits_3 weeks vacation@3x 1.png";
+import Compensation from "@assets/careers/benefits_fair compensation@3x 1.png";
+import Innovative from "@assets/careers/benefits_innovative culture@3x 1.png";
+import Flexible from "@assets/careers/benefits_flexible hours@3x 1.png";
+import WorkNPlay from "@assets/careers/benefits_work n play@3x 1.png";
+import { ArrowIcon } from "@components/ui/icons";
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+
+type Section = Array<string | { bullets: Array<string> }>
+type JobPosting = {
+  title: string;
+  link: string;
+  content: Array<Section>;
+};
+
+const usLicensedAgent: JobPosting = {
+    title:"Insurance Agent",
+    link: "https://www.indeed.com/job/insurance-agent-84dfa0e6e13622b0",
+    content: [
+        [
+            "", 
+            "We're searching for another energetic and motivated Licensed Insurance Agent to help manage our US growth! Smart Bunny is transforming the insurance industry by giving North Americans effortless access to personal lines of insurance through a mobile app. We’re eliminating unnecessary complexities built into the sale of policies, making transactions clear, quick and convenient, enabling our customers to purchase on their phone or other mobile device in a matter of minutes.",
+            "Your success in this role comes from your passion for helping people and your knowledgeable approach. You have strong social skills and genuinely believe it’s fun interacting with new people. You’re good at making real connections with potential customers because you have great listening skills. Once you know what a customer needs, you take pride in being able to personalize a policy to those needs.",
+            "Most of your day is spent on the phone, calling leads, handling inbound calls, chats and emails. You never pressure customers into buying a policy, but you’re also not scared to ask for the sale. Dealing with a variety of customers, you tailor your interaction to the situation at hand.... and if challenges arise during a call, you take ownership and find graceful ways to deal with them.",
+        ],
+        [
+            "YOUR RESPONSIBILITIES",
+            "Working remotely from a location of your choosing, you are the first and main point of contact for both potential and existing customers. As such, you have many important responsibilities, including:",
+            { bullets: [
+                "Making outbound calls to customers who have received targeted marketing materials or who have completed quotes in the Goose app (warm or HOT leads, no cold-calling).",
+                "Handling a high volume of inbound calls from customers in a prompt and professional manner.",
+                "Assessing customer needs, providing quotes, and ultimately selling policies.",
+                "Promoting Goose and encouraging customers to do the same.",
+                "Responding to online chat and email inquiries from customers.",
+                "Helping customers make changes to their policies, and processing refund requests.",
+                "Maintaining your training and industry knowledge.",
+                "Assisting with training and developing future agents in the US."
+            ]}
+        ],
+        [
+            "YOUR QUALIFICATIONS",
+            "As a member of the Goose team, you have a desire to direct your own work to achieve the responsibilities of your role. You do this by becoming an expert at what you do, and by working with a team that has a broader purpose than just making profit. Those who you work with would describe you as someone who:",
+            { bullets: [
+                "Enjoys working with others and has a passion for helping customers.",
+                "Loves selling",
+                "Delivers excellent customer service and possesses strong telephone skills.",
+                "Communicates effectively when speaking with, or writing to, others.",
+                "You must have excellent written and spoken English, as almost 100% of the job is working with customers by phone and by email.",
+                "Uses active listening and questioning skills to understand needs and issues.",
+                "Takes a consultative approach to selling.",
+                "Handles objections and deals with rejection well.",
+                "Works well under pressure, both independently and as part of a team.",
+                "Pays close attention to detail.",
+                "Uses sound judgement in making decisions and taking calculated risks.",
+                "Adapts well to, and often initiates, change.",
+                "Enjoys personal development and growth through learning.",
+                "Provides and receives constructive feedback.",
+            ]}
+        ],
+        [
+            "YOUR EXPERIENCE AND EDUCATION",
+            "Your experience and education, combined with product and sales training we provide, helps ensure your success at Goose. For this role, you have:",
+            { bullets: [
+                "At least 3 to 5 years of customer sales and service experience, preferably in a call centre environment and in management or team lead capacity.",
+                "At least 1 year of tenure with a recent employer.",
+                "A high school diploma and, preferably, some post-secondary education.",
+                "Must be licensed in Life, Property, Casualty, and Travel in the state of Washington, additional licensing in other States an asset.",
+            ]}
+        ],
+        [
+            "YOUR COMPENSATION AND BENEFITS",
+            "Goose tailors your compensation and benefits in the same way it tailors policies for its customers. Your very competitive compensation and benefits plan includes:",
+            { bullets: [
+                "Competitive salary",
+                "3-weeks Vacation",
+                "Health Insurance Allowance",
+                "In-house training as well as relevant external training, both paid by Goose.",
+                "If you are interested in this position, please apply with your resume and cover letter.",
+            ]}
+        ]
+    ],
+}
+
+const language = getLangFromUrl(Astro.url);
+
+const s = {
+    [enCA]: {
+        mainStatement: "Careers",
+        subStatement:
+            "Keeping the world insured is tough work, but someone has to do it. Maybe you? We’re looking for talented people to join our flock in a variety of roles.",
+        seeJobs: "See current openings",
+        benefitsAndPerks: "Benefits & Perks",
+        applyNow: "Apply Now!",
+        noOpenings: "There aren't any openings at the moment, check back soon!",
+        openings: []
+    },
+    [enUS]: {
+        mainStatement: "Careers",
+        subStatement:
+            "Keeping the world insured is tough work, but someone has to do it. Maybe you? We’re looking for talented individuals to join our team in a variety of roles.",
+        seeJobs: "See current openings",
+        benefitsAndPerks: "Benefits & Perks",
+        applyNow: "Apply Now!",
+        noOpenings: "There aren't any openings at the moment, check back soon!",
+        openings: [usLicensedAgent]
+    },
+    [frCA]: {
+        mainStatement: "Carrières",
+        subStatement:
+            "Assurer le monde n'est pas une tâche facile, mais quelqu'un doit le faire. Peut-être vous? Nous recherchons des personnes talentueuses pour rejoindre notre équipe dans divers rôles.",
+        seeJobs: "Voir les postes disponibles actuellement",
+        benefitsAndPerks: "Avantages",
+        applyNow: "Postulez!",
+        noOpenings: "Il n'y a pas d'ouvertures pour le moment, revenez bientôt!",
+        openings: []
+    },
+}[language];
+
+const benefitsAndPerks = [
+    {
+        image: Medical,
+        title: {
+            [enCA]: "Extended Health Benefits",
+            [enUS]: "Extended Health Benefits",
+            [frCA]: "Avantages étendus en matière de santé",
+        },
+        subtitle: {
+            [enCA]: "A healthy team is a happy team. We offer all team members extended medical as part of their compensation package.",
+            [enUS]: "A healthy team is a happy team. We offer all team members extended medical as part of their compensation package.",
+            [frCA]: "Une équipe en bonne santé est une équipe heureuse. Nous offrons à tous les membres de l'équipe une couverture médicale étendue dans le cadre de leur forfait de rémunération.",
+        },
+    },
+    {
+        image: Vacation,
+        title: {
+            [enCA]: "3-weeks vacation",
+            [enUS]: "3-weeks vacation",
+            [frCA]: "3 semaines de vacances",
+        },
+        subtitle: {
+            [enCA]: "We work to live, not live to work. Everyone is given three weeks of vacation time, and we encourage everyone to use it all up!",
+            [enUS]: "We work to live, not live to work. Everyone is given three weeks of vacation time, and we encourage everyone to use it all up!",
+            [frCA]: "Nous travaillons pour vivre, pas pour vivre pour travailler. Chacun a droit à trois semaines de congé, et nous encourageons tout le monde à les prendre entièrement!",
+        },
+    },
+    {
+        image: Compensation,
+        title: {
+            [enCA]: "Fair compensation",
+            [enUS]: "Fair compensation",
+            [frCA]: "Rémunération équitable",
+        },
+        subtitle: {
+            [enCA]: "We believe in investing in our employees, and that starts with paying them a fair salary—on top of the other benefits we offer.",
+            [enUS]: "We believe in investing in our employees, and that starts with paying them a fair salary—on top of the other benefits we offer.",
+            [frCA]: "Nous croyons à l'investissement dans nos employés, et cela commence par les rémunérer équitablement, en plus des autres avantages que nous proposons.",
+        },
+    },
+    {
+        image: Innovative,
+        title: {
+            [enCA]: "Innovative culture",
+            [enUS]: "Innovative culture",
+            [frCA]: "Culture innovante",
+        },
+        subtitle: {
+            [enCA]: "We’re still a small company, which means everyone’s ideas are always heard and everyone can contribute in any way they want.",
+            [enUS]: "We’re still a small company, which means everyone’s ideas are always heard and everyone can contribute in any way they want.",
+            [frCA]: "Nous sommes encore une petite entreprise, ce qui signifie que les idées de chacun sont toujours écoutées et que tout le monde peut contribuer de la manière qui lui convient.",
+        },
+    },
+    {
+        image: Flexible,
+        title: {
+            [enCA]: "Flexible hours",
+            [enUS]: "Flexible hours",
+            [frCA]: "Horaires flexibles",
+        },
+        subtitle: {
+            [enCA]: "We’re not clock punchers or time trackers. We know that you’re responsible enough to get your job done, so when you do it is up to you.",
+            [enUS]: "We’re not clock punchers or time trackers. We know that you’re responsible enough to get your job done, so when you do it is up to you.",
+            [frCA]: "Nous ne sommes pas des pointeurs de cartes ou des suiveurs de temps. Nous savons que vous êtes suffisamment responsable pour accomplir votre travail, donc c'est à vous de décider quand le faire.",
+        },
+    },
+    {
+        image: WorkNPlay,
+        title: {
+            [enCA]: "Work hard, play hard",
+            [enUS]: "Work hard, play hard",
+            [frCA]: "Travailler dur, s'amuser aussi",
+        },
+        subtitle: {
+            [enCA]: "Some days, work is hard. Other days, we play games and make sundaes. It’s called balance.",
+            [enUS]: "Some days, work is hard. Other days, we play games and make sundaes. It’s called balance.",
+            [frCA]: "Certains jours, le travail est difficile. D'autres jours, nous jouons à des jeux et préparons des glaces. C'est ce qu'on appelle l'équilibre.",
+        },
+    },
+];
+
+const i = {
+    [enCA]: { heroImage: Geese},
+    [enUS]: { heroImage: Bunnies},
+    [frCA]: { heroImage: Geese},
+}[language]
+---
+
+<Layout title={s.mainStatement} footerMargin={false}>
+    <ArtsaiPixelForNonProductPages />
+    <div
+        class="flex flex-col items-center lg:flex-row lg:justify-center w-full pt-6"
+    >
+        <div class="block">
+            <Image
+                class="block rounded-xl"
+                src={i.heroImage}
+                alt="A family of Geese"
+                height={i.heroImage.height / 2}
+                densities={[1.5, 2]}
+            />
+        </div>
+        <div class="flex flex-col max-w-md p-16">
+            <p class="text-[2rem] leading-[2rem] font-semibold">
+                {s.mainStatement}
+            </p>
+            <div class="h-[2rem]"></div>
+            <p class="">{s.subStatement}</p>
+            <div class="h-[2rem]"></div>
+            <!-- <a class="text-dark-pink">{s.seeJobs} ></a> -->
+        </div>
+    </div>
+    <div
+        class="flex flex-col items-center w-full bg-canvas-grey p-16 lg:-mt-28"
+    >
+        <div class="lg:h-28 w-2"></div>
+        <div class="pt-6 max-w-5xl lg:w-[965px]">
+            <p
+                class="text-[2rem] leading-[2rem] font-semibold p-6 pl-0 text-night-sky"
+            >
+                {s.benefitsAndPerks}
+            </p>
+            <div class="grid gap-10 grid-cols-1 lg:grid-cols-3">
+                {
+                    benefitsAndPerks.map(({ image, title, subtitle }) => (
+                        <div class="py-3 ">
+                            <Image class="py-2" src={image} width={} alt="" />
+                            <p class="text-[1.2rem] py-2  text-night-sky font-medium">
+                                {title[language]}
+                            </p>
+                            <p class=" py-2  text-grey-text">
+                                {subtitle[language]}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+    <div class="flex w-full flex-col items-center p-4 md:p-16">
+        {s.openings.length 
+        ? <p class="text-[3rem] font-semibold p-12">{s.applyNow}</p>
+        : <p class="text-[2rem] font-semibold p-12 text-center">{s.noOpenings}</p>
+    }
+        <div class="w-full justify-center">
+        <div class="grid divide-y px-2 divide-neutral-200 max-w-2xl mx-auto">
+            {
+                s.openings.map(({title, link, content}) => (
+                    <div class="p-2 pr-0 border-t-2">
+                        <details class="group rounded p-5 border-none ">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
+                                <p class="text-xl text-grey-text">{title}</p>
+                                <span class="transition group-open:rotate-180">
+                                    <ArrowIcon />
+                                </span>
+                            </summary>
+                            <div class="h-6" />
+                            <a 
+                                href={link} 
+                                target="_blank" 
+                                class="text-lg py-3 px-6 bg-goose-pink text-white rounded"
+                            >
+                                {s.applyNow}
+                            </a>
+                            <div class="h-4" />
+                            {content.map(section => (
+                                <div>
+                                    {section[0] && <p class="text-lg font-medium pt-6">
+                                        {section[0]}
+                                    </p>}
+                                    {section.slice(1).map(paragraph => {
+                                        return paragraph.bullets
+                                        ? <ul class="list-disc pl-5">
+                                            {paragraph.bullets.map(bullet => <li class="">{bullet}</li>)}
+                                        </ul>
+                                        : paragraph.link && typeof paragraph.link === 'string'
+                                        ? <div class="flex justify-center pt-10">
+                                            <a href={paragraph.link} target="_blank" class="text-lg font-normal py-2 px-4 bg-goose-pink text-white rounded">{s.applyNow}</a>
+                                            </div>
+                                        :<p class="py-2">{paragraph}</p>
+                            })}
+                            </div>
+                        ))}
+                        </details>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+    </div>
+    
+</Layout>

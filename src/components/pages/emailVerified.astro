@@ -1,0 +1,28 @@
+---
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+import Layout from "@layouts/Layout.astro";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+const language = getLangFromUrl(Astro.url);
+const s = {
+    [enCA]: {
+        title: "Thanks for signing up!",
+        subTtitle: "Your email has been verified",
+    },
+    [enUS]: {
+        title: "Thanks for signing up!",
+        subTtitle: "Your email has been verified",
+    },
+    [frCA]: {
+        title: "Merci de vous avoir inscrit!",
+        subTtitle: "Votre courriel a été vérifié",
+    },
+}[language];
+---
+<Layout title={s.title}>
+    <ArtsaiPixelForNonProductPages />
+    <div class="flex flex-col w-full justify-center items-center">
+        <div class="h-10"></div>
+        <h1 class="p-4 text-4xl font-semibold">{s.title}</h1>
+        <p class="p-4">{s.subTtitle}</p>
+    </div>
+</Layout>

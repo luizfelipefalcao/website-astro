@@ -1,0 +1,68 @@
+---
+import HeroUsEn from "@assets/v5-Home-US-En.png";
+import HeroCaEn from "@assets/v5-Home-CA-En.png";
+import HeroCaFr from "@assets/v5-Home-CA-Fr.png";
+import { Image } from "astro:assets";
+import { enCA, enUS, frCA } from "strings/routing";
+import { getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+    [enCA]: {
+        howToGetIt: "Get Goose",
+        downloadApp: "Download the App",
+        downloadAppSub: "",
+        signUp: "Sign Up and Explore",
+        signUpSub: "",
+        pay: "Get a Quote and Get Covered",
+        paySub: "",
+        image: HeroUsEn,
+    },
+    [enUS]: {
+        howToGetIt: "Get SmartBunny",
+        downloadApp: "Download the App",
+        downloadAppSub: "",
+        signUp: "Sign Up and Explore",
+        signUpSub: "",
+        pay: "Get a Quote and Get Covered",
+        paySub: "",
+        image: HeroCaEn,
+    },
+    [frCA]: {
+        howToGetIt: "Comment l'obtenir:",
+        downloadApp: "Téléchargez l'application",
+        downloadAppSub: "",
+        signUp: "Inscrivez-vous et explorez",
+        signUpSub: "",
+        pay: "Obtenez une soumission et soyez assuré",
+        paySub: "",
+        image: HeroCaFr,
+    },
+}[language];
+---
+
+<div class="flex w-full justify-center bg-canvas-grey px-3 py-20 lg:px-20">
+    <div class="flex flex-col lg:flex-row justify-around lg:gap-20">
+        <div class="flex flex-col max-w-lg justify-center">
+            <h1 class="text-[3rem] font-[600] lg:min-w-[400px] text-center">
+                {s.howToGetIt}
+            </h1>
+            <div class="h-[1.5rem]"></div>
+            <h2 class="text-[1.5rem] font-[500] pb-2">✔️ {s.downloadApp}</h2>
+            <p class="">{s.downloadAppSub}</p>
+            <div class="h-[1.5rem]"></div>
+            <h2 class="text-[1.5rem] font-[500] pb-2">✔️ {s.signUp}</h2>
+            <p class="">{s.signUpSub}</p>
+            <div class="h-[1.5rem]"></div>
+            <h2 class="text-[1.5rem] font-[500] pb-2">✔️ {s.pay}</h2>
+            <p class="">{s.paySub}</p>
+        </div>
+        <div class="lg:hidden h-14"></div>
+        <div
+            class="flex w-full max-w-lg justify-center items-center lg:justify-end"
+        >
+            <Image src={s.image} height={400} densities={[1.5, 2]} alt="" />
+        </div>
+        <div class="h-14"></div>
+    </div>
+</div>

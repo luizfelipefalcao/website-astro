@@ -1,22 +1,139 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import { ViewTransitions } from "astro:transitions";
+import ReplacementSwap from "astro-vtbot/components/ReplacementSwap.astro";
+import { SEO } from "astro-seo";
+import Footer from "@components/footer.astro";
+import Navbar from "@components/navbar/navbar.astro";
+import GlobalStyles from "@components/GlobalStyle.astro";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+import "@fontsource-variable/inter/index.css";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import Consent from "@components/consent.astro";
+import LanguageBump from "@components/languageBump.astro";
+import VercelAnalytics from "@components/vercelAnalytics.astro";
+import SmartBunnyBanner from "@components/SmartBunnyBanner.astro";
+import RemoveOptionalParams from "@components/removeOptionalParams.astro";
+
+export interface Props {
+  title?: string;
+  footerMargin?: false;
+  showZDChat?: boolean;
+  extraLogo?: ImageMetadata;
+}
+const {
+  title,
+  footerMargin = false,
+  showZDChat = true,
+  extraLogo,
+} = Astro.props;
+
+const language = getLangFromUrl(Astro.url);
+const isSmartbunny =
+  language === enUS || Astro.url.pathname.includes("/smartbunny");
+
+const s = {
+  [enCA]: {
+    opengraphDescription: "Goose Insurance: Insurance Made Easy",
+    description: "Download the app for insurance in 60 seconds",
+    imageAlt: "Goose Insurance Homepage Screenshot.",
+    name: "Goose Insurance",
+    favicon: "/goose_favicon.ico",
+  },
+  [enUS]: {
+    opengraphDescription: "SmartBunny Insurance: Insurance Made Easy",
+    description: "Download the app for insurance in 60 seconds",
+    imageAlt: "SmartBunny Insurance Homepage Screenshot.",
+    name: "SmartBunny Insurance",
+    favicon: "/smartbunny_favicon.png",
+  },
+  [frCA]: {
+    opengraphDescription: "Goose Insurance: L'assurance simplifiée",
+    description: "Téléchargez l'application pour s'assuré en 60 secondes",
+    imageAlt: "Capture d'écran de la page d'accueil de Goose Insurance",
+    name: "Assurance Goose",
+    favicon: "/goose_favicon.ico",
+  },
+}[language];
+
+const canonicalURL = {
+  [enCA]: `https://gooseinsurance.com${Astro.url.pathname}`,
+  [enUS]: `https://smartbunny.com${Astro.url.pathname}`,
+  [frCA]: `https://gooseinsurance.com${Astro.url.pathname}`,
+}[language];
+
+const makeTitle = title ? title + " | " + s.name : s.name;
+const i = {
+  [enCA]: { sitePreview: "https://i.imgur.com/nHfkpzN.png" },
+  [frCA]: { sitePreview: "https://i.imgur.com/LnCim1F.png" },
+  [enUS]: { sitePreview: "https://i.imgur.com/sATAQQy.png" },
+}[language];
+---
+
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href={s.favicon} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+    {
+      language === enUS
+      ? <script is:inline>
+        (function(w,d,s,l,i) {
+          w[l]=w[l] ||[];
+          w[l].push({
+            'gtm.start':new Date().getTime(),
+            event:'gtm.js'
+          });
+          var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+          j.async=true;
+          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+          f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-PD4N3K43');
+        </script>
+      : <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TVR3DPD');</script>
+    }
+    <GlobalStyles />
+    <SEO
+      title={makeTitle}
+      description={s.description}
+      canonical={canonicalURL}
+      twitter={{
+        creator: language === enUS ? "@SmartBunnyUSA" : "@gooseinsurance",
+        site: language === enUS ? "@SmartBunnyUSA" : "@gooseinsurance",
+        card: "summary_large_image",
+      }}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: s.opengraphDescription,
+          image: i.sitePreview,
+        },
+        image: {
+          alt: s.imageAlt,
+        },
+      }}
+    />
+    <ViewTransitions />
+    <ReplacementSwap />
+  </head>
+  <body>
+    <div data-vtbot-replace="main">
+      {language === enUS && <SmartBunnyBanner />}
+      <Navbar extraLogo={extraLogo} />
+      <slot />
+      <Footer margin={footerMargin} />
+    </div>
+    <Consent />
+    <LanguageBump />
+    <RemoveOptionalParams />
+    <!-- <VercelAnalytics /> -->
+  </body>
+</html>

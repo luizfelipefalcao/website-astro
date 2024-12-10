@@ -1,0 +1,16 @@
+---
+import { enUS, getLangFromUrl } from "strings/routing"
+
+const language = getLangFromUrl(Astro.url);
+---
+
+{
+    language === enUS && (
+    <img 
+        src="https://arttrk.com/pixel/?ad_log=referer&action=content&pixid=eadb67b1-ec82-4dd6-b7d8-4607efbaf4f5" 
+        width="1" 
+        height="1" 
+        border="0"
+    />
+)}
+

@@ -1,0 +1,34 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import heroImage from "@assets/productHeros/MJ_ADD1.webp";
+import ADDBunny from "@assets/smartBunny/SmartBunny ADD.png";
+import heroIcon from "@assets/products/ADD3x.png";
+import { adndStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Faq from "@components/faq.astro";
+import { adndFAQ } from "strings/faqs.ts";
+import Testimonials from "@components/testimonials.astro";
+import Cta from "@components/cta.astro";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink } = adndStrings[language];
+const i = {
+  [enCA]: { productHero: heroImage },
+  [enUS]: { productHero: ADDBunny },
+  [frCA]: { productHero: heroImage },
+}[language];
+---
+
+<Layout title={adndStrings[language].title} footerMargin={false}>
+  <ProductHero
+    strings={adndStrings}
+    heroImage={i.productHero}
+    heroIcon={heroIcon}
+  />
+  <Faq faq={adndFAQ} image={null} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>

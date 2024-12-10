@@ -1,0 +1,141 @@
+---
+import { Image } from "astro:assets";
+import Apple from "@assets/App Store Download.png";
+import Google from "@assets/Play Store Download.png";
+import Tick from "@assets/Turquoise_Tick_filled@3x.png";
+import QRCode from "assets/Home QR Code Sample.png";
+import { enUS, getLangFromUrl, routes } from "strings/routing";
+import type { HeroStrings } from "strings/productHeros";
+import {
+  miscellaneousStrings as misc,
+  miscellaneousStrings,
+} from "strings/miscellaneous";
+import QRContainer from "@components/qr.astro";
+import ArtsaiPixelForProductPages from "./artsaiPixelForProductPages.astro";
+
+interface Props {
+  strings: HeroStrings;
+  heroImage: ImageMetadata;
+  heroIcon: ImageMetadata;
+}
+const { strings, heroImage, heroIcon } = Astro.props;
+const language = getLangFromUrl(Astro.url);
+const s = strings[language];
+---
+<img class="flex flex-col px-3">
+  <ArtsaiPixelForProductPages />
+  <div class="h-10"></div>
+  <div class="flex w-full justify-center pt-4">
+    <div class="flex lg:flex-row flex-col items-center">
+      <div class="flex flex-col lg:hidden max-w-md text-night-sky h-full">
+        <h1 class="text-3xl sm:text-5xl font-semibold p-[1.25] text-center">
+          {s.title}
+        </h1>
+        <div class="h-[1.25rem]"></div>
+        <p class="">{s.subTitle}</p>
+        <div class="h-[2rem]"></div>
+        {
+          s.bullets.map((phrase) => {
+            return (
+              <div class="hidden lg:flex py-2 items-center text-[0.9375rem]">
+                <Image src={Tick} width={18} alt="" densities={[1.5, 2]} />
+                {phrase}
+              </div>
+            );
+          })
+        }
+      </div>
+      <div class="flex flex-col items-center">
+        <Image
+          class="rounded-xl"
+          src={heroImage}
+          width={520}
+          alt={s.heroImageAlt}
+        />
+        <div
+          class="flex flex-col items-center justify-evenly w-44 h-44 rounded-xl bg-white -mt-14 z-10 shadow-lg"
+        >
+          <Image src={heroIcon} alt="" height={80} densities={[1.5, 2]} />
+          <p class="text text-center font-medium px-5 pb-2 line-clamp-2">
+            {s.iconTitle}
+          </p>
+        </div>
+      </div>
+      <div class="flex w-[6rem]"></div>
+      <div class="flex flex-col max-w-md text-night-sky h-full">
+        <h1 class="hidden lg:block text-5xl font-semibold p-[1.25]">
+          {s.title}
+        </h1>
+        <div class="h-[1.25rem]"></div>
+        <p class="hidden lg:flex">{s.subTitle}</p>
+        <div class="hidden lg:flex h-[2rem]"></div>
+        {
+          s.bullets.map((phrase) => (
+            <div class="flex py-2 items-center text-[0.9375rem]">
+              <Image src={Tick} width={18} height={18} alt="" />
+              <p class="px-2">{phrase}</p>
+            </div>
+          ))
+        }
+        <div class="h-[2rem]"></div>
+        <div class="flex flex-col items-center">
+          <div class="flex lg:hidden pb-[1rem]">
+            <a
+              href={s.downloadLink}
+              target="_blank"
+              class="flex items-center justify-center"
+              rel="noopener"
+            >
+              <div
+                class="px-6 py-4 text-white font-medium rounded-lg bg-goose-pink"
+              >
+                <p>{miscellaneousStrings[language].downloadTheApp}</p>
+              </div>
+            </a>
+          </div>
+          <div class="flex w-full justify-center lg:justify-start">
+            <QRContainer qrCode={s.QR} />
+            <div class="flex gap-1 lg:hidden">
+              <a
+                href={s.downloadLink}
+                target="_blank"
+                class="flex gap-1 items-center justify-center"
+                rel="noopener"
+              >
+                <Image
+                  src={Apple}
+                  alt={misc[language].dlAppstore}
+                  height={Apple.height / 3}
+                  densities={[1.5, 2]}
+                />
+              </a>
+              <a
+                rel="noopener"
+                href={s.downloadLink}
+                class="flex gap-1 items-center justify-center"
+                target="_blank"
+              >
+                <Image
+                  src={Google}
+                  alt={misc[language].dlPlaystore}
+                  height={Google.height / 3}
+                  densities={[1.5, 2]}
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-16"></div>
+  <p class="text-center p-4 text-[0.625rem] font-[400]">
+    {s.forFullDetails}
+    <a
+      class="underline"
+      href={`/${language}/${routes[language].policyWordings}`}
+    >
+      {s.policyWordings}
+    </a>
+  </p>
+</div>

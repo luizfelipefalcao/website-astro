@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import { Phone } from "@assets/iheart";
+import { enUS, getLangFromUrl, type Language } from "strings/routing";
+
+type Props = {
+  content: Array<{ image: ImageMetadata; title: string; description: string }>;
+  locale?: Language;
+};
+const { content, locale = enUS } = Astro.props;
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+  [enUS]: {
+    allOnTheApp: "It's all on the SmartBunny App!",
+  },
+}[locale];
+---
+
+<!-- Desktop Layout -->
+<div class="flex flex-col bg-slate-50 py-20 px-8 items-center">
+  <p class="text-5xl font-medium">{s.allOnTheApp}</p>
+  <div class="h-24"></div>
+  <div
+    class="flex w-full flex-col lg:flex-row justify-around items-center max-w-screen-2xl"
+  >
+    <Image
+      class="object-contain"
+      src={Phone}
+      alt=""
+      height={600}
+      densities={[1.5, 2]}
+    />
+    <div class="flex flex-col max-w-[440px] pt-16 lg:pt-0">
+      {
+        content.map(({ image, title, description }) => (
+          <div class="flex flex-col gap-4 pb-16 last:pb-0">
+            <Image src={image} alt="" width={55} densities={[1.5, 2]} />
+            <p class="text-2xl font-medium">{title}</p>
+            <p class="text-lg">{description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Layout -->
+<!-- <div class="flex flex-col lg:hidden justify-center items-center"></div> -->

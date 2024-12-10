@@ -1,0 +1,74 @@
+---
+// Canada
+import CBC from "@assets/asSeenOn/CBC@2x.png";
+import CityNews from "@assets/asSeenOn/CityNews@2x.png";
+import CTV from "@assets/asSeenOn/CTV@2x.png";
+import Global from "@assets/asSeenOn/GlobalNews@2x.png";
+import IBC from "@assets/asSeenOn/IBC@2x.png";
+import GlobeAndMail from "@assets/asSeenOn/Globe&Mail@2x.png";
+// USA
+import Forbes from "@assets/asSeenOn/Forbes@2x.png";
+import WSJ from "@assets/asSeenOn/WSJ@2x.png";
+import NBC from "@assets/asSeenOn/NBC@2x.png";
+import USAToday from "@assets/asSeenOn/USA-Today@3x.png";
+import BetaKit from "@assets/asSeenOn/Betakit.png";
+import CBS from "@assets/asSeenOn/CBS@3x.png";
+import ABC from "@assets/asSeenOn/ABCNews@3x.png";
+import FOX from "@assets/asSeenOn/FoxNews@2x.png";
+
+import { Image } from "astro:assets";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+type Props = {
+  notes?: string[];
+  backgroundColour?: "bg-white" | "bg-bg-pink";
+};
+const { notes, backgroundColour = "bg-white" } = Astro.props;
+
+const canadianLogos = [
+  [CBC, "CBC logo"],
+  [CityNews, "CityNews logo"],
+  [CTV, "CTV logo"],
+  [Forbes, "Forbes logo"],
+  [Global, "Global logo"],
+  [GlobeAndMail, "GlobeAndMail logo"],
+  [IBC, "IBC logo"],
+  [WSJ, "WSJ logo"],
+] as Array<[ImageMetadata, string]>;
+
+const usaLogos = [
+  [Forbes, "Forbes logo"],
+  [WSJ, "WSJ logo"],
+  [NBC, "NBC"],
+  [USAToday, "USAToday"],
+  [BetaKit, "BetaKit"],
+  [CBS, "CBS"],
+  [ABC, "ABC"],
+  [FOX, "FOX"],
+] as Array<[ImageMetadata, string]>;
+
+const language = getLangFromUrl(Astro.url);
+const strings = {
+  [enCA]: { asSeenOn: "As seen on" },
+  [enUS]: { asSeenOn: "As seen on" },
+  [frCA]: { asSeenOn: "Tel que vu sur" },
+};
+const s = strings[language];
+const logos = language.includes(enUS) ? usaLogos : canadianLogos;
+---
+
+<div class={`py-8 ${backgroundColour}`}>
+  <h2 class="text-center text-night-sky">{s.asSeenOn}</h2>
+  <div class="flex gap-x-10 items-center justify-center flex-wrap">
+    {
+      logos.map(([logo, alt]) => (
+        <Image src={logo} height={50} densities={[1.5, 2]} alt={alt} />
+      ))
+    }
+  </div>
+  {notes && 
+    <div class="pt-6 mx-2">
+      {notes.map((phrase) => <p class="text-center text-[10px]">{phrase}</p>)} 
+    </div>
+    }
+</div>

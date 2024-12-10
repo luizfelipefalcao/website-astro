@@ -1,0 +1,29 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import AnnouncementPost from "@components/pages/announcements/post.astro";
+import { enCA } from "strings/routing";
+
+// Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const sbApi = useStoryblokApi();
+
+  const { data } = await sbApi.get("cdn/stories", {
+    content_type: "announcement",
+    version: import.meta.env.DEV ? "draft" : "published",
+    starts_with: enCA,
+  });
+
+  return data.stories.map((sbAnnouncement) => {
+    return {
+      params: { slug: sbAnnouncement.slug },
+      props: { sbAnnouncement },
+    };
+  });
+}
+
+const { sbAnnouncement } = Astro.props;
+const { slug } = Astro.params;
+const announcement = sbAnnouncement.content;
+---
+
+<AnnouncementPost announcement={announcement} slug={slug} />

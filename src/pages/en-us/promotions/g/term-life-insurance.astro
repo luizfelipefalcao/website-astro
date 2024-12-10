@@ -1,0 +1,28 @@
+---
+import LandingPage from "@components/pages/promotions/landingPage.astro";
+import { enUS, getLangFromUrl } from "strings/routing";
+import { lifeInsuranceFAQ } from "strings/faqs";
+import PhoneGif from "@assets/landingPage/2US-Term.gif";
+import QRCode from "@assets/landingPage/QRCodes/8-us-term.png";
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+  [enUS]: {
+    title: "Don’t let life catch you without Life Insurance",
+    paragraph:
+      "Purchasing a home? Starting a family? Other life-changing events? Protect what matters most with Goose term life insurance so you can focus on living in the present. Get up to $300,000 in coverage in just minutes. No agent, no medical, no paperwork, and instant approval. Download the Goose app to get insurance the easy way.",
+    bullets: null,
+    QRAlt: "Qr code to scan",
+    QR: QRCode,
+    iconTitle: "Life Insurance",
+    downloadLink: "https://gooseinsurance.onelink.me/FVvL/2e29d76d",
+  },
+}[language];
+---
+
+<LandingPage
+  strings={s}
+  heroImage={PhoneGif}
+  faqStrings={lifeInsuranceFAQ}
+  productGridOmit={["Life Insurance"]}
+/>

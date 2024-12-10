@@ -1,0 +1,528 @@
+---
+import Container from "@components/container.astro";
+import { Image } from "astro:assets";
+import GooseLogo from "@assets/goose_logo_new.svg";
+import BunnyLogo from "@assets/smartBunny/SmartBunny Logo.svg";
+import InstagramLogo from "@assets/Logo_Instagram@3x.png";
+import FacebookLogo from "@assets/Logo_FB@3x.png";
+import GoogleLogo from "@assets/icons/Logo_Google_Social@3x.png";
+import X from "@assets/Logo_X@3x.png";
+import BBB from "@assets/BBB.png";
+import { getLangFromUrl } from "strings/routing";
+import { enCA, enUS, frCA, routes } from "strings/routing";
+
+const { margin } = Astro.props;
+const language = getLangFromUrl(Astro.url);
+const baseUrl = `/${language}`;
+const s = {
+  [enCA]: {
+    insurance: "Insurance",
+    vtc: "Visitors to Canada",
+    superVisa: "Super Visa",
+    life: "Life Insurance",
+    travel: "Travel Medical",
+    criticalIllness: "Critical Illness",
+    aDD: "AD&D Insurance",
+    kidsInsurance: "Kids Insurance",
+    hospitalCash: "Hospital Cash",
+    identityProtection: "Identity Protection",
+    phoneInsurance: "Phone Insurance",
+    company: "Company",
+    aboutUs: "About Us",
+    partners: "Partners",
+    careers: "Careers",
+    inTheNews: "News",
+    blog: "Blog",
+    resources: "Resources",
+    helpCenter: "Help center",
+    policyWording: "Policy wordings",
+    claims: "Claims",
+    contactUs: "Contact us",
+    gooseInsuranceLogo: `Goose Insurance Logo`,
+    superApp: "The Goose App is a one stop shop for all your insurance needs.",
+    instagramLogo: "Logo and link to Goose Insurance's Instagram page.",
+    instagramUrl: "https://www.instagram.com/gooseinsuranceca/",
+    facebookLogo: "Logo and link to Goose Insurance's Facebook page.",
+    facebookUrl: "https://www.facebook.com/gooseinsurance",
+    googleLogoAlt: "Logo and link to Goose Insurance's Google page.",
+    XLogo: "Logo and link to Goose Insurance's X page.",
+    Xurl: "https://twitter.com/gooseinsurance",
+    linkToInstagram: "Link to Instagram.",
+    linkToFacebook: "Link to Facebook.",
+    linkToGoogle: "Link to Google.",
+    linkToX: "Link to X.",
+    copyright: `Copyright © ${new Date().getFullYear()} Goose Insurance All rights reserved.`,
+    disclaimer:
+      "Insurance is sold by Goose Insurance Services and underwritten by various companies.",
+    terms: "Terms of Use",
+    privacy: "Privacy Policy",
+    referral: "Referral Program",
+    affiliate: "Affiliate Program",
+    licensing: "Licensing",
+  },
+  [enUS]: {
+    insurance: "Insurance",
+    life: "Life Insurance",
+    travel: "Travel Medical",
+    criticalIllness: "Critical Illness",
+    aDD: "AD&D Insurance",
+    kidsInsurance: "Kids Insurance",
+    hospitalCash: "Hospital Cash",
+    identityProtection: "Identity Protection",
+    phoneInsurance: "Phone Insurance",
+    company: "Company",
+    aboutUs: "About Us",
+    partners: "Partners",
+    careers: "Careers",
+    inTheNews: "News",
+    blog: "Blog",
+    resources: "Resources",
+    helpCenter: "Help center",
+    policyWording: "Policy wordings",
+    claims: "Claims",
+    contactUs: "Contact us",
+    gooseInsuranceLogo: `Goose Insurance Logo`,
+    superApp:
+      "The SmartBunny Insurance App is a one stop shop for all your insurance needs.",
+    instagramLogo: "Logo and link to SmartBunny Insurance's Instagram page.",
+    instagramUrl: "https://www.instagram.com/smartbunny_ins/",
+    facebookLogo: "Logo and link to SmartBunny Insurance's Facebook page.",
+    facebookUrl: "https://www.facebook.com/smartbunnyins",
+    googleLogoAlt: "Logo and link to SmartBunny Insurance's Google page.",
+    XLogo: "Logo and link to SmartBunny Insurance's X page.",
+    Xurl: "https://twitter.com/SmartBunnyUSA",
+    linkToInstagram: "Link to Instagram.",
+    linkToFacebook: "Link to Facebook.",
+    linkToGoogle: "Link to Google.",
+    linkToX: "Link to X.",
+    copyright: `Copyright © ${new Date().getFullYear()} SmartBunny Insurance Services All rights reserved.`,
+    disclaimer: `Insurance is sold by Goose Insurance Services Inc. dba SmartBunny Insurance Services ("SmartBunny Insurance") and underwritten by various companies.`,
+    terms: "Terms of Use",
+    privacy: "Privacy Policy",
+    referral: "Referral Program",
+    affiliate: "Affiliate Program",
+    licensing: "Licensing",
+  },
+  [frCA]: {
+    insurance: "Assurance",
+    vtc: "Visiteurs au Canada",
+    superVisa: "Super Visa",
+    life: "Assurance vie",
+    travel: "Assurance Voyages",
+    criticalIllness: "Maladies graves",
+    aDD: "Assurance D&MA",
+    kidsInsurance: "Assurance enfants",
+    hospitalCash: "Prestation hospitalière",
+    identityProtection: "Protection de l'identité",
+    phoneInsurance: "Assurance téléphone",
+    company: "Compagnie",
+    aboutUs: "À propos",
+    partners: "Nos partenaires",
+    careers: "Carrières",
+    inTheNews: "Nouvelles",
+    blog: "Blog",
+    resources: "Ressources",
+    helpCenter: "Centre d'aide",
+    policyWording: "Libellé de polices",
+    claims: "Réclamations",
+    contactUs: "Nous contacter",
+    gooseInsuranceLogo: `Logo d'assurance Goose`,
+    superApp:
+      "L'application Goose est un guichet unique pour tous vos besoins en assurance.",
+    instagramLogo: "Logo et lien vers la page Instagram d'assurance Goose.",
+    instagramUrl: "https://www.instagram.com/gooseinsuranceca/",
+    facebookLogo: "Logo et lien vers la page Facebook d'assurance Goose.",
+    facebookUrl: "https://www.facebook.com/gooseinsurance",
+    googleLogoAlt: "Logo et lien vers la page Google d'assurance Goose.",
+    XLogo: "Logo et lien vers la page X d'assurance Goose.",
+    Xurl: "https://twitter.com/gooseinsurance",
+    linkToInstagram: "Lien vers Instagram.",
+    linkToFacebook: "Lien vers Facebook.",
+    linkToGoogle: "Lien vers Google.",
+    linkToX: "Lien vers X.",
+    copyright: `Droits d'auteur © ${new Date().getFullYear()} Assurance Goose. Tous droits réservés.`,
+    disclaimer:
+      "L'assurance est vendue par Goose Insurance Services et souscrite par diverses compagnies.",
+    terms: "Termes d'utilisation",
+    privacy: "Politique de confidentialité",
+    referral: "programme de parrainage",
+    affiliate: "Programme d'affiliation",
+    licensing: "Licences",
+  },
+}[language];
+
+const images = {
+  [enUS]: {
+    mainLogo: BunnyLogo,
+  },
+  [enCA]: {
+    mainLogo: GooseLogo,
+  },
+  [frCA]: {
+    mainLogo: GooseLogo,
+  },
+}[language];
+
+const {
+  about,
+  news,
+  contact,
+  travelInsurance,
+  vtc,
+  ADD,
+  claims,
+  criticalIllness,
+  lifeInsurance,
+  hospitalCash,
+  helpCenter,
+  identityProtection,
+  phoneInsurance,
+  partners,
+  careers,
+  blog,
+  policyWordings,
+  privacy,
+  terms,
+  referral,
+  affiliate,
+  licensing,
+} = routes[language];
+
+const footermenu = {
+  insurance: {
+    [enCA]: [
+      {
+        title: s.life,
+        path: `${baseUrl}/${lifeInsurance}`,
+      },
+      {
+        title: s.vtc,
+        path: `${baseUrl}/${vtc}`,
+      },
+      {
+        title: s.travel,
+        path: `${baseUrl}/${travelInsurance}`,
+      },
+      {
+        title: s.aDD,
+        path: `${baseUrl}/${ADD}`,
+      },
+      {
+        title: s.kidsInsurance,
+        path: `${baseUrl}/${routes[enCA].kidsInsurance}`,
+      },
+      {
+        title: s.hospitalCash,
+        path: `${baseUrl}/${hospitalCash}`,
+      },
+      {
+        title: s.criticalIllness,
+        path: `${baseUrl}/${criticalIllness}`,
+      },
+    ],
+    [enUS]: [
+      {
+        title: s.life,
+        path: `${baseUrl}/${lifeInsurance}`,
+      },
+      {
+        title: s.travel,
+        path: `${baseUrl}/${travelInsurance}`,
+      },
+      {
+        title: "Renters Insurance",
+        path: `${baseUrl}/${routes[enUS].rentersInsurance}`,
+      },
+      {
+        title: "Final Expenses",
+        path: `${baseUrl}/${routes[enUS].finalExpense}`,
+      },
+      {
+        title: "Phone Insurance",
+        path: `${baseUrl}/${routes[enUS].phoneInsurance}`,
+      },
+    ],
+    [frCA]: [
+      {
+        title: s.life,
+        path: `${baseUrl}/${lifeInsurance}`,
+      },
+      {
+        title: s.vtc,
+        path: `${baseUrl}/${vtc}`,
+      },
+      {
+        title: s.travel,
+        path: `${baseUrl}/${travelInsurance}`,
+      },
+      {
+        title: s.aDD,
+        path: `${baseUrl}/${ADD}`,
+      },
+      {
+        title: s.kidsInsurance,
+        path: `${baseUrl}/${routes[frCA].kidsInsurance}`,
+      },
+      {
+        title: s.hospitalCash,
+        path: `${baseUrl}/${hospitalCash}`,
+      },
+      {
+        title: s.criticalIllness,
+        path: `${baseUrl}/${criticalIllness}`,
+      },
+    ],
+  },
+  company: {
+    [enCA]: [
+      {
+        title: s.aboutUs,
+        path: `${baseUrl}/${about}`,
+      },
+      {
+        title: s.affiliate,
+        path: `${baseUrl}/${affiliate}`,
+      },
+      {
+        title: s.partners,
+        path: `${baseUrl}/${partners}`,
+      },
+      {
+        title: s.careers,
+        path: `${baseUrl}/${careers}`,
+      },
+      {
+        title: s.inTheNews,
+        path: `${baseUrl}/${news}`,
+      },
+      {
+        title: s.blog,
+        path: `${baseUrl}/${blog}`,
+      },
+    ],
+    [enUS]: [
+      {
+        title: s.aboutUs,
+        path: `${baseUrl}/${about}`,
+      },
+      {
+        title: s.partners,
+        path: `${baseUrl}/${partners}`,
+      },
+      {
+        title: s.careers,
+        path: `${baseUrl}/${careers}`,
+      },
+      {
+        title: s.inTheNews,
+        path: `${baseUrl}/${news}`,
+      },
+      {
+        title: s.blog,
+        path: `${baseUrl}/${blog}`,
+      },
+    ],
+    [frCA]: [
+      {
+        title: s.aboutUs,
+        path: `${baseUrl}/${about}`,
+      },
+      {
+        title: s.partners,
+        path: `${baseUrl}/${partners}`,
+      },
+      {
+        title: s.careers,
+        path: `${baseUrl}/${careers}`,
+      },
+      {
+        title: s.inTheNews,
+        path: `${baseUrl}/${news}`,
+      },
+      {
+        title: s.blog,
+        path: `${baseUrl}/${blog}`,
+      },
+    ],
+  },
+  resources: [
+    {
+      external: true,
+      title: s.helpCenter,
+      path: helpCenter,
+    },
+    {
+      title: s.policyWording,
+      path: `${baseUrl}/${policyWordings}`,
+    },
+    {
+      title: s.claims,
+      path: `${baseUrl}/${claims}`,
+    },
+    {
+      title: s.contactUs,
+      path: `${baseUrl}/${contact}`,
+    },
+  ],
+};
+---
+
+<footer
+  class:list={[
+    "py-14 px-2 bg-slate-100 border-t border-slate-100",
+    margin && "mt-10",
+  ]}
+>
+  <Container>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+      <div class="sm:col-span-2 md:col-span-3 lg:col-span-2">
+        <a
+          href={baseUrl}
+          class="flex transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-goose-pink focus-visible:outline-none focus-visible:shadow-outline-goose-pink rounded-full px-2 -ml-2"
+          ><Image
+            src={images.mainLogo}
+            alt="Logo"
+            height={50}
+            densities={[1.5, 2]}
+          />
+        </a>
+        <p class="mt-4 text-sm text-slate-700 max-w-xs">{s.superApp}</p>
+        <div class="flex gap-3 mt-4 items-center">
+          <a
+            href={s.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex w-12 h-12 items-center justify-center"
+          >
+            <Image
+              src={InstagramLogo}
+              alt={s.instagramLogo}
+              class="w-10 h-10 hover:w-12 hover:h-12"
+            />
+            <span class="sr-only">{s.linkToInstagram}</span>
+          </a>
+          <a
+            href={s.facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex w-12 h-12 items-center justify-center"
+          >
+            <Image
+              src={FacebookLogo}
+              alt={s.facebookLogo}
+              class="w-10 h-10 hover:w-12 hover:h-12"
+            />
+            <span class="sr-only">{s.linkToFacebook}</span>
+          </a>
+          {
+            (
+              <a
+                href={
+                  language === enUS
+                    ? "https://www.google.com/search?q=SmartBunny+Insurance+Services"
+                    : "https://www.google.com/search?q=Goose+Insurance+Services"
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex w-12 h-12 items-center justify-center"
+              >
+                <Image
+                  src={GoogleLogo}
+                  alt={s.googleLogoAlt}
+                  class="w-10 h-10 hover:w-12 hover:h-12"
+                />
+                <span class="sr-only">{s.linkToGoogle}</span>
+              </a>
+            )
+          }
+          <a
+            href={s.Xurl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex w-12 h-12 items-center justify-center"
+          >
+            <Image
+              src={X}
+              alt={s.XLogo}
+              class="w-10 h-10 hover:w-12 hover:h-12"
+            />
+            <span class="sr-only">{s.linkToX}</span>
+          </a>
+        </div>
+        <div class="py-6">
+          <Image src={BBB} alt="BBB" width={220} densities={[1.5, 2]} />
+        </div>
+      </div>
+      <div class="">
+        <h3 class="font-medium text-sm text-grey-text">{s.insurance}</h3>
+        <div class="flex flex-col mt-3">
+          {
+            footermenu.insurance[language]
+              .sort((a, b) => a.title.localeCompare(b.title))
+              .map((item) => (
+                <a
+                  href={item.path || "#"}
+                  class="py-2 text-sm text-grey-text hover:text-goose-pink"
+                >
+                  {item.title}
+                </a>
+              ))
+          }
+        </div>
+      </div>
+      <div class="">
+        <h3 class="font-medium text-sm text-grey-text">{s.company}</h3>
+        <div class="flex flex-col mt-3">
+          {
+            footermenu.company[language].map((item) => (
+              <a
+                href={item.path || "#"}
+                class="py-2 text-sm text-grey-text hover:text-goose-pink"
+              >
+                {item.title}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <div class="">
+        <h3 class="font-medium text-sm text-grey-text">{s.resources}</h3>
+        <div class="flex flex-col mt-3">
+          {
+            footermenu.resources.map((item) => (
+              <a
+                href={item.path || "#"}
+                class="py-2 text-sm text-grey-text hover:text-goose-pink"
+                target={item.external ? "_blank" : ""}
+              >
+                {item.title}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <div class="mt-14 pt-8 px-5 border-t border-slate-200">
+    <Container>
+      <p class="text-center text-sm text-grey-text [text-wrap:balance]">
+        {s.copyright}
+      </p>
+      <p class="text-center text-xs text-gray-400 [text-wrap:balance]">
+        {s.disclaimer}
+      </p>
+      <p class="text-center text-xs text-grey-text mt-2">
+        <a href=`${baseUrl}/${terms}` class="hover:text-goose-pink">
+          {s.terms}
+        </a>
+        ・ <a href=`${baseUrl}/${privacy}` class="hover:text-goose-pink">
+          {s.privacy}
+        </a>
+        ・ <a href=`${baseUrl}/${licensing}` class="hover:text-goose-pink">
+          {s.licensing}
+        </a>
+      </p>
+    </Container>
+  </div>
+</footer>

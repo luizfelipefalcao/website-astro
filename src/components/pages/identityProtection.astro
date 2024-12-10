@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import heroImage from "@assets/productHeros/MJ_identity_protection2.webp";
+import heroIcon from "@assets/products/IdentityProtection3x.png";
+import { identityProtectionStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Faq from "@components/faq.astro";
+import { identityProtectionFAQ } from "strings/faqs.ts";
+import Testimonials from "@components/testimonials.astro";
+import Cta from "@components/cta.astro";
+import { getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink, title } = identityProtectionFAQ[language];
+---
+
+<Layout title={title} footerMargin={false}>
+    <ProductHero
+        strings={identityProtectionStrings}
+        heroImage={heroImage}
+        heroIcon={heroIcon}
+    />
+    <Faq faq={identityProtectionFAQ} image={null} />
+    <HowToGetIt />
+    <Testimonials />
+    <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>

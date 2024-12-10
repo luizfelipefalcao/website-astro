@@ -1,0 +1,144 @@
+---
+import { Picture } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Pagination from "@components/pagination.astro";
+import { enCA, enUS, frCA, routes, getLangFromUrl } from "strings/routing";
+import { miscellaneousStrings } from "strings/miscellaneous";
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+
+type NewsPost = {
+    title: string;
+    date: string; // '2022-08-31 13:03'
+    logo: { filename: string; alt: string };
+    image: { title: string; filename: string; alt: string };
+    slug: string;
+    full_slug: string;
+};
+
+type Props = {
+    page: any; // The paginated page data from Astro.
+};
+
+const language = getLangFromUrl(Astro.url);
+const strings = {
+    [enCA]: {
+        title: "Goose in the News",
+        press: "Press",
+        announcements: "Announcements",
+        readArticle: "Read article >",
+    },
+    [enUS]: {
+        title: "SmartBunny in the News",
+        press: "Press",
+        announcements: "Announcements",
+        readArticle: "Read article >",
+    },
+    [frCA]: {
+        title: "Goose dans la presse",
+        press: "presse",
+        announcements: "annonces",
+        readArticle: "lire l'article >",
+    },
+};
+const s = strings[language];
+const { announcements } = routes[language];
+const baserUrl = `/${language}`;
+
+const { page } = Astro.props;
+---
+
+<Layout title={s.title}>
+    <ArtsaiPixelForNonProductPages />
+    <Container>
+        <h1
+            class="w-full text-center p-6 text-4xl lg:text-5xl font-bold lg:tracking-tight text-night-sky"
+        >
+            {s.title}
+        </h1>
+        <div class="flex w-full justify-center gap-10 text-[0.8rem]">
+            <a>
+                <button class="text-white bg-dark-pink rounded-full px-8 py-2">
+                    {s.press}
+                </button>
+            </a>
+            <a href=`${baserUrl}/${announcements}`>
+                <button class="text-grey-text rounded-full px-8 py-2 border">
+                    {s.announcements}
+                </button>
+            </a>
+        </div>
+        <main class="mt-16">
+            <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-16">
+                {
+                    page.data.map((post, index) => (
+                        <li>
+                            <div>
+                                <a href={post.link} target="_blank">
+                                    {post.image.filename && (
+                                        <Picture
+                                            formats={["avif", "webp"]}
+                                            src={post.image.filename}
+                                            alt={post.image.alt}
+                                            sizes="(max-width: 800px) 100vw, 800px"
+                                            width={800}
+                                            height={600}
+                                            loading={
+                                                index <= 2 ? "eager" : "lazy"
+                                            }
+                                            decoding={
+                                                index <= 2 ? "sync" : "async"
+                                            }
+                                            class="w-full rounded-md object-cover max-h-[250px]"
+                                            transition:name={`post-img-${post.slug}`}
+                                        />
+                                    )}
+                                </a>
+                                <Picture
+                                    formats={["avif", "webp"]}
+                                    src={post.logo.filename}
+                                    alt={post.logo.alt}
+                                    width={100}
+                                    height={10}
+                                    loading={index <= 2 ? "eager" : "lazy"}
+                                    decoding={index <= 2 ? "sync" : "async"}
+                                    class="rounded-md object-cover self-end py-2"
+                                />
+                                <div class="">
+                                    <h2
+                                        class="text-night-sky text-xl font-semibold leading-snug tracking-tight mt-1"
+                                        transition:persist
+                                    >
+                                        {post.title}
+                                    </h2>
+
+                                    <div class="flex gap-2 mt-1 text-sm">
+                                        <time
+                                            class="text-grey-text"
+                                            datetime={new Date(
+                                                post.date,
+                                            ).toISOString()}
+                                        >
+                                            {
+                                                miscellaneousStrings[language]
+                                                    .companyName
+                                            }{" "}
+                                            •{" "}
+                                            {new Date(post.date).toDateString()}
+                                        </time>
+                                    </div>
+                                    <button class="text-dark-turquoise py-1">
+                                        <a href={post.link} target="_blank">
+                                            {s.readArticle}
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+            <Pagination url={page.url} />
+        </main>
+    </Container>
+</Layout>

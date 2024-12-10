@@ -1,0 +1,336 @@
+---
+import Container from "@components/container.astro";
+import Review from "@components/review.astro";
+import LogoGoogle from "@assets/Logo_Google@4x.png";
+import LogoApple from "@assets/Logo_Apple@4x.png";
+import LogoFacebook from "@assets/Logo_Facebook@4x.png";
+import { Image } from "astro:assets";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import Wenzhen from "@assets/testimonials/Profile - Wenzhen Chen.png";
+import Pauline from "@assets/testimonials/Profile - Pauline Brunel.png";
+import Peter from "@assets/testimonials/Profile - Peter Fraser.png";
+import Bryan from "@assets/testimonials/Profile - Bryan Loewen.png";
+import Dorothy from "@assets/testimonials/Profile - Dorothy Mongrain.png";
+import Brent from "@assets/testimonials/Profile - Brent Hohlweg.png";
+import Patti from "@assets/testimonials/Profile - Patti Roberts.png";
+import Aarjav from "@assets/testimonials/Profile - Aarjav Thakore.png";
+import Agata from "@assets/testimonials/Profile - Agata Zasada.png";
+import Jason from "@assets/testimonials/Profile - Jason Dagenais.png";
+import Lorien from "@assets/testimonials/Profile - Lorien Henson.png";
+import Gordon from "@assets/testimonials/Profile - Gordon Snyder.png";
+
+const language = getLangFromUrl(Astro.url);
+
+const testimonials =
+  language === frCA
+    ? [
+        {
+          name: "Wenzhen",
+          title: "Évaluation par courriel",
+          image: Wenzhen,
+          text: "Il était tellement facile et abordable de souscrire une assurance vie. Même si le montant de la couverture n'est pas très élevé, c'est juste le prix de quelques tasses de café.",
+        },
+        {
+          name: "Pauline",
+          title: "Évaluation de l'App Store",
+          image: Pauline,
+          text: "Rapide, facile, économique, pratique. On ne peut pas demander mieux.",
+        },
+        {
+          name: "Peter",
+          title: "Évaluation sur Facebook",
+          image: Peter,
+          text: "En ces temps difficiles, le niveau de service est tout simplement incroyable. Je n'ai jamais vu d'assureur qui prenne les choses en main et les mène à bien comme Goose!",
+        },
+        {
+          name: "Bryan",
+          title: "Évaluation de Google",
+          image: Bryan,
+          text: "Goose avait le meilleur prix et la meilleure police d'assurance voyage que j'ai pu trouver. Je n'utiliserai plus que Goose à partir de maintenant!",
+        },
+        {
+          name: "Dorothy",
+          title: "Évaluation par courriel",
+          image: Dorothy,
+          text: "De nombreuses compagnies proposent une inscription facile, une assurance vie instantanée et les prix les plus bas. Mais jusqu'à présent, aucune ne propose un prix aussi bas que Goose.",
+        },
+        {
+          name: "Brent",
+          title: "Évaluation de l'App Store",
+          image: Brent,
+          text: "Au cours des multiples décennies que j'ai passées sur cette planète, je n'ai jamais pensé à un moment où j'ai acheté une assurance et où je me suis dit «c'était sans douleur, rapide et plutôt amusant».",
+        },
+        {
+          name: "Patti",
+          title: "Évaluation sur Facebook",
+          image: Patti,
+          text: "Facile à utiliser, peu coûteux et tranquillité d'esprit ! J'adore. Je ne prendrai plus jamais mon vol avec quelqu'un d'autre!",
+        },
+        {
+          name: "Aarjav",
+          title: "Évaluation de l'App Store",
+          image: Aarjav,
+          text: "Design impressionnant et simple de l'application. Facile à suivre, et j'ai obtenu mon assurance voyage en 2 minutes! Je vous remercie.",
+        },
+        {
+          name: "Agata",
+          title: "Évaluation de Google",
+          image: Agata,
+          text: "L'application était extraordinaire, et j'ai pensé que la prime était plus qu'équitable. Pas de documents imprimés, etc.",
+        },
+        {
+          name: "Jason",
+          title: "Évaluation par courriel",
+          image: Jason,
+          text: "J'ai été heureux de trouver Goose pour mon assurance maladies graves. Tout ce qu'ils proposaient (prix, couverture et conditions) semblait parfait pour moi.",
+        },
+        {
+          name: "Lorien",
+          title: "Évaluation de l'App Store",
+          image: Lorien,
+          text: "Le processus de devis a été rapide et très intuitif. Le prix est égal ou inférieur à celui de quelques autres sociétés auprès desquelles j'ai obtenu des devis.",
+        },
+        {
+          name: "Gordon",
+          title: "Évaluation par courriel",
+          image: Gordon,
+          text: "J'ai choisi Goose après avoir vu leur publicité à la télévision, car le tarif pour la même couverture ailleurs est au moins 50,00 $ plus élevé.",
+        },
+      ]
+    : [
+        {
+          name: "Wenzhen",
+          title: "Email review",
+          image: Wenzhen,
+          text: "It was so affordable and easy to get life insurance. Although the coverage amount is not big, it’s really just the cost of a few cups of coffee.",
+        },
+        {
+          name: "Pauline",
+          title: "App Store Review",
+          image: Pauline,
+          text: "Quick, easy, cheap, convenient. Couldn’t ask for more.",
+        },
+        {
+          name: "Peter",
+          title: "Facebook review",
+          image: Peter,
+          text: `During this trying time, the level of service is simply amazing. I have never seen any insurer that takes ownership and sees things through like ${language === enUS ? "SmartBunny" : "Goose"}!`,
+        },
+        {
+          name: "Bryan",
+          title: "Google review",
+          image: Bryan,
+          text: `${language === enUS ? "SmartBunny" : "Goose"} had the best price and the best policy I could find for travel insurance. I'm only using ${language === enUS ? "SmartBunny" : "Goose"} from now on!`,
+        },
+        {
+          name: "Dorothy",
+          title: "Email review",
+          image: Dorothy,
+          text: `Lots of companies claim an easy sign-up, instant life insurance and the lowest prices. But so far none offer as low a price as ${language === enUS ? "SmartBunny" : "Goose"}.`,
+        },
+        {
+          name: "Brent",
+          title: "App Store review",
+          image: Brent,
+          text: "In my multiple decades on this planet, I cannot ever think when I bought insurance and said 'that was painless, quick, and kinda a fun experience.'",
+        },
+        {
+          name: "Patti",
+          title: "Facebook review",
+          image: Patti,
+          text: "Easy to use, completely inexpensive and peace of mind! Love it. I’ll never 'fly' with anyone else ever again!",
+        },
+        {
+          name: "Aarjav",
+          title: "App Store review",
+          image: Aarjav,
+          text: "Impressive and simple app design. Easy to follow, and got my travel insurance in 2 mins! Thank you.",
+        },
+        {
+          name: "Agata",
+          title: "Google review",
+          image: Agata,
+          text: "The App was amazing, and thought the premium was more than fair. No printed documents, etc.",
+        },
+        {
+          name: "Jason",
+          title: "Email review",
+          image: Jason,
+          text: `I was happy to find ${language === enUS ? "SmartBunny" : "Goose"} for my critical illness insurance. Everything they were offering (price, coverage, and terms) seemed perfect for me.`,
+        },
+        {
+          name: "Lorien",
+          title: "App Store review",
+          image: Lorien,
+          text: "The quote process was fast and very user friendly. The price is on par or better than a couple other companies I got quotes from.",
+        },
+        {
+          name: "Gordon",
+          title: "Email review",
+          image: Gordon,
+          text: `I went with ${language === enUS ? "SmartBunny" : "Goose"} after watching their ad on TV, since the rate for the same coverage elsewhere is at least $50.00 higher.`,
+        },
+      ];
+
+const strings = {
+  [enCA]: {
+    whatTheFlockSays: "What Policyholders Say",
+    whatTheFlockSaysSubtitle: "",
+    googleReviews: "749 Ratings",
+    googleRating: "4.7",
+    appStoreReviews: "734 Ratings",
+    appleRating: "4.7",
+    facebookReviews: "66 Ratings",
+    facebookRating: "4.4",
+  },
+  [enUS]: {
+    whatTheFlockSays: "What Policyholders Say",
+    whatTheFlockSaysSubtitle:
+      "With happy customers across Canada and the United States, we pride ourselves with the feedback we get from our members.",
+    googleReviews: "749 Ratings",
+    googleRating: "4.7",
+    appStoreReviews: "734 Ratings",
+    appleRating: "4.7",
+    facebookReviews: "66 Ratings",
+    facebookRating: "4.4",
+  },
+  [frCA]: {
+    whatTheFlockSays: "Ce que disent les assurés",
+    whatTheFlockSaysSubtitle: "",
+    googleReviews: "749 évaluations",
+    googleRating: "4,7",
+    appStoreReviews: "734 évaluations",
+    appleRating: "4,7",
+    facebookReviews: "66 évaluations",
+    facebookRating: "4,4",
+  },
+};
+const s = strings[language];
+---
+
+<div class="bg-pale-pink pt-8 pb-20">
+  <Container>
+    <div class="pt-16">
+      <h2
+        class="text-4xl text-deep-pink lg:text-5xl font-bold lg:tracking-tight text-center pb-2"
+      >
+        {s.whatTheFlockSays}
+      </h2>
+      <p class="text-lg text-grey-text text-center">
+        {s.whatTheFlockSaysSubtitle}
+      </p>
+    </div>
+    <div class="flex justify-around items-center">
+      <div class="flex flex-col py-4 items-center">
+        <p
+          class="text-2xl md:text-6xl text-center text-goose-pink font-semibold py-1"
+        >
+          {s.googleRating}
+        </p>
+        <div class="flex py-2 gap-x-2 items-center 2xsm:justify-center">
+          <Image
+            class="hidden md:block"
+            src={LogoGoogle}
+            alt="Google Logo"
+            width={30}
+            height={30}
+          />
+          <Image
+            class="block md:hidden"
+            src={LogoGoogle}
+            alt="Google Logo"
+            width={40}
+            height={40}
+          />
+          <p class="hidden md:block py-1 text-blg font-medium">Google</p>
+        </div>
+        <p class="text-lg 2xsm:text-base text-center py-1">{s.googleReviews}</p>
+      </div>
+      <div class="flex flex-col py-4 items-center">
+        <p
+          class="text-2xl md:text-6xl text-center text-goose-pink font-semibold py-1"
+        >
+          {s.appleRating}
+        </p>
+        <div class="flex py-2 gap-x-2 items-center 2xsm:justify-center">
+          <Image
+            class="hidden md:block"
+            src={LogoApple}
+            alt="Apple Logo"
+            width={30}
+            height={30}
+          />
+          <Image
+            class="block md:hidden"
+            src={LogoApple}
+            alt="Apple Logo"
+            width={40}
+            height={40}
+          />
+          <p class="hidden md:block py-1 text-blg font-medium">AppStore</p>
+        </div>
+        <p class="text-lg 2xsm:text-base text-center py-1">
+          {s.appStoreReviews}
+        </p>
+      </div>
+      <div class="flex flex-col py-4 items-center">
+        <p
+          class="text-2xl md:text-6xl text-center text-goose-pink font-semibold py-1"
+        >
+          {s.facebookRating}
+        </p>
+        <div class="flex py-2 gap-x-2 items-center 2xsm:justify-center">
+          <Image
+            class="hidden md:block"
+            src={LogoFacebook}
+            alt="Facebook Logo"
+            width={30}
+            height={30}
+          />
+          <Image
+            class="block md:hidden"
+            src={LogoFacebook}
+            alt="Facebook Logo"
+            width={40}
+            height={40}
+          />
+          <p class="hidden md:block py-1 text-blg font-medium">Facebook</p>
+        </div>
+        <p class="text-lg 2xsm:text-base text-center py-1">
+          {s.facebookReviews}
+        </p>
+      </div>
+    </div>
+  </Container>
+
+  <div class="mt-10 relative overflow-x-clip">
+    <div
+      class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-indigo-100 right-1/3 -top-10"
+    >
+    </div>
+    <div
+      class="absolute w-96 h-96 blur-2xl -z-10 bg-gradient-radial from-purple-100 right-1/3 translate-x-2/3 top-10"
+    >
+    </div>
+    <div class="relative md:flex gap-10 overflow-hidden py-5 group">
+      <div
+        class="md:motion-safe:animate-marquee w-auto overflow-x-auto flex flex-nowrap min-w-full shrink-0 items-stretch gap-10 snap-x snap-mandatory px-5"
+      >
+        {testimonials.map((item) => <Review {...item} />)}
+      </div>
+      <!--  ↓↓ Shadow DOM to make the animation smooth (clone) ↓↓ -->
+      <div
+        class="md:motion-safe:animate-marquee hidden md:motion-reduce:hidden md:flex min-w-full shrink-0 items-center gap-10"
+      >
+        {testimonials.map((item) => <Review {...item} />)}
+      </div>
+    </div>
+    {
+      language === frCA && (
+        <p class="text-xs text-grey-text pl-4">
+          *Les avis peuvent être traduits.
+        </p>
+      )
+    }
+  </div>
+</div>

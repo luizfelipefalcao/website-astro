@@ -1,0 +1,34 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import heroImage from "@assets/productHeros/MJ_renters3.webp";
+import ADDBunny from "@assets/smartBunny/SmartBunny Renters Insurance.png";
+import heroIcon from "@assets/products/Renters.png";
+import { rentersInsuranceStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Faq from "@components/faq.astro";
+import Testimonials from "@components/testimonials.astro";
+import Cta from "@components/cta.astro";
+import { rentersInsuranceFAQ } from "strings/faqs";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink, title } = rentersInsuranceStrings[language];
+const i = {
+  [enCA]: { productHero: heroImage },
+  [enUS]: { productHero: ADDBunny },
+  [frCA]: { productHero: heroImage },
+}[language];
+---
+
+<Layout title={title} footerMargin={false}>
+  <ProductHero
+    strings={rentersInsuranceStrings}
+    heroImage={i.productHero}
+    heroIcon={heroIcon}
+  />
+  <Faq faq={rentersInsuranceFAQ} image={null} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>
