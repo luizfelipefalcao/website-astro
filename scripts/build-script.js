@@ -12,6 +12,6 @@ function runScriptFile(command) {
 }
 
 runScriptFile('astro build');
-runScriptFile('node ./scripts/copy-public.js');
-runScriptFile('node ./scripts/clean-folder.js');
+//runScriptFile('node ./scripts/copy-public.js');
+//runScriptFile('node ./scripts/clean-folder.js');
 
