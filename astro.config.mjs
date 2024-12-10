@@ -1,4 +1,5 @@
 import { defineConfig, sharpImageService } from 'astro/config';
+import storyblok from '@storyblok/astro';
 import vercel from "@astrojs/vercel/static";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
@@ -15,7 +16,17 @@ export default defineConfig({
     service: sharpImageService(),
     domains: ["source.unsplash.com", "images.unsplash.com"]
   },
-  integrations: [tailwind(), mdx()],
+  integrations: [tailwind(), mdx(), storyblok({
+    accessToken: env.STORYBLOK_TOKEN,
+    components: {
+      blogPost: 'storyblok/BlogPost',
+      blogPostList: 'storyblok/BlogPostList',
+      page: 'storyblok/Page'
+    },
+    apiOptions: {
+      region: 'us'
+    }
+  })],
   vite: {
     plugins: [basicSsl()],
     server: {
