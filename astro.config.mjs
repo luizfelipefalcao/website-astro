@@ -5,8 +5,9 @@ import mdx from "@astrojs/mdx";
 import basicSsl from '@vitejs/plugin-basic-ssl';
 import { redirectsGoose } from "./redirects/goose";
 import { redirectsSmartbunny } from "./redirects/smartbunny";
+import { redirects } from './redirects';
 
-const redirects = process.env.BRAND.includes('goose') ? redirectsGoose : redirectsSmartbunny;
+//const redirects = process.env.BRAND.includes('goose') ? redirectsGoose : redirectsSmartbunny;
 
 // https://astro.build/config
 export default defineConfig({
