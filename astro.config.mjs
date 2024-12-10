@@ -8,6 +8,9 @@ import { redirectsGoose } from "./redirects/goose";
 import { redirectsSmartbunny } from "./redirects/smartbunny";
 import { redirects } from './redirects';
 
+import { loadEnv } from 'vite';
+const env = loadEnv("", process.cwd(), 'STORYBLOK');
+
 //const redirects = process.env.BRAND.includes('goose') ? redirectsGoose : redirectsSmartbunny;
 
 // https://astro.build/config
