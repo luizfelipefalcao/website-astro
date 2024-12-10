@@ -20,7 +20,7 @@ export default defineConfig({
     domains: ["source.unsplash.com", "images.unsplash.com"]
   },
   integrations: [tailwind(), mdx(), storyblok({
-    accessToken: env.STORYBLOK_TOKEN,
+    accessToken: 'c8AdV6egqeIp8kRRe4wHeQtt',
     components: {
       blogPost: 'storyblok/BlogPost',
       blogPostList: 'storyblok/BlogPostList',
