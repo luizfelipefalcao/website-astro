@@ -1,0 +1,27 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import { enUS, pageSize } from "strings/routing";
+import BlogHomePage from "@components/pages/blog/index.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get("cdn/stories", {
+    version: import.meta.env.DEV ? "published" : "published",
+    // version: import.meta.env.DEV ? "draft" : "published",
+    content_type: "blogPost",
+    starts_with: enUS,
+  });
+  const blogPosts = data.stories
+    .map((blogPost) => ({
+      ...blogPost.content,
+      slug: blogPost.slug,
+      params: { slug: blogPost.slug },
+    }))
+    .sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1));
+  return paginate(blogPosts, { pageSize });
+}
+
+const { page } = Astro.props;
+---
+
+<BlogHomePage page={page} />

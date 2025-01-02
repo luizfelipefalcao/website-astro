@@ -1,0 +1,23 @@
+---
+import LandingPage from "@components/pages/promotions/landingPage.astro";
+import { mainHero } from "strings/faqs";
+import PhoneGif from "@assets/landingPage/6-us-review.png";
+import QRCode from "@assets/landingPage/QRCodes/6-us-review.png";
+
+const s = {
+    title: "Rated 4.8 out of 5 by Goose Customers.",
+    paragraph: "Get insurance in 60 seconds!",
+    bullets: null,
+    QR: QRCode,
+    QRAlt: "Qr code to scan",
+    iconTitle: "Life Insurance",
+    downloadLink: "https://gooseinsurance.onelink.me/FVvL/9e080135",
+};
+---
+
+<LandingPage
+    strings={s}
+    heroImage={PhoneGif}
+    faqStrings={mainHero}
+    productGridOmit={["Life Insurance"]}
+/>

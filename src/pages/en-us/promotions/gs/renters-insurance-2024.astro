@@ -1,0 +1,24 @@
+---
+import LandingPage from "@components/pages/promotions/landingPage.astro";
+import { rentersInsuranceFAQ } from "strings/faqs";
+import Image from "@assets/landingPage/13-renters.png";
+import QRCode from "@assets/landingPage/QRCodes/US_Search_Renters_9jv60zyu_qr_code.png";
+
+const s = {
+    title: "Renters Insurance for as low as $15 per month!",
+    paragraph:
+        "Protect all your favorite belongings, without breaking the bank! Get Renters Insurance in less than 60 seconds.",
+    bullets: null,
+    QRAlt: "Qr code to scan",
+    QR: QRCode,
+    iconTitle: "",
+    downloadLink: "https://gooseinsurance.onelink.me/FVvL/9jv60zyu",
+};
+---
+
+<LandingPage
+    strings={s}
+    heroImage={Image}
+    faqStrings={rentersInsuranceFAQ}
+    productGridOmit={["Renters Insurance"]}
+/>

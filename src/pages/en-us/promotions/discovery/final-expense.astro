@@ -1,0 +1,70 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Cta from "@components/cta.astro";
+import LandingPageHero from "@components/landingPageComponents/landingPageHero.astro";
+import Testimonials from "@components/testimonials.astro";
+import Faq from "@components/faq.astro";
+import { finalExpenseInsuranceFAQ, type FaqStrings } from "strings/faqs";
+import Logos from "@components/logos.astro";
+import ProductGrid from "@components/productGrid.astro";
+import type { ProductName } from "types";
+import { finalExpenseInsuranceStrings } from "strings/productHeros";
+import heroImage from "@assets/productHeros/MJ_final-espense-1.webp";
+import QR from "@assets/landingPage/QRCodes/Final Expense Landing page_qr_code.png";
+import RowGrid from "@components/RowGrid.astro";
+import type { FinalExpensePromoHeroStrings } from "@components/landingPageComponents/FinalExpenseMobileLandingPageHero.astro";
+
+type Props = {
+    strings: PromoHeroStrings;
+    heroImage: ImageMetadata;
+    faqStrings: FaqStrings;
+    productGridOmit: ProductName[];
+};
+
+const { title, bullets } = finalExpenseInsuranceStrings["en-us"];
+const strings: FinalExpensePromoHeroStrings = {
+    title,
+    paragraph: "",
+    bullets,
+    QRAlt: "QR code to download the app",
+    QR,
+    downloadLink: "https://gooseinsurance.onelink.me/FVvL/bcfsqudq",
+    conversionName: "",
+    leadName: "discovery-final-expense",
+};
+const { conversionName, leadName, downloadLink } = strings;
+const attributes = [
+    [
+        null,
+        "Funeral Expense Coverage - Financial support for funeral expenses.",
+    ],
+    [
+        null,
+        "Debt Settlement Insurance - Assistance in settling outstanding debts.",
+    ],
+    [
+        null,
+        "Final Expenses Protection - Coverage for essential end-of-life expenses.",
+    ],
+    [
+        null,
+        "Family Support Benefit - Financial support for your loved ones during difficult times.",
+    ],
+] as Array<[ImageMetadata | null, string]>;
+---
+
+<Layout footerMargin={false}>
+    <LandingPageHero strings={strings} heroImage={heroImage} />
+    <!-- <Logos /> -->
+    <RowGrid
+        attributes={attributes}
+        title="Preserve your legacy by providing for your family's financial needs."
+        tracking={{ conversionName, leadName, downloadLink }}
+    />
+    <Faq faq={finalExpenseInsuranceFAQ} image={null} />
+    <ProductGrid omit={["Final Expense"]} />
+    <HowToGetIt />
+    <Testimonials />
+    <Cta QR={strings.QR} downloadLink={strings.downloadLink} />
+</Layout>
