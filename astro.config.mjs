@@ -1,5 +1,8 @@
 import { defineConfig } from 'astro/config';
 import vercel from "@astrojs/vercel/static";
+import tailwind from "@astrojs/tailwind";
+import mdx from "@astrojs/mdx";
+
 import { redirectsGoose } from "./redirects/goose";
 import { redirectsSmartbunny } from "./redirects/smartbunny";
 
@@ -13,5 +16,6 @@ export default defineConfig({
   site: siteName,
   redirects,
   output: "static",
-  adapter: vercel()
+  adapter: vercel(),
+  integrations: [tailwind(), mdx()]
 });
