@@ -1,0 +1,411 @@
+---
+import { Image, Picture } from "astro:assets";
+import Card from "@components/card.astro";
+import ADD from "@assets/AD&D Big@3x 1.png";
+import IncomeProtection from "@assets/Income Protection Big 1.png";
+import LifeInsurance from "@assets/Life Insurance Big@3x 1.png";
+import VTC from "@assets/products/vtc.png";
+import KidsInsurance from "@assets/products/Kids3x.png";
+import SingleTripMedical from "@assets/Single Trip Big@3x 1.png";
+import RentersImage from "@assets/products/Renters.png";
+import HospitalCash from "@assets/products/Hospital-Cash3x.png";
+import CriticalIllness from "@assets/products/Critical-Illness3x.png";
+import { enCA, enUS, frCA, getLangFromUrl, routes } from "strings/routing";
+import {
+  criticalIllnessStrings,
+  hospitalCashStrings,
+  lifeInsuranceStrings,
+  vtcStrings,
+} from "strings/productHeros";
+// Products coming soon.
+import PhoneProtection from "@assets/Phone Protection Big 1.png";
+import IdentityProtection from "@assets/products/IdentityProtection3x.png";
+import PhoneInsurance from "./pages/phoneInsurance.astro";
+import RentersInsurance from "@pages/en-us/renters-insurance.astro";
+import FinalExpenses from "@assets/products/Final Expenses Big@3x.png";
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+  [enCA]: {
+    viewAll: "View All Products",
+    productsTitle: "It's All On The App!",
+    productsSubtitle:
+      "Goose offers accessible and affordable insurance products at your fingertips! No complicated forms, no awkward conversations , no medical exams - simple straightforward coverage in minutes. And the best part is your coverage is with you on the Goose app no matter where you go.",
+    phoneInsuranceTitle: "Phone Insurance",
+    phoneInsuranceSubtitle:
+      "Affordable coverage that protects your phone from loss, theft, and damage.",
+    lifeInsuranceTitle: "Life Insurance",
+    lifeInsuranceSubtitle:
+      "A tax free lump-sum payment to cover debts, replace income, and leave a legacy. Peace of mind for you and your loved ones.",
+    vtcTitle: "Visitors to Canada",
+    vtcSubtitle:
+      "Meet the requirements for the Super Visa, offering comprehensive coverage against unexpected medical emergencies and related situations during your extended stay in Canada.",
+    travelMedicalInsuranceTitle: "Travel Insurance",
+    travelMedicalInsuranceSubtitle:
+      "Whether you are looking for travel medical insurance or trip protection, Goose has you covered so you can travel worry free. Get up to $10 million of coverage instantly.",
+    incomeProtectionInsuranceTitle: "Income Protection",
+    incomeProtectionInsuranceSubtitle:
+      "Up to $1,500 per month if you are unable to work due to an unexpected accident.",
+    ADDInsuranceTitle: "AD&D Insurance",
+    ADDInsuranceSubtitle:
+      "For just $9 per month, get up to $200,000 of tax free benefit in the event of accidental death or dismemberment. No medical, no needles, instant issue.",
+  },
+  [enUS]: {
+    viewAll: "View All Products",
+    productsTitle: "It's All On The App!",
+    productsSubtitle:
+      "SmartBunny offers accessible and affordable insurance products at your fingertips! No complicated forms, no awkward conversations , no medical exams - simple straightforward coverage in minutes. And the best part is your coverage is with you on the SmartBunny app no matter where you go.",
+    phoneInsuranceTitle: "Phone Insurance",
+    phoneInsuranceSubtitle:
+      "Affordable coverage that protects your phone from loss, theft, and damage.",
+    lifeInsuranceTitle: "Life Insurance",
+    lifeInsuranceSubtitle:
+      "A tax free lump-sum payment to cover debts, replace income, and leave a legacy. Peace of mind for you and your loved ones.",
+    travelMedicalInsuranceTitle: "Travel Insurance",
+    travelMedicalInsuranceSubtitle:
+      "Whether you are looking for travel medical insurance or trip protection, SmartBunny has you covered so you can travel worry free. Get up to $5 million of coverage instantly.",
+    incomeProtectionInsuranceTitle: "Income Protection",
+    incomeProtectionInsuranceSubtitle:
+      "Up to $1,500 per month if you are unable to work due to an unexpected accident.",
+    ADDInsuranceTitle: "AD&D Insurance",
+    ADDInsuranceSubtitle:
+      "For just $9 per month, get up to $200,000 of tax free benefit in the event of accidental death or dismemberment. No medical, no needles, instant issue.",
+  },
+  [frCA]: {
+    viewAll: "Voir tous les produits",
+    productsTitle: "C'est tout dans l'application!",
+    productsSubtitle:
+      "Goose offre des produits d'assurance accessibles et abordables à portée de main! Pas de formulaires compliqués, pas de conversations maladroites, pas d'examens médicaux - une couverture simple et directe en quelques minutes. Et le meilleur, c'est que votre couverture est sur l'application Goose, peu importe où vous allez.",
+    vtcTitle: "Visiteurs au Canada",
+    vtcSubtitle:
+      "Répondez aux exigences du Super Visa, offrant une couverture complète contre les urgences médicales inattendues et les situations connexes pendant votre séjour prolongé au Canada.",
+    phoneInsuranceTitle: "Assurance téléphone",
+    phoneInsuranceSubtitle:
+      "Une couverture abordable qui protège votre téléphone contre la perte, le vol et les dommages.",
+    lifeInsuranceTitle: "Assurance vie",
+    lifeInsuranceSubtitle:
+      "Un paiement forfaitaire exempt d'impôt pour couvrir les dettes, remplacer le revenu et laisser un héritage. Une tranquillité d'esprit pour vous et vos proches.",
+    travelMedicalInsuranceTitle: "Assurance médicale de voyage",
+    travelMedicalInsuranceSubtitle:
+      "Que vous recherchiez une assurance médicale de voyage ou une protection pour votre voyage, Goose a tout prévu pour que vous puissiez voyager en toute tranquillité. Obtenez une couverture instantanée allant jusqu'à 10 millions de dollars.",
+    incomeProtectionInsuranceTitle: "Protection du revenu",
+    incomeProtectionInsuranceSubtitle:
+      "Jusqu'à 1 500 $ par mois en cas d'incapacité de travail due à un accident inattendu.",
+    ADDInsuranceTitle: "Décès et mutilation accidentel (D&MA)",
+    ADDInsuranceSubtitle:
+      "Pour seulement 9$ par mois, obtenez jusqu'à 200 000$ de prestation non imposable en cas de décès ou mutilation accidentel. Pas de visite médicale, pas d'aiguilles, délivrance instantanée.",
+  },
+}[language];
+const {
+  lifeInsurance,
+  travelInsurance,
+  kidsInsurance,
+  incomeProtection,
+  ADD: ADDRoute,
+  phoneInsurance,
+} = routes[language];
+const features = {
+  [enCA]: [
+    {
+      imgSource: VTC,
+      alt: "Visitors to Canada",
+      height: 200,
+      title: vtcStrings[enCA].title,
+      path: `/${language}/${routes[enCA].vtc}`,
+      subTitle: vtcStrings[enCA].subTitle,
+    },
+    {
+      imgSource: SingleTripMedical,
+      alt: "Single Trip Medical",
+      height: 300,
+      title: s.travelMedicalInsuranceTitle,
+      path: `/${language}/${travelInsurance}`,
+      subTitle: s.travelMedicalInsuranceSubtitle,
+    },
+    {
+      imgSource: KidsInsurance,
+      alt: "Kids Insurance",
+      height: 200,
+      title: "Kids Insurance",
+      path: `/${language}/${kidsInsurance}`,
+      subTitle:
+        "Kids and accidents are usually unavoidable! For just $60 a year, protect your child against unforeseen medical expenses not covered by your provincial health plan. Goose Kids Insurance policy also includes critical illness coverage.",
+    },
+    {
+      imgSource: IncomeProtection,
+      alt: "Income Protection",
+      height: 200,
+      title: s.incomeProtectionInsuranceTitle,
+      path: `/${language}/${incomeProtection}`,
+      subTitle: s.incomeProtectionInsuranceSubtitle,
+    },
+    {
+      imgSource: ADD,
+      alt: "Accidental Death and Dismemberment",
+      height: 210,
+      title: s.ADDInsuranceTitle,
+      path: `/${language}/${ADDRoute}`,
+      subTitle: s.ADDInsuranceSubtitle,
+    },
+    {
+      imgSource: HospitalCash,
+      alt: "Hospital Cash",
+      height: 210,
+      title: "Hospital Cash",
+      path: `/${language}/${routes[enCA].hospitalCash}`,
+      subTitle: hospitalCashStrings[enCA].subTitle,
+    },
+    {
+      imgSource: CriticalIllness,
+      alt: "Critical Illness",
+      height: 210,
+      title: criticalIllnessStrings[enCA].title,
+      path: `/${language}/${routes[enCA].criticalIllness}`,
+      subTitle: criticalIllnessStrings[enCA].subTitle,
+    },
+    {
+      imgSource: LifeInsurance,
+      alt: "Life Insurance",
+      height: 210,
+      title: lifeInsuranceStrings[enCA].title,
+      path: `/${language}/${routes[enCA].lifeInsurance}`,
+      subTitle: lifeInsuranceStrings[enCA].subTitle,
+    },
+  ],
+  [frCA]: [
+    {
+      imgSource: VTC,
+      alt: "Visitors to Canada",
+      height: 200,
+      title: vtcStrings[frCA].title,
+      path: `/${language}/${routes[frCA].vtc}`,
+      subTitle: vtcStrings[frCA].subTitle,
+    },
+    {
+      imgSource: SingleTripMedical,
+      alt: "Assurance Médical de Voyage",
+      height: 300,
+      title: s.travelMedicalInsuranceTitle,
+      path: `/${language}/${travelInsurance}`,
+      subTitle:
+        "Que vous recherchiez une assurance médicale de voyage ou une protection annulation ou interruption, Goose a tout prévu pour que vous puissiez voyager en toute tranquillité. Obtenez une couverture instantanée allant jusqu'à 10 millions de dollars",
+    },
+    {
+      imgSource: KidsInsurance,
+      alt: "Assurance Enfants",
+      height: 200,
+      title: "Assurance Enfants",
+      path: `/${language}/${kidsInsurance}`,
+      subTitle:
+        "Les accidents impliquant les enfants sont souvent inévitables! Pour seulement $60 par année, protégez votre enfant contre les dépenses médicales imprévues non couvertes par votre régime de santé provincial. La police d'assurance pour enfants de Goose inclut également une couverture pour maladies graves.",
+    },
+    {
+      imgSource: IncomeProtection,
+      alt: "Income Protection",
+      height: 200,
+      title: s.incomeProtectionInsuranceTitle,
+      path: `/${language}/${incomeProtection}`,
+      subTitle:
+        "Jusqu'à $1 500 par mois en cas d'incapacité de travail dû à un accident inattendu.",
+    },
+    {
+      imgSource: ADD,
+      alt: "Accidental Death and Dismemberment",
+      height: 210,
+      title: s.ADDInsuranceTitle,
+      path: `/${language}/${ADDRoute}`,
+      subTitle: s.ADDInsuranceSubtitle,
+    },
+  ],
+  [enUS]: [
+    {
+      imgSource: PhoneProtection,
+      alt: "Phone Protection",
+      height: 210,
+      title: "Phone Insurance",
+      path: `/${language}/${phoneInsurance}`,
+      subTitle: s.phoneInsuranceSubtitle,
+    },
+    {
+      imgSource: FinalExpenses,
+      alt: "Final Expenses",
+      positionAdjustment: "mt-10 border",
+      height: 230,
+      title: "Final Expenses",
+      path: `/${language}/${routes[enUS].finalExpense}`,
+      subTitle:
+        "Secure final expenses to provide financial support during challenging times. Find peace of mind, knowing that this coverage will help cover funeral costs, outstanding debts, and other essential expenses for you or your loved ones.",
+    },
+    {
+      imgSource: RentersImage,
+      alt: "Renters Insurance",
+      positionAdjustment: "mt-10 border",
+      height: 230,
+      title: "Renters Insurance",
+      path: `/${language}/${routes[enUS].rentersInsurance}`,
+      subTitle:
+        "Protect your belongings from the unexpected! With policies as low as $15 per month, get the coverage instantly and have the peace of mind that your stuff is protected.",
+    },
+    {
+      imgSource: SingleTripMedical,
+      alt: "Single Trip Medical",
+      height: 250,
+      title: s.travelMedicalInsuranceTitle,
+      path: `/${language}/${travelInsurance}`,
+      subTitle: s.travelMedicalInsuranceSubtitle,
+    },
+    {
+      imgSource: LifeInsurance,
+      alt: "Life Insurance",
+      height: 270,
+      title: s.lifeInsuranceTitle,
+      path: `/${language}/${lifeInsurance}`,
+      subTitle:
+        "Protect what matters most! With up to $500,000 of coverage, have peace of mind that your loved ones will be protected should the unexpected happen. Policies as low as $15 per month.",
+    },
+    // {
+    //   imgSource: ADD,
+    //   alt: "Accidental Death and Dismemberment",
+    //   height: 210,
+    //   title: s.ADDInsuranceTitle,
+    //   path: `/${language}/${ADDRoute}`,
+    //   subTitle: s.ADDInsuranceSubtitle,
+    // },
+  ],
+}[language];
+---
+
+<div class="px-2">
+  <div class="mt-24">
+    <h2 class="text-4xl lg:text-5xl font-bold text-night-sky lg:tracking-tight">
+      {s.productsTitle}
+    </h2>
+    <p class="text-lg mt-4 text-grey-text">
+      {s.productsSubtitle}
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-5 mt-16 gap-10">
+    <Card
+      class="lg:col-span-3 bg-pale-turquoise"
+      color="purple"
+      path={features[0].path}
+    >
+      <Fragment slot="image" class="flex justify-center items-center">
+        <Picture
+          src={features[0].imgSource}
+          alt={features[0].alt}
+          height={features[0].height}
+          formats={["avif", "webp"]}
+          class="h-full w-full object-contain pt-14"
+          loading="eager"
+        />
+        <div
+          class="flex flex-row items-center absolute top-8 right-0 w-[13rem] h-[2rem] bg-goose-turquoise"
+        >
+          <div class="w-6 h-6 rotate-45 bg-white -ml-3"></div>
+          <p
+            class="w-full font-medium text-[1.12rem] tracking-[0.125rem] text-right pr-3 text-white -mb-[3px]"
+          >
+            {language.includes("en") ? "INTRODUCING" : "DÉCOUVERTE"}
+          </p>
+        </div>
+      </Fragment>
+      <span slot="title">{features[0].title}</span>
+      <span slot="desc">{features[0].subTitle}</span>
+    </Card>
+    <Card class="lg:col-span-2" color="indigo" path={features[1].path}>
+      <Fragment slot="image">
+        <Picture
+          src={features[1].imgSource}
+          alt={features[1].alt}
+          height={features[1].height}
+          formats={["avif", "webp"]}
+          class=`h-full w-full object-contain mt-10`
+          loading="eager"
+        />
+      </Fragment>
+      <span slot="title">{features[1].title}</span>
+      <span slot="desc">{features[1].subTitle}</span>
+    </Card>
+  </div>
+
+  <div class="grid md:grid-cols-2 mt-10 gap-10">
+    {
+      features.slice(2, 4).map((f) => (
+        <Card color="indigo" size="sm" path={f.path}>
+          <Fragment slot="image">
+            <Picture
+              src={f.imgSource}
+              alt={f.alt}
+              formats={["avif", "webp"]}
+              height={f.height}
+              class="h-full w-full object-contain"
+              loading="eager"
+            />
+          </Fragment>
+          <span slot="title">{f.title}</span>
+          <span slot="desc"> {f.subTitle}</span>
+        </Card>
+      ))
+    }
+  </div>
+  <div class="h-20"></div>
+  <div class="flex justify-center items-center w-full">
+    <button
+      id="show-more"
+      class="text-white bg-dark-pink w-52 h-full rounded-full px-8 py-2"
+    >
+      {s.viewAll}
+    </button>
+  </div>
+  <div class="h-20"></div>
+  <div
+    id="toggle-section"
+    class="hidden justify-center transition-transform transform w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 gap-y-10 pb-28"
+  >
+    {
+      features
+        .sort((a, b) =>
+          a.title.toLowerCase().localeCompare(b.title.toLowerCase()),
+        )
+        .map((f) => (
+          <a
+            href={f.path}
+            class="flex flex-col items-center justify-evenly w-30 min-h-40 rounded-xl bg-white z-10 shadow-lg"
+          >
+            <Image
+              src={f.imgSource}
+              alt={f.title}
+              height={80}
+              densities={[1.5, 2]}
+            />
+            <p class="text text-center font-medium px-5 pb-2">{f.title}</p>
+          </a>
+        ))
+    }
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function () {
+    const parts = window.location.href.split("/");
+    const english = parts.includes("en-ca") || parts.includes("en-us");
+    const strings = english
+      ? { viewAll: "View All", hide: "Hide" }
+      : { viewAll: "Voir tous les produits", hide: "Cacher" };
+    var button = document.getElementById("show-more");
+    var section = document.getElementById("toggle-section");
+    var toggle = false;
+    button?.addEventListener("click", function () {
+      if (toggle) {
+        button.innerText = strings.viewAll;
+        section.style.display = "none";
+      } else {
+        button.innerText = strings.hide;
+        section.style.display = "grid";
+      }
+      toggle = !toggle;
+    });
+  });
+</script>

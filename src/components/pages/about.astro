@@ -1,0 +1,284 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import GooseFamily from "@assets/MJ_travel-3.webp";
+import SmartBunny from "@assets/smartBunny/About Page.png";
+import { getLangFromUrl, routes } from "strings/routing";
+import { enCA, enUS, frCA } from "strings/routing";
+import Yoga from "@assets/Careers_Illustration.png";
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+import GooseInNumbers from "@components/pageComponents/GooseInNumbers.astro";
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+    [enCA]: {
+        tabTitle: "About",
+        mainStatement: "Insuring the world, one policy at a time.",
+        subStatement:
+            "Insurance can be complicated… but it doesn’t have to be. Goose takes the confusing parts out of buying insurance, and makes it easier than ever to get the right coverage. And it all happens in seconds, from a single app.",
+        gooseInNumber: "Goose in numbers",
+        numMembers: "150,000+",
+        gooseMembers: "Goose members",
+        gooseMembersSub:
+            "Goose is proud to serve a community of over 150,000 members. We are committed to providing them with the best insurance solutions tailored to their needs.",
+        insuredCustomers: "Insured customers",
+        insuredSub:
+            "Our dedicated team has successfully insured over 750,000 customers, offering them peace of mind and financial security. We understand the importance of protecting what matters most to you.",
+        averageRating: "Average app rating",
+        averageSub:
+            "Goose's commitment to excellence is reflected in our average app rating of 4.5. We strive to make insurance easy and accessible through innovative technology, ensuring a seamless experience for our members.",
+        quote: `“We're on a mission to enable anyone to find, quote, and buy affordable insurance policies. All from your smartphone, without the need to speak to an agent or visit an insurance office.”`,
+        author: "- Dejan Mirkovic, CEO",
+        ourStory: "Our Story",
+        hatched: "Goose was hatched",
+        hatchedSub:
+            "In 2017, the idea of Goose took flight. It was the year we were hatched, marking the beginning of our journey in the realm of insurance solutions.",
+        members: "10,000 members",
+        membersSub:
+            "Within a year, we soared to a community of 10,000 members and continued to ascend. Our growth was fueled by a commitment to providing top-notch insurance services.",
+        launch: "US Launch and new products",
+        launchSub:
+            "In 2020, we expanded our wings internationally with the launch in the US, spreading our honks across borders. Simultaneously, we diversified our offerings, introducing new products at honking speeds to meet the evolving needs of our members.",
+        seed: "Seed + funding",
+        seedSub:
+            "Seeds of potential sprouted in 2021 as we secured additional funding, propelling us to new heights. Always growing, our mission to safeguard what matters most remained steadfast.",
+        V3: "Launched App V3",
+        V3Sub: "In 2022, we proudly launched the third version of our app, where stability and speed took center stage. Our commitment to providing a seamless experience was realized, setting a new standard for excellence.",
+        today: "Today",
+        membersToday: "150,000+ members",
+        membersTodaySub:
+            "As of today, our flock has grown to include over 150,000 members. The skies are vast, and we continue to soar, dedicated to safeguarding the futures of our members with unwavering commitment and innovative solutions.",
+        flockGrowing: "Our flock is growing!",
+        growingSub:
+            "Keeping the world insured is tough work, but someone has to do it. Maybe you? We’re looking for talented people to join us in our mission of making insurance accessible and affordable.",
+        goToCareers: "Go To Careers →",
+    },
+    [enUS]: {
+        tabTitle: "About",
+        mainStatement: "Insuring the world, one policy at a time.",
+        subStatement:
+            "Insurance can be complicated… but it doesn’t have to be. SmartBunny takes the confusing parts out of buying insurance, and makes it easier than ever to get the right coverage. And it all happens in seconds, from a single app.",
+        gooseInNumber: "SmartBunny in numbers",
+        numMembers: "150,000+",
+        gooseMembers: "Community members",
+        gooseMembersSub:
+            "At SmartBunny, we are excited to build a strong community, aspiring to reach and surpass 150,000 satisfied members by offering insurance solutions that meet your needs.",
+        insuredCustomers: "Aiming for excellence",
+        insuredSub:
+            "With a goal to secure the trust of over 750,000 customers, SmartBunny is dedicated to providing peace of mind and financial security. We're committed to protecting what's most important to you.",
+        averageRating: "Striving for high ratings",
+        averageSub:
+            "We are driven by a commitment to high standards, customer satisfaction, and app ratings only achievable by providing you with excellent service and peace of mind.",
+        quote: `“We're on a mission to enable anyone to find, quote, and buy affordable insurance policies. All from your smartphone, without the need to speak to an agent or visit an insurance office.”`,
+        author: "- Dejan Mirkovic, CEO",
+        ourStory: "Our Story",
+        hatched: "SmartBunny was hatched",
+        hatchedSub:
+            "In 2017, the idea of SmartBunny took flight. It was the year we were hatched, marking the beginning of our journey in the realm of insurance solutions.",
+        members: "10,000 members",
+        membersSub:
+            "Within a year, we soared to a community of 10,000 members and continued to ascend. Our growth was fueled by a commitment to providing top-notch insurance services.",
+        launch: "US Launch and new products",
+        launchSub:
+            "In 2020, we expanded our wings internationally with the launch in the US, spreading our honks across borders. Simultaneously, we diversified our offerings, introducing new products at honking speeds to meet the evolving needs of our members.",
+        seed: "Seed + funding",
+        seedSub:
+            "Seeds of potential sprouted in 2021 as we secured additional funding, propelling us to new heights. Always growing, our mission to safeguard what matters most remained steadfast.",
+        V3: "Launched App V3",
+        V3Sub: "In 2022, we proudly launched the third version of our app, where stability and speed took center stage. Our commitment to providing a seamless experience was realized, setting a new standard for excellence.",
+        today: "Today",
+        membersToday: "150,000+ members",
+        membersTodaySub:
+            "As of today, our herd has grown to include over 150,000 members. The skies are vast, and we continue to soar, dedicated to safeguarding the futures of our members with unwavering commitment and innovative solutions.",
+        flockGrowing: "Our herd is growing!",
+        growingSub:
+            "Keeping the world insured is tough work, but someone has to do it. Maybe you? We’re looking for talented people to join us in our mission of making insurance accessible and affordable.",
+        goToCareers: "Go To Careers →",
+    },
+    [frCA]: {
+        tabTitle: "À propos",
+        mainStatement: "Assurer le monde, une police à la fois.",
+        subStatement:
+            "L'assurance peut être compliquée... mais cela ne doit pas l'être. Goose élimine les aspects complexes de l'achat d'assurance et facilite plus que jamais l'obtention de la couverture adéquate. Et tout cela se fait en quelques secondes, depuis une seule application.",
+        gooseInNumber: "Goose en chiffres",
+        numMembers: "150,000+",
+        gooseMembers: "Membres de Goose",
+        gooseMembersSub:
+            "Assurance Goose est fière de servir une communauté de plus de 150 000 membres. Nous nous engageons à leur fournir les meilleures solutions d'assurance adaptées à leurs besoins.",
+        insuredCustomers: "Assurés",
+        insuredSub:
+            "Notre équipe dévouée a assuré avec succès plus de 750 000 clients, leur offrant la tranquillité d'esprit et une sécurité financière. Nous comprenons l'importance de protéger ce qui compte le plus pour vous.",
+        averageRating: "Note moyenne de l'application",
+        averageSub:
+            "L'excellence se reflète dans notre note moyenne d'application de 4,5. Nous nous efforçons de rendre l'assurance facile et accessible grâce à une technologie innovante, garantissant une expérience fluide pour nos membres.",
+        quote: `"Nous sommes là pour permettre à chacun de trouver, obtenir un devis et acheter des polices d'assurance abordables. Tout cela depuis votre smartphone, sans avoir besoin de parler à un agent ou de visiter un bureau d'assurance."`,
+        author: "- Dejan Mirkovic, PDG",
+        ourStory: "Notre histoire",
+        hatched: "Goose a éclos",
+        hatchedSub:
+            "En 2017, l'idée de Goose a pris son envol. C'était l'année où nous avons été éclos, marquant le début de notre parcours dans le domaine des solutions d'assurance.",
+        members: "10 000 membres",
+        membersSub:
+            "En l'espace d'une année, nous avons atteint une communauté de 10 000 membres et avons continué à monter en flèche. Notre croissance a été alimentée par notre engagement à fournir des services d'assurance de première classe.",
+        launch: "Lancement aux États-Unis et nouveaux produits",
+        launchSub:
+            "En 2022, nous avons fièrement lancé la troisième version de notre application, mettant la stabilité et la rapidité au premier plan. Notre engagement à fournir une expérience fluide s'est concrétisé, établissant une nouvelle norme d'excellence.",
+        seed: "Financement initial + fonds",
+        seedSub:
+            "Les graines du potentiel ont germé en 2021 alors que nous avons obtenu un financement supplémentaire, nous propulsant vers de nouveaux sommets. Toujours en croissance, notre mission de protéger ce qui compte le plus est restée inébranlable.",
+        V3: "Lancement de l'application V3",
+        V3Sub: "En 2022, nous avons fièrement lancé la troisième version de notre application, mettant la stabilité et la rapidité au premier plan. Notre engagement à fournir une expérience fluide s'est concrétisé, établissant une nouvelle norme d'excellence.",
+        today: "Aujourd'hui",
+        membersToday: "150 000+ membres",
+        membersTodaySub:
+            "À ce jour, notre troupeau compte plus de 150 000 membres. Les cieux sont vastes, et nous continuons de planer, dévoués à protéger l'avenir de nos membres avec un engagement indéfectible et des solutions innovantes.",
+        flockGrowing: "Notre troupeau grandit!",
+        growingSub:
+            "Assurer le monde est un travail difficile, mais quelqu'un doit le faire. Peut-être vous? Nous recherchons des personnes talentueuses pour se joindre à nous dans notre mission de rendre l'assurance accessible et abordable.",
+        goToCareers: "Aller à la page Carrières →",
+    },
+}[language];
+
+const i = {
+    [enUS]: {
+        mainImage: SmartBunny,
+    },
+    [enCA]: {
+        mainImage: GooseFamily,
+    },
+    [frCA]: {
+        mainImage: GooseFamily,
+    },
+}[language];
+
+let styles = {
+    [enUS]: {
+        firstFoldBg: "bg-pale-pink",
+        firstFldTitleClr: "text-deep-pink",
+        firstFldTextClr: "text-grey-text",
+    },
+    [enCA]: {
+        firstFoldBg: "bg-pale-yellow",
+        firstFldTitleClr: "text-deep-yellow",
+        firstFldTextClr: "text-deep-yellow",
+    },
+    [frCA]: {
+        firstFoldBg: "bg-pale-yellow",
+        firstFldTitleClr: "text-deep-yellow",
+        firstFldTextClr: "text-deep-yellow",
+    },
+}[language];
+---
+
+<Layout title={s.tabTitle} footerMargin={false}>
+    <ArtsaiPixelForNonProductPages />
+    <div
+        class="flex flex-col items-center lg:flex-row lg:justify-center w-full pt-6"
+    >
+        <div class="block">
+            <Image
+                class="block rounded-xl"
+                src={i.mainImage}
+                alt="A family of Geese"
+                height={GooseFamily.height / 2}
+                densities={[1.5, 2]}
+            />
+        </div>
+        <div class="flex flex-col max-w-md p-16">
+            <p class="text-[2rem] leading-[2rem] font-semibold">
+                {s.mainStatement}
+            </p>
+            <div class="h-[2rem]"></div>
+            <p class="">{s.subStatement}</p>
+        </div>
+    </div>
+    <GooseInNumbers wrapperStyle="lg:-mt-28" topGap="lg:h-28" />
+    <div class="flex w-full flex-col items-center bg-pale-turquoise p-16">
+        <p class="text-deep-turquoise font-medium max-w-lg text-center">
+            {s.quote}
+        </p>
+        <div class="h-[2rem]"></div>
+        <p class="text-grey-text">{s.author}</p>
+    </div>
+    {
+        language !== enUS && (
+            <div class="flex w-full justify-center bg-white p-20">
+                <div class="flex flex-col max-w-5xl">
+                    <p class="text-[2rem] font-semibold pb-6">{s.ourStory}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
+                        <div class="">
+                            <p class="text-[2rem] text-goose-turquoise font-semibold">
+                                2017
+                            </p>
+                            <p class="text-[1.5rem] font-medium text-night-sky py-2">
+                                {s.hatched}
+                            </p>
+                            <p class="text-grey-text">{s.hatchedSub}</p>
+                        </div>
+                        <div class="">
+                            <p class="text-[2rem] text-goose-turquoise font-semibold">
+                                2018
+                            </p>
+                            <p class="text-[1.5rem] font-medium text-night-sky py-2">
+                                {s.members}
+                            </p>
+                            <p class="text-grey-text">{s.membersSub}</p>
+                        </div>
+                        <div class="">
+                            <p class="text-[2rem] text-goose-turquoise font-semibold">
+                                2020
+                            </p>
+                            <p class="text-[1.5rem] font-medium text-night-sky py-2">
+                                {s.launch}
+                            </p>
+                            <p class="text-grey-text">{s.launchSub}</p>
+                        </div>
+                        <div class="">
+                            <p class="text-[2rem] text-goose-turquoise font-semibold">
+                                2021
+                            </p>
+                            <p class="text-[1.5rem] font-medium text-night-sky py-2">
+                                {s.seed}
+                            </p>
+                            <p class="text-grey-text">{s.seedSub}</p>
+                        </div>
+                        <div class="">
+                            <p class="text-[2rem] text-goose-turquoise font-semibold">
+                                2022
+                            </p>
+                            <p class="text-[1.5rem] font-medium text-night-sky py-2">
+                                {s.V3}
+                            </p>
+                            <p class="text-grey-text">{s.V3Sub}</p>
+                        </div>
+                        <div class="">
+                            <p class="text-[2rem] text-goose-turquoise font-semibold">
+                                {s.today}
+                            </p>
+                            <p class="text-[1.5rem] font-medium text-night-sky py-2">
+                                {s.membersToday}
+                            </p>
+                            <p class="text-grey-text">{s.membersTodaySub}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    <div
+        class=`flex flex-col lg:flex-row w-full items-center justify-center gap-28 p-20 
+        ${language === enUS ? ' ':'bg-pale-pink'}`
+    >
+        <Image src={Yoga} width={330} alt="" />
+        <div class="flex flex-col max-w-lg">
+            <h2 class="text-[3rem] text-deep-pink font-semibold pb-[1rem]">
+                {s.flockGrowing}
+            </h2>
+            <p class="text-blg pb-[2rem]">{s.growingSub}</p>
+            <a
+                href=`/${language}/${routes[language].careers}`
+                class="text-blg text-deep-pink font-semibold">{s.goToCareers}</a
+            >
+        </div>
+    </div>
+</Layout>

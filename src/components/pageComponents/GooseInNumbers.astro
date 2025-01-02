@@ -1,0 +1,149 @@
+---
+import { getLangFromUrl } from "strings/routing";
+import { enCA, enUS, frCA } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { wrapperStyle, topGap } = Astro.props;
+const t = {
+    [enCA]: {
+        gooseInNumber: "Goose in numbers",
+        numMembers: "150,000+",
+        gooseMembers: "Goose members",
+        gooseMembersSub:
+            "Goose is proud to serve a community of over 150,000 members. We are committed to providing them with the best insurance solutions tailored to their needs.",
+        insuredCustomers: "Insured customers",
+        insuredSub:
+            "Our dedicated team has successfully insured over 750,000 customers, offering them peace of mind and financial security. We understand the importance of protecting what matters most to you.",
+        averageRating: "Average app rating",
+        averageSub:
+            "Goose's commitment to excellence is reflected in our average app rating of 4.5. We strive to make insurance easy and accessible through innovative technology, ensuring a seamless experience for our members.",
+    },
+    [enUS]: {
+        gooseInNumber: "SmartBunny in numbers",
+        numMembers: "150,000+",
+        gooseMembers: "Community members",
+        gooseMembersSub:
+            "At SmartBunny, we are excited to build a strong community, aspiring to reach and surpass 150,000 satisfied members by offering insurance solutions that meet your needs.",
+        insuredCustomers: "Aiming for excellence",
+        insuredSub:
+            "With a goal to secure the trust of over 750,000 customers, SmartBunny is dedicated to providing peace of mind and financial security. We're committed to protecting what's most important to you.",
+        averageRating: "Striving for high ratings",
+        averageSub:
+            "We are driven by a commitment to high standards, customer satisfaction, and app ratings only achievable by providing you with excellent service and peace of mind.",
+    },
+    [frCA]: {
+        gooseInNumber: "Goose en chiffres",
+        numMembers: "150,000+",
+        gooseMembers: "Membres de Goose",
+        gooseMembersSub:
+            "Assurance Goose est fière de servir une communauté de plus de 150 000 membres. Nous nous engageons à leur fournir les meilleures solutions d'assurance adaptées à leurs besoins.",
+        insuredCustomers: "Assurés",
+        insuredSub:
+            "Notre équipe dévouée a assuré avec succès plus de 750 000 clients, leur offrant la tranquillité d'esprit et une sécurité financière. Nous comprenons l'importance de protéger ce qui compte le plus pour vous.",
+        averageRating: "Note moyenne de l'application",
+        averageSub:
+            "L'excellence se reflète dans notre note moyenne d'application de 4,5. Nous nous efforçons de rendre l'assurance facile et accessible grâce à une technologie innovante, garantissant une expérience fluide pour nos membres.",
+    },
+}[language];
+
+let s = {
+    [enUS]: {
+        firstFoldBg: "bg-pale-pink",
+        firstFldTitleClr: "text-deep-pink",
+        firstFldTextClr: "text-grey-text",
+    },
+    [enCA]: {
+        firstFoldBg: "bg-pale-yellow",
+        firstFldTitleClr: "text-deep-yellow",
+        firstFldTextClr: "text-deep-yellow",
+    },
+    [frCA]: {
+        firstFoldBg: "bg-pale-yellow",
+        firstFldTitleClr: "text-deep-yellow",
+        firstFldTextClr: "text-deep-yellow",
+    },
+}[language];
+---
+
+<script>
+    function animateValue(obj, start, end, duration, isRating = false) {
+        let startTimestamp = 0;
+        const step = (timestamp) => {
+            if (startTimestamp === 0) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const current = progress * (end - start) + start;
+            obj.innerHTML = (isRating ? current.toFixed(1) : Math.floor(current).toLocaleString()) + "+";
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const members = document.getElementById("memberCount");
+                const customers = document.getElementById("customerCount");
+                const rating = document.getElementById("ratingCount");
+                if (members) animateValue(members, 0, 150000, 2000);
+                if (customers) animateValue(customers, 0, 750000, 2000);
+                if (rating) animateValue(rating, 0, 4.5, 2000, true);
+                observer.disconnect();
+            }
+        });
+    });
+
+    document.addEventListener('astro:page-load', () => {
+        const element = document.querySelector('.numbers-section');
+        if (element) observer.observe(element);
+    });
+</script>
+
+<div
+        class=`flex flex-col items-center w-full ${s.firstFoldBg} p-16 ${wrapperStyle}`
+    >
+        <div class={`${topGap}`}></div>
+        <div class="pt-6 max-w-5xl">
+            <p
+                class="text-[2rem] leading-[2rem] font-semibold p-6 pl-0 text-night-sky"
+            >
+                {t.gooseInNumber}
+            </p>
+            <div class="grid gap-10 grid-cols-1 lg:grid-cols-3 numbers-section">
+                <div class="p-6">
+                    <p
+                        class=`text-[2rem] ${s.firstFldTitleClr} leading-[2rem] font-semibold py-2`
+                    >
+                        <span id="memberCount">0+</span>
+                    </p>
+                    <p class="text-xl font-medium text-night-sky">
+                        {t.gooseMembers}
+                    </p>
+                    <p class=`text-grey-text`>{t.gooseMembersSub}</p>
+                </div>
+                <div class="p-6">
+                    <p
+                        class=`text-[2rem] ${s.firstFldTitleClr} leading-[2rem] font-semibold py-2`
+                    >
+                        <span id="customerCount">0+</span>
+                    </p>
+                    <p class="text-xl font-medium text-night-sky">
+                        {t.insuredCustomers}
+                    </p>
+                    <p class=`text-grey-text`>{t.insuredSub}</p>
+                </div>
+                <div class="p-6">
+                    <p
+                        class=`text-[2rem] ${s.firstFldTitleClr} leading-[2rem] font-semibold py-2`
+                    >
+                        <span id="ratingCount">0+</span>
+                    </p>
+                    <p class="text-xl font-medium text-night-sky">
+                        {t.averageRating}
+                    </p>
+                    <p class=`text-grey-text`>{t.averageSub}</p>
+                </div>
+            </div>
+        </div>
+    </div>

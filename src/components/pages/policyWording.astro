@@ -1,0 +1,539 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { ArrowIcon } from "@components/ui/icons";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import type { ProductGroup, ProductLine, ProviderID } from "types";
+import { stateMappings } from "strings/miscellaneous";
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+
+const response = await fetch(
+    "https://api.gooseinsurance.com/provider/documents/all",
+);
+const allPolicies = await response.json();
+
+const lang = getLangFromUrl(Astro.url);
+
+function getDocuments(
+    productLineID: ProductLine,
+    providerID: ProviderID,
+    productGroupID: ProductGroup,
+    lang: "fr" | "en" = "en",
+): PoliciesWithoutRegions {
+    return allPolicies
+        .find((p) => p.friendly_id === productLineID)
+        ?.providers.find((p) => p.friendly_id === providerID)
+        ?.product_groups.find((p) => p.friendly_id === productGroupID)
+        ?.documents.filter((d) => {
+            if (!/(\.en\.|\.fr\.)/.test(d.url)) return true;
+            return d.url.includes(`.${lang}.`);
+        })
+        .map((d) => [d.in_use_since, d.url])
+        .sort(([dateA], [dateB]) =>
+            new Date(dateA) < new Date(dateB) ? 1 : -1,
+        );
+}
+
+function getDocumentsWithRegions(
+    productLineID: ProductLine,
+    providerID: ProviderID,
+    productGroupID: ProductGroup,
+    lang: "en" = "en",
+): PoliciesWithRegions {
+    return allPolicies
+        .find((p) => p.friendly_id === productLineID)
+        ?.providers.find((p) => p.friendly_id === providerID)
+        ?.product_groups.find((p) => p.friendly_id === productGroupID)
+        ?.documents.filter((d) => {
+            if (!/(\.en\.|\.fr\.)/.test(d.url)) return true;
+            return d.url.includes(`.${lang}.`);
+        })
+        .reduce((result, curr) => {
+            const regionKey = curr.regions
+                .map((r) => stateMappings[r])
+                .sort()
+                .join(", ");
+            if (!result[regionKey]) result[regionKey] = {};
+            result[regionKey][curr.in_use_since] = curr.url;
+            return result;
+        }, {});
+}
+
+function getDocumentsWithEachState(
+    productLineID: ProductLine,
+    providerID: ProviderID,
+    productGroupID: ProductGroup,
+    lang: "en" = "en",
+): PoliciesWithRegions {
+    return allPolicies
+        .find((p) => p.friendly_id === productLineID)
+        ?.providers.find((p) => p.friendly_id === providerID)
+        ?.product_groups.find((p) => p.friendly_id === productGroupID)
+        ?.documents.filter((d) => {
+            if (!/(\.en\.|\.fr\.)/.test(d.url)) return true;
+            return d.url.includes(`.${lang}.`);
+        })
+        .reduce((result, curr) => {
+            curr.regions.forEach((r) => {
+                const state = stateMappings[r];
+                if (!result[state]) result[state] = {};
+                result[state][curr.in_use_since] = curr.url;
+            });
+            return result;
+        }, {});
+}
+
+type PoliciesWithoutRegions = [
+    [title: string],
+    [[date: string], [docUrl: string]],
+];
+type PoliciesWithRegions = [[title: string], { [date: string]: [url: string] }];
+/**
+ * WithoutRegions: [
+ *      "Life Insurance",
+ *          [
+ *              [2023-12-02, "newUrlToDoc.com"],
+ *              [2023-04-28, "oldUrlToDoc.com"]
+ *          ]
+ *      ]
+ * Example with Regions: [
+ *      "Life Insurance", {
+ *              "NY, WY, AL": {
+ *                  2022-12-02: "newUrlToDoc.com",
+ *                  2021-04-28: "oldUrlToDoc.com",
+ *              },
+ *              "HI, OH": {
+ *                  2022-12-02: "newUrlToDoc.com",
+ *                  2021-04-28: "oldUrlToDoc.com",
+ *              },
+ *       },
+ *  */
+const policyWordings = {
+    [enCA]: [
+        [
+            "Term Life Insurance",
+            getDocuments("LIFE_INSURANCE", "TEACHERS_LIFE", "term_life", "en"),
+        ],
+        [
+            "Group Life Insurance",
+            getDocuments("LIFE_INSURANCE", "IA", "life", "en"),
+        ],
+        ["AD&D", getDocuments("LIFE_INSURANCE", "IA", "add", "en")],
+        ["Critical Illness", getDocuments("LIFE_INSURANCE", "IA", "ci", "en")],
+        [
+            "Kids Insurance",
+            getDocuments("LIFE_INSURANCE", "MSH_KIDS_CANADA", "kids", "en"),
+        ],
+        [
+            "Income Protection",
+            getDocuments(
+                "LIFE_INSURANCE",
+                "AIG_CANADA",
+                "income_protection",
+                "en",
+            ),
+        ],
+        [
+            "Hospital Cash",
+            getDocuments("LIFE_INSURANCE", "AIG_CANADA", "hospital_cash", "en"),
+        ],
+        [
+            "Single Trip Medical",
+            getDocuments("TRAVEL_INSURANCE", "TUGO", "single_trip", "en"),
+        ],
+        [
+            "Multi Trip Medical",
+            getDocuments("TRAVEL_INSURANCE", "TUGO", "multi_trip", "en"),
+        ],
+        [
+            "COVID-19 Insurance",
+            getDocuments("TRAVEL_INSURANCE", "MSH_CANADA", "pandemic", "en"),
+        ],
+        [
+            "Trip Cancellation & Interruption",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "TUGO",
+                "single_trip_cancellation_interruption",
+                "en",
+            ),
+        ],
+        [
+            "Trip Interruption Only",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "TUGO",
+                "single_trip_interruption",
+                "en",
+            ),
+        ],
+        [
+            "Single Trip Top-ups",
+            getDocuments("TRAVEL_INSURANCE", "TUGO", "single_trip", "en"),
+        ],
+        [
+            "Visitors Insurance",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "LLOYDS_VTC",
+                "visitors_to_canada",
+                "en",
+            ),
+        ],
+        [
+            "Super-Visa Insurance",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "LLOYDS_SUPER_VISA",
+                "super_visa",
+                "en",
+            ),
+        ],
+    ].sort(),
+    [frCA]: [
+        [
+            "Assurance vie temporaire",
+            getDocuments("LIFE_INSURANCE", "TEACHERS_LIFE", "term_life", "fr"),
+        ],
+        [
+            "Assurance vie collective",
+            getDocuments("LIFE_INSURANCE", "IA", "life", "fr"),
+        ],
+        ["Assurance D&MA", getDocuments("LIFE_INSURANCE", "IA", "add", "fr")],
+        ["Maladies graves", getDocuments("LIFE_INSURANCE", "IA", "ci", "fr")],
+        [
+            "Assurance enfants",
+            getDocuments("LIFE_INSURANCE", "MSH_KIDS_CANADA", "kids", "fr"),
+        ],
+        [
+            "Protection du revenu",
+            getDocuments(
+                "LIFE_INSURANCE",
+                "AIG_CANADA",
+                "income_protection",
+                "fr",
+            ),
+        ],
+        [
+            "Prestation hospitalière",
+            getDocuments("LIFE_INSURANCE", "AIG_CANADA", "hospital_cash", "fr"),
+        ],
+        [
+            "Voyage unique",
+            getDocuments("TRAVEL_INSURANCE", "TUGO", "single_trip", "fr"),
+        ],
+        [
+            "Voyages multiples",
+            getDocuments("TRAVEL_INSURANCE", "TUGO", "multi_trip", "fr"),
+        ],
+        [
+            "Assurance COVID-19",
+            getDocuments("TRAVEL_INSURANCE", "MSH_CANADA", "pandemic", "fr"),
+        ],
+        [
+            "Annulation et interrupton de voyage",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "TUGO",
+                "single_trip_cancellation_interruption",
+                "fr",
+            ),
+        ],
+        [
+            "Interrupton de voyage",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "TUGO",
+                "single_trip_interruption",
+                "fr",
+            ),
+        ],
+        [
+            "Régime complementaire",
+            getDocuments("TRAVEL_INSURANCE", "TUGO", "single_trip", "fr"),
+        ],
+        [
+            "Assurance visiteurs",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "LLOYDS_VTC",
+                "visitors_to_canada",
+                "fr",
+            ),
+        ],
+        [
+            "Assurance Super-Visa",
+            getDocuments(
+                "TRAVEL_INSURANCE",
+                "LLOYDS_SUPER_VISA",
+                "super_visa",
+                "fr",
+            ),
+        ],
+    ].sort(),
+    [enUS]: [
+        [
+            "Life Insurance",
+            getDocuments(
+                "LIFE_INSURANCE",
+                "OCCIDENTAL_LIFE",
+                "term_life",
+                "en",
+            ),
+        ],
+        [
+            "Phone Insurance",
+            getDocumentsWithRegions(
+                "PROPERTY_INSURANCE",
+                "LIKEWIZE_PHONE",
+                "phone",
+                "en",
+            ),
+        ],
+        [
+            "Travel Medical Insurance",
+            getDocuments("TRAVEL_INSURANCE", "IMG", "international"),
+        ],
+        [
+            "Trip Protection",
+            getDocumentsWithEachState("TRAVEL_INSURANCE", "IMG", "domestic"),
+        ],
+        [
+            "Renters Insurance",
+            getDocumentsWithRegions("PROPERTY_INSURANCE", "MSI", "renter"),
+        ],
+        [
+            "Final Expenses",
+            getDocuments(
+                "LIFE_INSURANCE",
+                "OCCIDENTAL_FINAL_EXPENSE",
+                "final_expense",
+            ),
+        ],
+    ].sort(),
+}[lang];
+
+const s = {
+    [enCA]: {
+        policyWordings: "Policy Wordings",
+        intro1: "The policy wording outlines your insurance coverage in detail, so itʼs a good idea to read it carefully. Like all insurance policies, there are conditions that may limit or exclude coverage in some circumstances. Your policy contains other important information such as:",
+        bullets: [
+            "Plan Benefits and Limits",
+            "General Exclusions",
+            "General Conditions",
+            "Definitions",
+        ],
+        intro2: "In the policy wordings, you will also find detailed information on what to do in the event of an emergency and who to call to report a Claim (available 24/7/365). You have this information readily available in the Goose App as well. In addition to the links below, a copy of the most recent policy wording is available in the Goose App, and a copy will be emailed to you when you purchase a policy with Goose.",
+        intro3: "If you have any questions regarding the policy wording or need more information, please contact a licensed Goose Agent via the chat link below, email us at",
+        supportEmail: " support@gooseinsurance.com ",
+        intro4: "or call us at ",
+        phoneNumber: "1-888-374-6673.",
+        intro5: "We are available Monday to Friday 6:00 am to 6:00 pm PST except statutory holidays.",
+        asOf: "As of: ",
+    },
+    [enUS]: {
+        policyWordings: "Policy Wordings",
+        intro1: "The policy wording outlines your insurance coverage in detail, so itʼs a good idea to read it carefully. Like all insurance policies, there are conditions that may limit or exclude coverage in some circumstances. Your policy contains other important information such as:",
+        bullets: [
+            "Plan Benefits and Limits",
+            "General Exclusions",
+            "General Conditions",
+            "Definitions",
+        ],
+        intro2: "In the policy wordings, you will also find detailed information on what to do in the event of an emergency and who to call to report a Claim (available 24/7/365). You have this information readily available in the SmartBunny App as well. In addition to the links below, a copy of the most recent policy wording is available in the SmartBunny App, and a copy will be emailed to you when you purchase a policy with SmartBunny.",
+        intro3: "If you have any questions regarding the policy wording or need more information, please contact a licensed SmartBunny Agent via the chat link below, email us at",
+        supportEmail: " support@smartbunny.com ",
+        intro4: "or call us at ",
+        phoneNumber: " 1 (888) 388-0009.",
+        intro5: "We are available Monday to Friday 6:00 am to 6:00 pm PST except statutory holidays.",
+        asOf: "As of: ",
+    },
+    [frCA]: {
+        policyWordings: "Libellés de polices",
+        intro1: "Le libellé de la police détaille votre couverture d'assurance, il est donc conseillé de le lire attentivement. Comme toutes les polices d'assurance, il existe des conditions qui peuvent limiter ou exclure la couverture dans certaines circonstances. Votre police contient d'autres informations importantes telles que:",
+        bullets: [
+            "Avantages et limites du plan",
+            "Exclusions générales",
+            "Conditions générales",
+            "Définitions",
+        ],
+        intro2: "Dans les libellés de polices, vous trouverez également des informations détaillées sur les actions à entreprendre en cas d'urgence et sur la personne à contacter pour signaler une réclamation (disponible 24h/24, 7j/7, 365 jours par an). Vous avez accès à ces informations directement dans l'application Goose. En plus des liens ci-dessous, une copie du libellé de polices le plus récent est disponible dans l'application Goose, et une copie vous sera envoyée par e-mail lors de l'achat d'une police auprès de Goose.",
+        intro3: "Si vous avez des questions concernant le libellé de polices ou si vous avez besoin de plus d'informations, veuillez contacter un agent agréé de Goose via le lien de chat ci-dessous, nous envoyer un e-mail à ",
+        supportEmail: " support@gooseinsurance.com ",
+        intro4: "ou nous appeler au ",
+        phoneNumber: "1-888-374-6673.",
+        intro5: "Nous sommes disponibles du lundi au vendredi de 6h00 à 18h00, heure du Pacifique, sauf les jours fériés.",
+        asOf: "À partir du: ",
+    },
+}[lang];
+
+function formatDate(datestring) {
+    const date = new Date(datestring);
+    const monthsEn = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const monthsFr = [
+        "janvier",
+        "février",
+        "mars",
+        "avril",
+        "mai",
+        "juin",
+        "juillet",
+        "août",
+        "septembre",
+        "octobre",
+        "novembre",
+        "décembre",
+    ];
+    const day = date.getDate();
+
+    let suffix;
+    // English suffix handling
+    if (lang !== frCA) {
+        if (day === 1 || day === 21 || day === 31) {
+            suffix = "st";
+        } else if (day === 2 || day === 22) {
+            suffix = "nd";
+        } else if (day === 3 || day === 23) {
+            suffix = "rd";
+        } else {
+            suffix = "th";
+        }
+    } else {
+        // French suffix handling
+        if (day === 1) {
+            suffix = "er";
+        } else if (day === 2) {
+            suffix = "e";
+        } else if (day === 3) {
+            suffix = "e";
+        } else {
+            suffix = "e";
+        }
+    }
+
+    const monthNames = lang === frCA ? monthsFr : monthsEn;
+    const result = `${
+        monthNames[date.getMonth()]
+    } ${day}${suffix}, ${date.getFullYear()}`;
+    return result;
+}
+---
+
+<Layout title={s.policyWordings} footerMargin={false}>
+    <ArtsaiPixelForNonProductPages />
+    <h1
+        class="w-full text-center p-6 text-4xl lg:text-5xl font-bold lg:tracking-tight text-night-sky"
+    >
+        {s.policyWordings}
+    </h1>
+    <div class="flex w-full justify-center">
+        <div
+            class="p-4 gap-16 content-center max-w-3xl text-[1.0625rem] font-[400]"
+        >
+            <div>
+                <p>{s.intro1}</p>
+                <ul class="list-disc m-3">
+                    {s.bullets.map((phrase) => <li>{phrase}</li>)}
+                </ul>
+            </div>
+            <div>
+                <p>{s.intro2}</p>
+                <div class="h-4"></div>
+                <p>
+                    {s.intro3}
+                    <span class="font-semibold">{s.supportEmail}</span>
+                    {s.intro4}<span class="font-semibold">{s.phoneNumber}</span>
+                    {s.intro5}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div
+        class="grid divide-y px-2 divide-neutral-200 max-w-xl mx-auto mt-8 min-w-[350px] pt-8"
+    >
+        {
+            policyWordings.map(([productName, documents]) => (
+                <div class="p-2 pr-0 border-t-2">
+                    <details class="group/parent rounded p-5 border-none ">
+                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
+                            <p class="text-xl text-grey-text">{productName}</p>
+                            <span class="transition group-open/parent:rotate-180">
+                                <ArrowIcon />
+                            </span>
+                        </summary>
+                        <div class="h-6" />
+                        {Array.isArray(documents)
+                            ? documents?.length &&
+                              documents.map(([date, url]) => (
+                                  <p class="p-2 text-grey-text">
+                                      <span class="">{s.asOf}</span>
+                                      <a
+                                          href={url}
+                                          download
+                                          target="_blank"
+                                          class=""
+                                      >
+                                          <span class="underline">
+                                              {formatDate(date)}
+                                          </span>
+                                      </a>
+                                  </p>
+                              ))
+                            : Object.entries(documents)
+                                  .sort()
+                                  .map(([regions, docs]) => (
+                                      <details class="group/child rounded p-3 border-none">
+                                          <summary class="flex justify-start items-center font-medium cursor-pointer list-none">
+                                              <span class="mr-5 transition group-open/child:rotate-180">
+                                                  <ArrowIcon />
+                                              </span>
+                                              <p class="text-grey-text">
+                                                  {regions}
+                                              </p>
+                                          </summary>
+                                          <div class="h-2" />
+                                          {Object.entries(docs)
+                                              .sort((a, b) =>
+                                                  new Date(a[0]) <
+                                                  new Date(b[0])
+                                                      ? 1
+                                                      : -1,
+                                              )
+                                              .map(([date, url]) => (
+                                                  <p class="p-2 pl-14 text-grey-text">
+                                                      <span class="">
+                                                          {s.asOf}
+                                                      </span>
+                                                      <a
+                                                          href={url}
+                                                          download
+                                                          target="_blank"
+                                                          class=""
+                                                      >
+                                                          <span class="underline">
+                                                              {formatDate(date)}
+                                                          </span>
+                                                      </a>
+                                                  </p>
+                                              ))}
+                                      </details>
+                                  ))}
+                    </details>
+                </div>
+            ))
+        }
+    </div>
+    <div class="h-20"></div>
+</Layout>

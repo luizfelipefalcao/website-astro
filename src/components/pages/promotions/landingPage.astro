@@ -1,0 +1,37 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Cta from "@components/cta.astro";
+import LandingPageHero, {
+  type PromoHeroStrings,
+} from "@components/landingPageComponents/landingPageHero.astro";
+import Testimonials from "@components/testimonials.astro";
+import Faq from "@components/faq.astro";
+import type { FaqStrings } from "strings/faqs";
+import Logos from "@components/logos.astro";
+import ProductGrid from "@components/productGrid.astro";
+import type { ProductName } from "types";
+import { enUS, getLangFromUrl } from "strings/routing";
+import GooseInNumbers from "@components/pageComponents/GooseInNumbers.astro";
+
+type Props = {
+  strings: PromoHeroStrings;
+  heroImage: ImageMetadata;
+  faqStrings: FaqStrings;
+  productGridOmit: ProductName[];
+};
+
+const { strings, heroImage, faqStrings, productGridOmit } = Astro.props;
+const language = getLangFromUrl(Astro.url);
+---
+
+<Layout footerMargin={false}>
+  <LandingPageHero strings={strings} heroImage={heroImage} />
+  <Logos notes={strings.notes} />
+  <GooseInNumbers />
+  <Faq faq={faqStrings} image={null} />
+  <ProductGrid omit={productGridOmit} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={strings.QR} downloadLink={strings.downloadLink} />
+</Layout>

@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import heroImage from "@assets/productHeros/MJ_hospital_cash.webp";
+import heroIcon from "@assets/products/Hospital-Cash3x.png";
+import { hospitalCashStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Faq from "@components/faq.astro";
+import { hospitalCashFAQ } from "strings/faqs.ts";
+import Testimonials from "@components/testimonials.astro";
+import Cta from "@components/cta.astro";
+import { getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink, title } = hospitalCashStrings[language];
+---
+
+<Layout title={title} footerMargin={false}>
+  <ProductHero
+    strings={hospitalCashStrings}
+    heroImage={heroImage}
+    heroIcon={heroIcon}
+  />
+  <Faq faq={hospitalCashFAQ} image={null} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>

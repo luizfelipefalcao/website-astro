@@ -1,0 +1,59 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import ShockedGoose from "@assets/goose-shocked.png";
+import ShockedBunny from "@assets/shocked_bunny.png";
+import { Image } from "astro:assets";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const strings = {
+  [enCA]: {
+    pageDoesNotExist: "The page you are looking for doesn't exist.",
+    backToHome: "Back to Home",
+  },
+  [enUS]: {
+    pageDoesNotExist: "The page you are looking for doesn't exist.",
+    backToHome: "Back to Home",
+  },
+  [frCA]: {
+    pageDoesNotExist: "La page que vous recherchez n'existe pas.",
+    backToHome: "Retour à l'accueil",
+  },
+} as const;
+const s = strings[language || enCA];
+const baseUrl = `/${language}/`;
+---
+
+<Layout title="404 Not Found">
+  <Container>
+    <div class="min-h-[calc(100vh-20rem)] flex items-center justify-center">
+      <div class="mt-16 text-center">
+        <h1
+          class="text-6xl lg:text-9xl font-bold bg-gradient-to-t from-pale-pink to-deep-pink bg-clip-text text-transparent"
+        >
+          404
+        </h1>
+        <div class="flex w-full justify-center">
+          <Image
+            src={language === enUS ? ShockedBunny : ShockedGoose}
+            alt=""
+            class="rounded-full max-w-sm shadow"
+          />
+        </div>
+        <p class="text-lg lg:text-2xl font-medium mt-4 text-night-sky">
+          {s.pageDoesNotExist}
+        </p>
+        <div class="my-10">
+          <a
+            href={baseUrl}
+            class="p-4 rounded-xl hover:shadow-xl text-grey-text hover:text-goose-pink"
+            style="outline"
+          >
+            {s.backToHome}
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Layout>

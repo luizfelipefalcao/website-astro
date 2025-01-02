@@ -1,0 +1,35 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import ADDBunny from "@assets/smartBunny/SmartBunny Final Expenses.png";
+import Faq from "@components/faq.astro";
+import Cta from "@components/cta.astro";
+import heroImage from "@assets/productHeros/MJ_final-espense-1.webp";
+
+import heroIcon from "@assets/products/Final Expenses Big@3x.png";
+import { finalExpenseInsuranceStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import { finalExpenseInsuranceFAQ } from "strings/faqs.ts";
+import Testimonials from "@components/testimonials.astro";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink, title } = finalExpenseInsuranceStrings[language];
+const images = {
+  [enCA]: { productHero: heroImage },
+  [enUS]: { productHero: ADDBunny },
+  [frCA]: { productHero: heroImage },
+}[language];
+---
+
+<Layout title={title} footerMargin={false}>
+  <ProductHero
+    strings={finalExpenseInsuranceStrings}
+    heroImage={images.productHero}
+    heroIcon={heroIcon}
+  />
+  <Faq faq={finalExpenseInsuranceFAQ} image={null} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>

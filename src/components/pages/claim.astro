@@ -1,0 +1,350 @@
+---
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+import { ArrowIcon } from "@components/ui/icons";
+import Layout from "@layouts/Layout.astro";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const strings = {
+    [enCA]: {
+        claims: "Claims",
+        subtitle:
+            "Need to make a claim? Rest assured our partners are here to help. Check you coverage documentation in the Goose App if you aren’t sure which partner to contact.",
+        products: [
+            {
+                name: "Term Life Insurance",
+                phone: [
+                    ["Toll-Free", "+1 (800) 668-4229"],
+                    ["North America", "+1 (416) 620-1140"],
+                ],
+                email: [["Email", "claims@teacherslife.com"]],
+                website: [],
+                description:
+                    "Claims for Term Life Insurance are administered by Teachers Life.",
+            },
+            {
+                name: "Group Life Insurance",
+                phone: [["Toll-Free", "+1 (800) 266-5667"]],
+                email: [["Email", "sms-claims@ia.ca"]],
+                website: [],
+                description:
+                    "Claims for Life Insurance, Critical Illness, and Accidental Death and Dismemberment Insurance are administered by Industrial Alliance Financial Group.",
+            },
+            {
+                name: "AD&D",
+                phone: [["Toll-Free", "+1 (800) 266-5667"]],
+                email: [["Email", "sms-claims@ia.ca"]],
+                website: [],
+                description:
+                    "Claims for Life Insurance, Critical Illness, Cancer Insurance, and Accidental Death and Dismemberment Insurance are administered by Industrial Alliance Financial Group.",
+            },
+            {
+                name: "Critical Illness",
+                phone: [["Toll-Free", "+1 (800) 266-5667"]],
+                email: [["Email", "sms-claims@ia.ca"]],
+                website: [],
+                description:
+                    "Claims for Life Insurance, Critical Illness, Cancer Insurance, and Accidental Death and Dismemberment Insurance are administered by Industrial Alliance Financial Group.",
+            },
+            {
+                name: "Kids Insurance",
+                phone: [
+                    ["North America", "+1 866-785-3167"],
+                    ["International & Collect", "+1 416-646-6618"],
+                ],
+                email: [["Email", "mshassistance@mshassistance.com"]],
+                website: [],
+                description:
+                    "Claims for Kids Insurance are administered by MSH INTERNATIONAL (CANADA) LTD, a Lloyd’s Approved Coverholder.",
+            },
+            {
+                name: "Income Protection",
+                phone: [["Toll-Free", "+1 (800) 387-4481"]],
+                email: [["Email", "ahclaimscan@aig.com"]],
+                website: [],
+                description:
+                    "Claims for Income Protection and Hospital Cash are administered by AIG.",
+            },
+            {
+                name: "Hospital Cash",
+                phone: [["Toll-Free", "+1 (800) 387-4481"]],
+                email: [["Email", "ahclaimscan@aig.com"]],
+                website: [],
+                description:
+                    "Claims for Income Protection and Hospital Cash are administered by AIG.",
+            },
+            {
+                name: "Travel Insurance",
+                phone: [
+                    ["North American Toll-Free", "+1 (800) 663-0399"],
+                    [
+                        "From Mexico",
+                        "+001 (800) 514-9976 and +001 (800) 681-8070",
+                    ],
+                    ["International & Collect", "+1 (604) 278-4108"],
+                    ["Outside North America", "+1 (800) 663 0399"],
+                ],
+                email: [["Email", "ahclaimscan@aig.com"]],
+                website: [],
+                description:
+                    "Claims for Travel Medical, Trip Cancellation and Interruption, Top-ups, and Baggage are administered by TuGo.",
+            },
+            {
+                name: "Covid-19 Insurance",
+                phone: [
+                    ["Within Canada and USA", "+1 (866) 785-3167"],
+                    ["International & Collect", "+1 (416) 646-6618"],
+                ],
+                email: [["Email", "mshassistance@mshassistance.com"]],
+                website: [],
+                description:
+                    "Claims for COVID-19 (Pandemic) Insurance are administered by MSH INTERNATIONAL (CANADA) LTD, a Lloyd’s Approved Coverholder.",
+            },
+        ],
+    },
+    [enUS]: {
+        claims: "Claims",
+        subtitle:
+            "Need to make a claim? Rest assured our partners are here to help. Check you coverage documentation in the SmartBunny App if you aren’t sure which partner to contact.",
+        products: [
+            {
+                name: "Life Insurance",
+                phone: [["Toll-Free", "+1 (800) 736-7311"]],
+                email: [["Email", "claims@americanamicable.com"]],
+                website: [],
+                description:
+                    "Claims for Life Insurance are administered by Occidental Life.",
+            },
+            {
+                name: "Travel Insurance",
+                phone: [
+                    ["North America", "+1 (866) 243-7524"],
+                    ["Outside North America", "+1 (317) 655-4500"],
+                ],
+                email: [["Email", "itravelclaims@itravelinsured.com"]],
+                website: [],
+                description:
+                    "Claims for Travel Medical Insurance are administered by IMG Group.",
+            },
+            {
+                name: "Renters Insurance",
+                phone: [["Phone", "+1 (844) 788-0873"]],
+                email: [],
+                website: [],
+                description:
+                    "Claims for Renters Insurance are administered by MSI.",
+            },
+            {
+                name: "Final Expenses",
+                phone: [["Phone", "+1 (800) 736-7311"]],
+                email: [["Email", "claims@americanamicable.com"]],
+                website: [],
+                description:
+                    "Claims for Final Expenses are administered by American Amicable.",
+            },
+            {
+                name: "Phone Insurance",
+                phone: [],
+                email: [],
+                website: [
+                    ["Website", "https://protect.likewize.com/smartbunny/"],
+                ],
+                description:
+                    "Claims for Phone Insurance are administered by Likewize.",
+            },
+        ],
+    },
+    [frCA]: {
+        claims: "Réclamations",
+        subtitle:
+            "Besoin de faire une réclamation? Soyez assuré(e) que nos partenaires sont là pour vous aider. Vérifiez votre documentation de couverture dans l'application Goose si vous n'êtes pas sûr(e) du partenaire à contacter.",
+        products: [
+            {
+                name: "Assurance vie temporaire",
+                phone: [
+                    ["Sans frais", "+1 (800) 668-4229"],
+                    ["Amérique du Nord", "+1 (416) 620-1140"],
+                ],
+                email: [["Courriel", "claims@teacherslife.com"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour l'assurance vie temporaire sont administrées par Teachers Life.",
+            },
+            {
+                name: "Assurance vie collective",
+                phone: [["Sans frais", "+1 (800) 266-5667"]],
+                email: [["Courriel", "sms-claims@ia.ca"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour l'assurance vie, l'assurance maladies graves et l'assurance décès accidentel et mutilation sont administrées par le Groupe Financier Industrielle Alliance.",
+            },
+            {
+                name: "D&D Accidentel",
+                phone: [["Sans frais", "+1 (800) 266-5667"]],
+                email: [["Courriel", "sms-claims@ia.ca"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour l'assurance vie, l'assurance maladies graves, l'assurance cancer et l'assurance décès accidentel et mutilation sont administrées par le Groupe Financier Industrielle Alliance.",
+            },
+            {
+                name: "Maladies Graves",
+                phone: [["Sans frais", "+1 (800) 266-5667"]],
+                email: [["Courriel", "sms-claims@ia.ca"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour l'assurance vie, l'assurance maladies graves, l'assurance cancer et l'assurance décès accidentel et mutilation sont administrées par le Groupe Financier Industrielle Alliance.",
+            },
+            {
+                name: "Assurance pour enfants",
+                phone: [
+                    ["Amérique du Nord", "+1 866-785-3167"],
+                    [
+                        "International et Appels à frais virés",
+                        "+1 416-646-6618",
+                    ],
+                ],
+                email: [["Courriel", "mshassistance@mshassistance.com"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour l'assurance pour enfants sont administrées par MSH INTERNATIONAL (CANADA) LTD, un mandataire agréé par Lloyd's.",
+            },
+            {
+                name: "Protection du revenu",
+                phone: [["Sans frais", "+1 (800) 387-4481"]],
+                email: [["Courriel", "ahclaimscan@aig.com"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour la protection du revenu et l'indemnité hospitalière sont administrées par AIG.",
+            },
+            {
+                name: "Indemnité Hospitalière",
+                phone: [["Sans frais", "+1 (800) 387-4481"]],
+                email: [["Courriel", "ahclaimscan@aig.com"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour la protection du revenu et l'indemnité hospitalière sont administrées par AIG.",
+            },
+            {
+                name: "Assurance voyage",
+                phone: [
+                    ["Sans frais en Amérique du Nord", "+1 (800) 663-0399"],
+                    [
+                        "Depuis le Mexique",
+                        "+001 (800) 514-9976 et +001 (800) 681-8070",
+                    ],
+                    [
+                        "International et Appels à frais virés",
+                        "+1 (604) 278-4108",
+                    ],
+                    ["Hors de l'Amérique du Nord", "+1 (800) 663 0399"],
+                ],
+                email: [["Courriel", "ahclaimscan@aig.com"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour l'assurance médicale de voyage, l'annulation et l'interruption de voyage, les suppléments et les bagages sont administrées par TuGo.",
+            },
+            {
+                name: "Assurance Covid-19",
+                phone: [
+                    ["Au Canada et aux États-Unis", "+1 (866) 785-3167"],
+                    [
+                        "International et Appels à frais virés",
+                        "+1 (416) 646-6618",
+                    ],
+                ],
+                email: [["Courriel", "mshassistance@mshassistance.com"]],
+                website: [],
+                description:
+                    "Les demandes d'indemnisation pour l'assurance Covid-19 (pandémique) sont administrées par MSH INTERNATIONAL (CANADA) LTD, un mandataire agréé par Lloyd's.",
+            },
+        ],
+    },
+};
+const s = strings[language];
+const baseUrl = `/${language}`;
+---
+
+<Layout title={s.claims} footerMargin={false}>
+    <ArtsaiPixelForNonProductPages />
+    <h1
+        class="w-full text-center p-6 text-4xl lg:text-5xl font-bold lg:tracking-tight text-night-sky"
+    >
+        {s.claims}
+    </h1>
+    <div
+        class="flex w-full justify-center text-base lg:text-blg lg:tracking-tight text-grey-text"
+    >
+        <h2
+            class="max-w-lg p-2 text-base lg:text-blg lg:tracking-tight text-grey-text"
+        >
+            {s.subtitle}
+        </h2>
+    </div>
+    <div class="h-24"></div>
+    <div class="w-full mx-auto"></div>
+    <div class="w-full justify-center">
+        <div class="grid divide-y px-2 divide-neutral-200 max-w-xl mx-auto">
+            {
+                s.products.map(
+                    ({ name, phone, email, website, description }) => (
+                        <div class="p-2 pr-0 border-t-2  ">
+                            <details class="group rounded p-5 border-none ">
+                                <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
+                                    <p class="text-xl text-grey-text">{name}</p>
+                                    <span class="transition group-open:rotate-180">
+                                        <ArrowIcon />
+                                    </span>
+                                </summary>
+                                <div class="h-6" />
+                                {phone.map(([phone, number]) => (
+                                    <div class="py-2">
+                                        <a href={`tel:${number}`} class="">
+                                            📞 &nbsp;
+                                            <span class="font-medium">
+                                                {phone}:
+                                            </span>
+                                            {number}
+                                        </a>{" "}
+                                        <br />
+                                    </div>
+                                ))}
+                                {email.map(([email, address]) => (
+                                    <div class="pt-2 pb-4">
+                                        <a href={`mailto:${address}`} class="">
+                                            ✉️ &nbsp;
+                                            <span class="font-medium">
+                                                {email}:
+                                            </span>
+                                            {address}
+                                        </a>{" "}
+                                        <br />
+                                    </div>
+                                ))}
+                                {website.map(([website, address]) => (
+                                    <div class="pt-2 pb-4">
+                                        <a
+                                            href={address}
+                                            class=""
+                                            target="_blank"
+                                        >
+                                            🌎
+                                            <span class="font-medium">
+                                                {website}:
+                                            </span>
+                                            <span class="text-goose-pink underline">
+                                                {address}
+                                            </span>
+                                        </a>{" "}
+                                        <br />
+                                    </div>
+                                ))}
+                                <p class="">{description}</p>
+                            </details>
+                        </div>
+                    ),
+                )
+            }
+        </div>
+    </div>
+    <div class="h-12"></div>
+</Layout>

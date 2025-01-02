@@ -1,0 +1,129 @@
+---
+import Apple from "@assets/App Store Download.png";
+import Google from "@assets/Play Store Download.png";
+import { Image } from "astro:assets";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import QRContainer from "@components/qr.astro";
+import { miscellaneousStrings } from "strings/miscellaneous";
+
+type Props = { QR: ImageMetadata; downloadLink: string };
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+  [enCA]: {
+    protect: "Protect your flock",
+    getGoose: "Download the Goose app today and cover your tail feathers.",
+    downloadAppStore: "Download the app in the Apple AppStore.",
+    downloadPlayStore: "Download the app in the Google PlayStore.",
+    qr: "QR code to download the app.",
+  },
+  [enUS]: {
+    protect: "Protect your herd",
+    getGoose: "Download the SmartBunny app today and cover your tracks.",
+    downloadAppStore: "Download the app in the Apple AppStore.",
+    downloadPlayStore: "Download the app in the Google PlayStore.",
+    qr: "QR code to download the app.",
+  },
+  [frCA]: {
+    protect: "Protégez votre troupeau.",
+    getGoose:
+      "Téléchargez l'application Goose aujourd'hui et protégez vos plumes d'arrière.",
+    downloadAppStore: "Téléchargez l'application sur l'App Store d'Apple.",
+    downloadPlayStore: "Téléchargez l'application sur le Google Play Store.",
+    qr: "Code QR pour télécharger l'application.",
+  },
+}[language];
+
+const { QR, downloadLink } = Astro.props;
+---
+
+<div class="flex bg-pale-turquoise p-8 md:px-20 md:py-20 lg:justify-center">
+  <div class="flex lg:max-w-8xl lg:justify-around lg:gap-20 flex-row">
+    <div class="flex flex-col gap-y-2">
+      <p
+        class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-deep-turquoise"
+      >
+        {s.protect}
+      </p>
+      <p class="text-xl text-grey-text">{s.getGoose}</p>
+      <div class="flex flex-col">
+        <div class="h-[2rem]"></div>
+        <div class="flex lg:hidden">
+          <a
+            href={downloadLink}
+            target="_blank"
+            class="flex items-center justify-center"
+            rel="noopener"
+          >
+            <div
+              class="px-6 py-4 text-white font-medium rounded-lg bg-goose-pink"
+            >
+              <p>{miscellaneousStrings[language].downloadTheApp}</p>
+            </div>
+          </a>
+        </div>
+        <div class="h-[1rem]"></div>
+        <div class="flex lg:hidden flex-row -ml-[2px]">
+          <a
+            class="flex justify-center items-center"
+            href={downloadLink}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <Image
+              src={Apple}
+              alt={s.downloadAppStore}
+              height={Apple.height / 3}
+              densities={[2]}
+            />
+          </a>
+          <a
+            class="flex justify-center items-center"
+            href={downloadLink}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <Image
+              src={Google}
+              alt={s.downloadPlayStore}
+              height={Google.height / 3}
+              densities={[2]}
+            />
+          </a>
+        </div>
+        <div class="hidden lg:flex flex-row -ml-[2px]">
+          <a
+            class="flex justify-center items-center"
+            href={language === enUS ? "https://apps.apple.com/us/app/smartbunny-insurance/id6481658298" : "https://apps.apple.com/ca/app/goose-insurance/id1382976076"}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <Image
+              src={Apple}
+              alt={s.downloadAppStore}
+              height={Apple.height / 3}
+              densities={[2]}
+            />
+          </a>
+          <a
+            class="flex justify-center items-center"
+            href={language === enUS ? "https://play.google.com/store/apps/details?id=com.smartbunny&hl=en_US" : "https://play.google.com/store/search?q=goose%20insurance&c=apps&hl=en_CA"}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <Image
+              src={Google}
+              alt={s.downloadPlayStore}
+              height={Google.height / 3}
+              densities={[2]}
+            />
+          </a>
+        </div>
+        <div class="h-[2rem]"></div>
+      </div>
+    </div>
+    <div class="hidden lg:block">
+      <QRContainer qrCode={QR} />
+    </div>
+  </div>
+</div>

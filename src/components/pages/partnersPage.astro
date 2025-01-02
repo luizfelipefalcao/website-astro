@@ -1,0 +1,480 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import { Image } from "astro:assets";
+// Insurance Partners
+import AIG from "@assets/partners/AIG.png";
+import AmericanAmicable from "@assets/partners/American Amicable.png";
+import IA from "@assets/partners/iA.png";
+import IMG from "@assets/partners/IMG.png";
+import MSH from "@assets/partners/MSH.png";
+import TuGo from "@assets/partners/tugo.png";
+import Lloyds from "@assets/partners/Lloyds.png";
+import TL from "@assets/partners/Teachers Life.png";
+import Likewize from "@assets/partners/Likewize.png";
+import Array from "@assets/partners/Array.png";
+import Sutton from "@assets/partners/Sutton National.png";
+// Investors
+import Impression from "@assets/partners/Impression Ventures.png";
+import Manchester from "@assets/partners/Manchester Story.png";
+import Real from "@assets/partners/Real Ventures.png";
+import Axis from "@assets/partners/Axis Ventures.png";
+import IHeart from "@assets/partners/iHeart Media.png";
+import { enUS, enCA, frCA, getLangFromUrl } from "strings/routing";
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+    [enCA]: {
+        partners: "Insurance Partners",
+        partnersSubtitle:
+            "We partner with the best! Goose Insurance coverages are offered to you in partnership with these best of class insurance partners.",
+        investors: "Goose is funded and backed by the best!",
+        investorsSubtitle:
+            "We are humbled and proud to have raised funding from these amazing partners.",
+        AIGInsurance:
+            "AIG Canada has provided insurance solutions for over 50 years and is federally licensed to operate in all provinces and territories in Canada. AIG Canada underwrites our Hospital Cash and Income Protection coverages.",
+        AIGLink: "https://www.aig.ca/home",
+        AmericanAmicable:
+            "Tracing its roots back to 1910, American-Amicable Life Insurance Company of Texas is a progressive special markets insurer. We have proudly partnered with them to offer Term Life Insurance and Final Expense coverage.",
+        iaFinancial:
+            "Goose Insurance Group Life, Accidental Death and Dismemberment and Critical Illness coverages are underwritten by Industrial Alliance Insurance and Financial Services Inc (iA Financial Group). Founded in 1892, iA Financial Group is one of Canada's largest insurance and wealth groups.",
+        IALink: "https://ia.ca/individuals",
+        IMGInternational:
+            "IMG offers a full line of international medical insurance, trip cancellation and stop loss programs, as well as 24/7 emergency medical and travel assistance to meet the needs of anyone traveling or residing away from home.",
+        IMGLink: "https://www.imglobal.com/",
+        MSH: "A global leader in international health and life insurance solutions, MSH underwrites our Kids Insurance and COVID-19 insurance products.",
+        MSHLink: "https://www.msh-intl.com/en/",
+        TuGo: "Goose Insurance's Travel Medical Insurance policies are underwritten by TuGo Travel Insurance Canada. TuGo is Canadian-owned and operated for over 60 years and specializes in products & services that support travellers' health, wellness, and safety across the globe.",
+        TugoLink: "https://www.tugo.com/",
+        lloyds: "Goose Insurance's Visitors to Canada Insurance policies are underwritten by Lloyd’s of London. Lloyd’s is the world’s leading insurance and reinsurance marketplace for commercial, corporate and specialty risk solutions.",
+        lloydsLink: "https://www.lloyds.com/",
+        teachersLife:
+            "We take pride that our Term Life Policy is underwritten by Teachers Life, North America's largest educator-owned fraternal insurer, and reinsured by Gen Re, protecting lives and properties since 1929.",
+        teachersLifeLink: "https://teacherslife.com/",
+        Likewize:
+            "Likewize offers the most comprehensive protection against any technology disruption. Likewize underwrites our device protection product.",
+        LikewizeLink: "https://protect.likewize.com/mobileprotection/",
+        Array: "Helping consumers own their financial future, protect their identity, and maintain digital privacy, Array underwrites our identity protection product.",
+        suttonNational:
+            "Sutton National underwrites our renters insurance product.",
+        suttonLink: "https://www.suttonnational.com/",
+        arrayLink: "https://array.com/products/identity-protect",
+        viewWebsite: "View Website",
+        impressionVentures:
+            "Impression Ventures is a venture capital firm with committed capital sourced from some of Canada’s leading financial institutions, entrepreneurs, and financial services executives. ",
+        manchesterStory:
+            "ManchesterStory is an investment firm working side-by-side with each portfolio company to advance the healthcare, insurance and financial service sectors.",
+        realVentures:
+            "Canada’s leading early-stage VC firm dedicated to serving entrepreneurs and nurturing the communities in which they thrive.",
+        realVenturesLink: "https://realventures.com/",
+        axisVentures:
+            "Axis Insurance was formed in 2010 through an amalgamation of several BC based insurance brokerages with roots tracing to 1928. And has made a mark in the commercial lines of insurance across Canada.",
+        iHeartMedia:
+            "With over 860 live broadcast stations in 160 markets across America, there’s a local iHeartRadio station virtually everywhere.",
+    },
+    [enUS]: {
+        partners: "Insurance Partners",
+        partnersSubtitle:
+            "We partner with the best! SmartBunny Insurance coverages are offered to you in partnership with these top-class insurance partners.",
+        investors: "SmartBunny is funded and backed by the best!",
+        investorsSubtitle:
+            "We are humbled and proud to have raised funding from these amazing partners.",
+        AIGInsurance:
+            "AIG Canada has provided insurance solutions for over 50 years and is federally licensed to operate in all provinces and territories in Canada. AIG Canada underwrites our Hospital Cash and Income Protection coverages.",
+        AIGLink: "https://www.aig.com",
+        AmericanAmicable:
+            "Tracing its roots back to 1910, American-Amicable Life Insurance Company of Texas is a progressive special markets insurer. We have proudly partnered with them to offer Term Life Insurance and Final Expense coverage.",
+        iaFinancial:
+            "SmartBunny Insurance Group Life, Accidental Death and Dismemberment and Critical Illness coverages are underwritten by Industrial Alliance Insurance and Financial Services Inc (iA Financial Group). Founded in 1892, iA Financial Group is one of Canada's largest insurance and wealth groups.",
+        IALink: "https://ia.ca/",
+        IMGInternational:
+            "IMG offers a full line of international medical insurance, trip cancellation and stop loss programs, as well as 24/7 emergency medical and travel assistance to meet the needs of anyone traveling or residing away from home.",
+        IMGLink: "https://www.imglobal.com/",
+        MSH: "A global leader in international health and life insurance solutions, MSH underwrites our Kids Insurance and COVID-19 insurance products.",
+        MSHLink: "https://www.msh-intl.com/en/",
+        TuGo: "SmartBunny Insurance's Travel Medical Insurance policies are underwritten by TuGo Travel Insurance Canada. TuGo is Canadian-owned and operated for over 60 years and specializes in products & services that support travellers' health, wellness, and safety across the globe.",
+        TugoLink: "https://www.tugo.com/",
+        lloyds: "SmartBunny Insurance's Visitors to Canada Insurance policies are underwritten by Lloyd’s of London. Lloyd’s is the world’s leading insurance and reinsurance marketplace for commercial, corporate and specialty risk solutions.",
+        lloydsLink: "https://www.lloyds.com/",
+        teachersLife:
+            "We take pride that our Term Life Policy is underwritten by Teachers Life, North America's largest educator-owned fraternal insurer, and reinsured by Gen Re, protecting lives and properties since 1929.",
+        teachersLifeLink: "https://teacherslife.com/",
+        Likewize:
+            "Likewize offers the most comprehensive protection against any technology disruption. Likewize underwrites our device protection product.",
+        LikewizeLink: "https://protect.likewize.com/mobileprotection/",
+        Array: "Helping consumers own their financial future, protect their identity, and maintain digital privacy, Array underwrites our identity protection product.",
+        suttonNational:
+            "Sutton National underwrites our renters insurance product.",
+        suttonLink: "https://www.suttonnational.com/",
+        arrayLink: "https://array.com/products/identity-protect",
+        viewWebsite: "View Website",
+        impressionVentures:
+            "Impression Ventures is a venture capital firm with committed capital sourced from some of Canada’s leading financial institutions, entrepreneurs, and financial services executives. ",
+        manchesterStory:
+            "ManchesterStory is an investment firm working side-by-side with each portfolio company to advance the healthcare, insurance and financial service sectors.",
+        realVentures:
+            "Canada’s leading early-stage VC firm dedicated to serving entrepreneurs and nurturing the communities in which they thrive.",
+        realVenturesLink: "https://realventures.com/",
+        axisVentures:
+            "Axis Insurance was formed in 2010 through an amalgamation of several BC based insurance brokerages with roots tracing to 1928. And has made a mark in the commercial lines of insurance across Canada.",
+        iHeartMedia:
+            "With over 860 live broadcast stations in 160 markets across America, there’s a local iHeartRadio station virtually everywhere.",
+    },
+    [frCA]: {
+        partners: "Nos Partenaire",
+        partnersSubtitle:
+            "Nous nous associons aux meilleurs! Les couvertures d'assurance Goose vous sont offertes en partenariat avec ces meilleurs partenaires d'assurance de classe.",
+        investors: "Goose est financé et soutenu par les meilleurs!",
+        investorsSubtitle:
+            "Nous sommes honorés et fiers d'avoir obtenu des financements de ces partenaires exceptionnels.",
+        AIGInsurance:
+            "AIG Canada offre des solutions d'assurance depuis plus de 50 ans et est licenciée au niveau fédéral pour opérer dans toutes les provinces et territoires du Canada. AIG Canada assure nos couvertures Hospital Cash et Income Protection.",
+        AIGLink: "https://www.aig.ca/fr/accueil",
+        AmericanAmicable:
+            "Remontant à ses origines en 1910, la société d'assurance-vie American-Amicable du Texas est un assureur progressiste spécialisé dans les marchés spéciaux. Nous sommes fiers de nous être associés à eux pour offrir une assurance vie temporaire et une couverture d'obsèques.",
+        iaFinancial:
+            "Les couvertures d'assurance vie de groupe, de décès accidentel et de mutilation accidentelle, ainsi que d'invalidité grave de Goose Insurance, sont souscrites par Industrielle Alliance Assurance et services financiers Inc (Groupe iA Financière). Fondé en 1892, le Groupe iA Financière est l'un des plus grands groupes d'assurance et de patrimoine au Canada.",
+        IALink: "https://ia.ca/individuals",
+        IMGInternational:
+            "IMG propose une gamme complète d'assurances médicales internationales, d'annulation de voyage et de programmes de protection financière, ainsi qu'une assistance médicale d'urgence et voyage disponible 24/7 pour répondre aux besoins de tous ceux qui voyagent ou résident loin de chez eux.",
+        IMGLink: "https://www.imglobal.com/",
+        MSH: "Leader mondial en solutions d'assurance santé et vie internationales, MSH souscrit nos produits d'assurance pour enfants et d'assurance COVID-19.",
+        MSHLink: "https://www.msh-intl.com/fr/",
+        TuGo: "Les polices d'assurance médicale de voyage de Goose Insurance sont souscrites par TuGo Travel Insurance Canada. TuGo, une entreprise canadienne en activité depuis plus de 60 ans, se spécialise dans des produits et services qui favorisent la santé, le bien-être et la sécurité des voyageurs à travers le monde.",
+        TugoLink: "https://www.tugo.com/fr",
+        lloyds: "Les polices d'assurance pour les visiteurs au Canada de Goose Insurance sont souscrites par Lloyd's de Londres. Lloyd's est le marché mondial leader de l'assurance et de la réassurance, offrant des solutions pour les risques commerciaux, corporatifs et spécialisés.",
+        lloydsLink: "https://www.lloyds.com/",
+        teachersLife:
+            "Nous sommes fiers que notre police d'assurance vie temporaire soit souscrite par Teachers Life, le plus grand assureur fraternel détenu par des éducateurs en Amérique du Nord, et réassurée par Gen Re, protégeant des vies et des biens depuis 1929.",
+        teachersLifeLink: "https://teacherslife.com/",
+        Likewize:
+            "Likewize offre la protection la plus complète contre toute perturbation technologique. Likewize souscrit notre produit de protection des appareils.",
+        LikewizeLink: "https://protect.likewize.com/mobileprotection/fr-CA/",
+        Array: "Aidant les consommateurs à prendre en main leur avenir financier, à protéger leur identité et à préserver leur vie privée numérique, Array souscrit notre produit de protection d'identité.",
+        suttonNational:
+            "Sutton National souscrit notre produit d'assurance locataire.",
+        suttonLink: "https://www.suttonnational.com/",
+        arrayLink: "https://array.com/products/identity-protect",
+        viewWebsite: "Voir le site web",
+        impressionVentures:
+            "Impression Ventures est une société de capital-risque disposant de fonds engagés provenant de certaines des principales institutions financières, entrepreneurs et dirigeants de services financiers du Canada.",
+        manchesterStory:
+            "ManchesterStory est une société d'investissement travaillant en étroite collaboration avec chaque entreprise de son portefeuille pour faire progresser les secteurs des soins de santé, de l'assurance et des services financiers.",
+        realVentures:
+            "Première société canadienne de capital-risque axée sur les premiers stades de développement, dédiée à soutenir les entrepreneurs et à favoriser l'épanouissement des communautés.",
+        realVenturesLink: "https://realventures.com/?lang=fr",
+        axisVentures:
+            "Axis Insurance a été formée en 2010 par la fusion de plusieurs courtiers d'assurance basés en Colombie-Britannique dont les origines remontent à 1928. Et a marqué son empreinte dans les lignes commerciales d'assurance à travers le Canada.",
+        iHeartMedia:
+            "Avec plus de 860 stations de diffusion en direct dans 160 marchés à travers l'Amérique, il y a pratiquement une station locale iHeartRadio partout.",
+    },
+}[language];
+
+const partners = {
+    [enCA]: [
+        {
+            name: "AIG Insurance",
+            description: s.AIGInsurance,
+            source: AIG,
+            link: s.AIGLink,
+        },
+        {
+            name: "American-Amicable Group",
+            description: s.AmericanAmicable,
+            source: AmericanAmicable,
+            link: "https://www.americanamicable.com/v3/",
+        },
+        {
+            name: "iA Financial Group",
+            description: s.iaFinancial,
+            source: IA,
+            link: s.IALink,
+        },
+        {
+            name: "IMG International",
+            description: s.IMGInternational,
+            source: IMG,
+            link: s.IMGLink,
+        },
+        {
+            name: "MSH Group",
+            description: s.MSH,
+            source: MSH,
+            link: s.MSHLink,
+        },
+        {
+            name: "TuGo",
+            description: s.TuGo,
+            source: TuGo,
+            link: s.TugoLink,
+        },
+        {
+            name: "Lloyd’s of London",
+            description: s.lloyds,
+            source: Lloyds,
+            link: s.lloydsLink,
+        },
+        {
+            name: "Teacher’s Life",
+            description: s.teachersLife,
+            source: TL,
+            link: s.teachersLifeLink,
+        },
+        {
+            name: "Likewize",
+            description: s["Likewize"],
+            source: Likewize,
+            link: s.LikewizeLink,
+        },
+        // {
+        //     name: "Array",
+        //     description: s["Array"],
+        //     source: Array,
+        //     link: s.arrayLink,
+        // },
+        {
+            name: "Sutton National",
+            description: s.suttonNational,
+            source: Sutton,
+            link: s.suttonLink,
+        },
+    ],
+    [enUS]: [
+        {
+            name: "American-Amicable Group",
+            description: s.AmericanAmicable,
+            source: AmericanAmicable,
+            link: "https://www.americanamicable.com/v3/",
+        },
+        {
+            name: "IMG International",
+            description: s.IMGInternational,
+            source: IMG,
+            link: s.IMGLink,
+        },
+        {
+            name: "MSH Group",
+            description: s.MSH,
+            source: MSH,
+            link: s.MSHLink,
+        },
+        {
+            name: "Teacher’s Life",
+            description: s.teachersLife,
+            source: TL,
+            link: s.teachersLifeLink,
+        },
+        {
+            name: "Likewize",
+            description: s["Likewize"],
+            source: Likewize,
+            link: s.LikewizeLink,
+        },
+        // {
+        //     name: "Array",
+        //     description: s["Array"],
+        //     source: Array,
+        //     link: s.arrayLink,
+        // },
+        {
+            name: "Sutton National",
+            description: s.suttonNational,
+            source: Sutton,
+            link: s.suttonLink,
+        },
+    ],
+    [frCA]: [
+        {
+            name: "AIG Insurance",
+            description: s.AIGInsurance,
+            source: AIG,
+            link: s.AIGLink,
+        },
+        {
+            name: "American-Amicable Group",
+            description: s.AmericanAmicable,
+            source: AmericanAmicable,
+            link: "https://www.americanamicable.com/v3/",
+        },
+        {
+            name: "iA Financial Group",
+            description: s.iaFinancial,
+            source: IA,
+            link: s.IALink,
+        },
+        {
+            name: "IMG International",
+            description: s.IMGInternational,
+            source: IMG,
+            link: s.IMGLink,
+        },
+        {
+            name: "MSH Group",
+            description: s.MSH,
+            source: MSH,
+            link: s.MSHLink,
+        },
+        {
+            name: "TuGo",
+            description: s.TuGo,
+            source: TuGo,
+            link: s.TugoLink,
+        },
+        {
+            name: "Lloyd’s of London",
+            description: s.lloyds,
+            source: Lloyds,
+            link: s.lloydsLink,
+        },
+        {
+            name: "Teacher’s Life",
+            description: s.teachersLife,
+            source: TL,
+            link: s.teachersLifeLink,
+        },
+        {
+            name: "Likewize",
+            description: s["Likewize"],
+            source: Likewize,
+            link: s.LikewizeLink,
+        },
+        // {
+        //     name: "Array",
+        //     description: s["Array"],
+        //     source: Array,
+        //     link: s.arrayLink,
+        // },
+        {
+            name: "Sutton National",
+            description: s.suttonNational,
+            source: Sutton,
+            link: s.suttonLink,
+        },
+    ],
+}[language];
+
+const investors = [
+    {
+        name: "Impression Ventures",
+        description: s.impressionVentures,
+        source: Impression,
+        link: "https://venbridge.com/venture_capital/impression-ventures/",
+    },
+    {
+        name: "Manchester Story",
+        description: s.manchesterStory,
+        source: Manchester,
+        link: "https://www.manchesterstory.com/",
+    },
+    {
+        name: "Real Ventures",
+        description: s.realVentures,
+        source: Real,
+        link: s.realVenturesLink,
+    },
+    {
+        name: "Axis Ventures",
+        description: s.axisVentures,
+        source: Axis,
+        link: "https://www.axiscapital.com/",
+    },
+    {
+        name: "iHeart Media",
+        description: s.iHeartMedia,
+        source: IHeart,
+        link: "https://www.iheartmedia.com/",
+    },
+];
+---
+<Layout title={s.partners}>
+    <ArtsaiPixelForNonProductPages />
+    <Sectionhead>
+        <Fragment slot="title">{s.partners}</Fragment>
+        <Fragment slot="desc">{s.partnersSubtitle}</Fragment>
+    </Sectionhead>
+
+    <div class="flex w-full justify-center">
+        <div
+            class="grid md:grid-cols-2 lg:grid-cols-3 my-24 gap-x-10 gap-y-24 max-w-4xl px-4 2xsm:px-8"
+        >
+            {
+                partners.map((item) => (
+                    <div class="rounded-2xl relative flex items-center flex-col p-6 group bg-white transition ring-2 ring-slate-200/50 shadow hover:ring-slate-200 hover:shadow-md">
+                        <div class="ring-2 ring-slate-200/50 w-16 h-16 group-hover:ring-slate-200 transition shadow shadow-slate-100 rounded-lg grid place-items-center -mt-16 bg-white">
+                            <Image
+                                src={item.source}
+                                alt=""
+                                class="rounded-lg"
+                            />
+                        </div>
+
+                        <h3 class="text-xl lg:text-2xl font-medium mt-4">
+                            {item.name}
+                        </h3>
+                        <p class="text-grey-text mt-2 text-center [text-wrap:balance]">
+                            {item.description}
+                        </p>
+
+                        <div class="flex mt-3 items-end h-full">
+                            <a
+                                href={item.link}
+                                target="_blank"
+                                class="text-sm px-3 py-[6px]  transition  text-dark-turquoise hover:text-deep-turquoise hover:bg-pale-turquoise 
+                focus-visible:ring-2 focus-visible:ring-offset-2
+                focus-visible:outline-none focus-visible:shadow-outline-deep-turquoise rounded-full"
+                            >
+                                {s.viewWebsite}
+                            </a>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+    <div class="h-2"></div>
+    <Container>
+        <Sectionhead>
+            <Fragment slot="title">{s.investors}</Fragment>
+            <Fragment slot="desc">{s.investorsSubtitle}</Fragment>
+        </Sectionhead>
+
+        <div
+            class="grid md:grid-cols-2 lg:grid-cols-3 my-24 gap-x-10 gap-y-24 px-4 2xsm:px-8"
+        >
+            {
+                investors.map((item) => (
+                    <div class="rounded-2xl relative flex items-center flex-col p-6 group bg-white transition ring-2 ring-slate-200/50 shadow hover:ring-slate-200 hover:shadow-md">
+                        <div class="ring-2 ring-slate-200/50 w-16 h-16 group-hover:ring-slate-200 transition shadow shadow-slate-100 rounded-lg grid place-items-center -mt-16 bg-white">
+                            <Image
+                                src={item.source}
+                                alt=""
+                                class="rounded-lg"
+                            />
+                        </div>
+
+                        <h3 class="text-xl lg:text-2xl font-medium mt-4">
+                            {item.name}
+                        </h3>
+                        <p class="text-grey-text mt-2 text-center [text-wrap:balance]">
+                            {item.description}
+                        </p>
+
+                        <div class="mt-3">
+                            <a
+                                href={item.link}
+                                target="_blank"
+                                class="text-sm px-3 py-[6px]  transition  text-dark-turquoise hover:text-deep-turquoise hover:bg-pale-turquoise 
+                focus-visible:ring-2 focus-visible:ring-offset-2
+                focus-visible:outline-none focus-visible:shadow-outline-deep-turquoise rounded-full"
+                            >
+                                {s.viewWebsite}
+                            </a>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </Container>
+</Layout>

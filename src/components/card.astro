@@ -1,0 +1,50 @@
+---
+import Badge from "@components/ui/badge.astro";
+const {
+  color = "DEFAULT",
+  size = "md",
+  class: className,
+  path = "",
+} = Astro.props;
+
+const colors = {
+  DEFAULT: "bg-gray-50",
+  indigo: "bg-indigo-50",
+  purple: "bg-purple-50",
+};
+---
+
+<div
+  class:list={[
+    "rounded-2xl p-8 bg-gray-50 transition-all ring-1 ring-gray-200/50 shadow hover:shadow-lg",
+    className,
+  ]}
+>
+  <a href={path} class="">
+    <div
+      class:list={[
+        "overflow-hidden bg-white rounded-lg flex items-start justify-center h-auto relative",
+        size === "sm" ? "lg:h-60" : "lg:h-80",
+      ]}
+    >
+      <slot name="image" />
+    </div>
+    <div class="mt-2">
+      {
+        Astro.slots.has("badge") && (
+          <Badge color={color}>
+            <slot name="badge" />
+          </Badge>
+        )
+      }
+      <div class="h-[1rem]"></div>
+      <h3 class="text-xl lg:text-2xl font-medium mt-2">
+        <slot name="title" />
+      </h3>
+      <div class="h-[0.5rem]"></div>
+      <p class="text-grey-text [text-wrap:balance]">
+        <slot name="desc" />
+      </p>
+    </div>
+  </a>
+</div>

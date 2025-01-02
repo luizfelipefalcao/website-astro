@@ -1,0 +1,302 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import GoldenGoose from "@assets/affiliate/goose.png";
+import HowItWorks from "@assets/affiliate/howItWorks.png";
+import GreenPlant from "@assets/affiliate/greenPlant.png";
+import FlyingGeese from "@assets/affiliate/flyingGeese.png";
+import Lifesyle from "@assets/affiliate/Qualify - Lifestyle.svg";
+import Finance from "@assets/affiliate/Qualify - Finance.svg";
+import Insurance from "@assets/affiliate/Qualify - Insurance.svg";
+import Travel from "@assets/affiliate/Qualify - Travel.svg";
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+
+const language = getLangFromUrl(Astro.url);
+
+const s = {
+    [enCA]: {
+        title: "Affiliate Program 🕊️",
+        goldenEgg: "Your golden egg to earn cash rewards.",
+        quickAndEasy:
+            "The affiliate program is a quick and easy way for you to earn money by referring your followers, website visitors, or customers to the Goose Insurance mobile app.",
+        applyNow: "Apply Now",
+        affiliateUrl: "https://forms.gle/RXrWaeDoQ1Rsa28r6",
+        howItWorks: "How It Works",
+        flapYourWings:
+            "1. Flap Your Wings and apply to be a Goose Affiliate for FREE.",
+        UseYourReferralLink:
+            "2. Use your referral link provided by Goose to honk at your readers, followers, customers, or subscribers about Goose Insurance.",
+        EarnReferralFee:
+            "3. Earn a marketing referral fee of up to $150* for each new member you refer who buys a policy for the first time.",
+        feeVaries:
+            "* The referral fee varies based on the type of policy that the referred user purchases for the first time.",
+        maxOfOne:
+            "** A maximum of one (1) referral fee for each new member you refer who buys a policy for the first time.",
+        whyPartner: "Why partner with Goose?",
+        didYouKnow:
+            "Did you know geese are known for their strong loyalty, particularly within their own flock? That’s why at Goose Insurance, we want to ensure that your partnership with us will be worthwhile and rewarding for you!",
+        transparentCreativeGiving: [
+            [
+                "Transparent reporting –",
+                "We provide reports that are straightforward and up-to-date.",
+            ],
+            [
+                "Creative Assistance –",
+                "Not sure how to incorporate us into your content? Don’t worry, we’ll be happy to help with brainstorming ideas and generating creative content!",
+            ],
+            [
+                "Give back to your followers –",
+                "Not only will you be generating a big stack of cash every month, but you’ll also be helping your followers secure their finances!",
+            ],
+        ],
+        howDoIGetPaid: "How do I get paid?",
+        weWillShareActivityReport:
+            "We will share an activity report with you at the end of each calendar month. This report will include:",
+        activityReport: [
+            "The number of new members sign up;",
+            "The number of policies sold; and",
+            "The amount you’ve earned.",
+            "Then, just send us an invoice for your earnings, and we’ll mail you a cheque.",
+        ],
+        whoQualifies: "Who qualifies to be a Goose Affiliate?",
+        toQualify:
+            "To qualify as a Goose Affiliate partner, you need to have a network focused on insurance-related interests. In addition, your content or social presence must relate to one of the following:",
+        qualifyingGenres: [
+            [Lifesyle, "Lifestyle"],
+            [Finance, "Finance"],
+            [Insurance, "Insurance"],
+            [Travel, "Travel"],
+        ] as Array<[ImageMetadata, string]>,
+    },
+    [frCA]: {},
+    [enUS]: {},
+}[language];
+---
+
+<Layout title={s.title} footerMargin={false}>
+    <ArtsaiPixelForNonProductPages />
+    <div
+        class="flex flex-col items-center lg:flex-row lg:justify-center w-full px-[1.5rem] pt-[4rem]"
+    >
+        <div class="block">
+            <Image
+                class="rounded-xl lg:-mb-[100px]"
+                src={GoldenGoose}
+                height={GoldenGoose.height / 2}
+                densities={[1.5, 2]}
+                alt=""
+            />
+        </div>
+        <div class="flex flex-col max-w-[540px] lg:pl-[100px] py-14 lg:py-0">
+            <p
+                class="text-[3rem] leading-[3.25rem] font-semibold text-night-sky"
+            >
+                {s.goldenEgg}
+            </p>
+            <div class="h-[1.5rem]"></div>
+            <p class="text-grey-text">{s.quickAndEasy}</p>
+            <div class="h-[1.5rem]"></div>
+            <div class="flex">
+                <a
+                    id="track-conversion"
+                    href={s.affiliateUrl}
+                    target="_blank"
+                    class="px-[2rem] py-[0.75rem] bg-goose-pink text-white text-[1.5rem] rounded-[0.5rem] font-medium"
+                >
+                    {s.applyNow}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div
+        class="flex flex-col items-center lg:flex-row lg:justify-around w-full bg-pale-turquoise p-[1.5rem] pt-[3rem]"
+    >
+        <div class="flex flex-col max-w-[575px]">
+            <p
+                class="text-[3rem] leading-[3rem] text-deep-turquoise font-semibold"
+            >
+                {s.howItWorks}
+            </p>
+            <div class="h-[2rem]"></div>
+            <ol>
+                <li
+                    class="leading-7 text-grey-text text-[1.18rem] -tracking-[0.12]"
+                >
+                    {s.flapYourWings}
+                </li>
+                <div class="h-[1.5rem]"></div>
+                <li
+                    class="leading-7 text-grey-text text-[1.18rem] -tracking-[0.12]"
+                >
+                    {s.UseYourReferralLink}
+                </li>
+                <div class="h-[1.5rem]"></div>
+                <li
+                    class="leading-7 text-grey-text text-[1.18rem] -tracking-[0.12]"
+                >
+                    {s.EarnReferralFee}
+                </li>
+            </ol>
+            <div class="flex pt-[2rem]">
+                <a
+                    id="track-conversion"
+                    href={s.affiliateUrl}
+                    target="_blank"
+                    class="px-[2rem] py-[0.75rem] bg-goose-pink text-white text-[1.5rem] rounded-[0.5rem] font-medium"
+                >
+                    {s.applyNow}
+                </a>
+            </div>
+            <div class="h-[2rem]"></div>
+            <p class="text-grey-text text-[0.68rem]">{s.feeVaries}</p>
+            <p class="text-grey-text text-[0.68rem]">{s.maxOfOne}</p>
+        </div>
+        <div class="">
+            <Image
+                class="py-[10rem]"
+                src={HowItWorks}
+                alt=""
+                width={500}
+                densities={[1.5, 2]}
+            />
+            <div class="h-[200px] lg:hidden"></div>
+        </div>
+    </div>
+    <div
+        class="flex flex-col items-center w-full bg-pale-yellow py-[5rem] lg:pt-[17rem]"
+    >
+        <div class="-mt-[342px]">
+            <Image src={FlyingGeese} alt="" width={400} densities={[1.5, 2]} />
+        </div>
+        <div
+            class="flex flex-col lg:flex-row lg:justify-around w-full bg-pale-yellow px-[1.5rem] py-[5rem] lg:p-[5rem] gap-[5rem]"
+        >
+            <div class="flex flex-col leading-none">
+                <p class="text-[3rem] font-semibold text-deep-yellow">
+                    {s.whyPartner}
+                </p>
+                <div class="h-[2rem]"></div>
+                <p
+                    class="text-grey-text text-[1.18] leading-7 -tracking-[0.02]"
+                >
+                    {s.didYouKnow}
+                </p>
+            </div>
+            <div>
+                <ul class="space-y-[1.5rem]">
+                    {
+                        s.transparentCreativeGiving &&
+                            s.transparentCreativeGiving.map(([title, body]) => (
+                                <li class="text-[1.18rem] text-grey-text">
+                                    <span class="text-deep-yellow font-medium -ml-3">
+                                        • {title}
+                                    </span>
+                                    {body}
+                                </li>
+                            ))
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div
+        class="flex flex-col items-center lg:flex-row lg:justify-around w-full bg-pale-pink p-[1.5rem] lg:p-[5rem] gap-[5rem]"
+    >
+        <div class="block">
+            <Image
+                class="-mb-[6rem] pb-[100px] pt-24 lg:py-0"
+                src={GreenPlant}
+                alt=""
+                height={463}
+                densities={[1.5, 2]}
+            />
+        </div>
+        <div class="pb-24 lg:pb-0">
+            <p
+                class="text-deep-pink text-[3rem] font-semibold leading-[3.25rem] -tracking-[0.06]"
+            >
+                {s.howDoIGetPaid}
+            </p>
+            <div class="h-[2rem]"></div>
+            <p class="text-grey-text text-[1.18rem] leading-7 -tracking-[0.01]">
+                {s.weWillShareActivityReport}
+            </p>
+            <div class="h-[2rem]"></div>
+            <ul class="space-y-4">
+                {
+                    s.activityReport &&
+                        s.activityReport.map((section) => (
+                            <p class="text-grey-text text-[1.18rem] leading-7 -tracking-[0.01]">
+                                • {section}
+                            </p>
+                        ))
+                }
+            </ul>
+            <div class="flex pt-[2rem]">
+                <a
+                    id="track-conversion"
+                    href={s.affiliateUrl}
+                    target="_blank"
+                    class="px-[2rem] py-[0.75rem] bg-goose-pink text-white text-[1.5rem] rounded-[0.5rem] font-medium"
+                >
+                    {s.applyNow}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col items-center p-[1.5rem] py-[5rem]">
+        <p
+            class="text-night-sky text-center text-[3rem] font-semibold leading-[3.25rem] max-w-[600px]"
+        >
+            {s.whoQualifies}
+        </p>
+        <div class="h-[2rem]"></div>
+        <p
+            class="text-grey-text text-[1.18rem] leading-7 -tracking-[0.01] max-w-[600px]"
+        >
+            {s.toQualify}
+        </p>
+        <div class="h-[4.5rem]"></div>
+        <div class="flex flex-col lg:flex-row justify-center gap-[4rem]">
+            {
+                s.qualifyingGenres &&
+                    s.qualifyingGenres.map(([image, title]) => (
+                        <div class="flex flex-col justify-center items-center gap-[0.75rem]">
+                            <Image src={image} height={100} alt="" />
+                            <p class="text-grey-text text-[1.5rem] font-medium leading-[2rem] -tracking-[0.03rem]">
+                                {title}
+                            </p>
+                        </div>
+                    ))
+            }
+        </div>
+    </div>
+    <script is:inline>
+        document.addEventListener("astro:page-load", function () {
+            var button = document.getElementById("track-conversion");
+            button?.addEventListener("click", function () {
+                if (window.localStorage.getItem("cookie-consent")) {
+                    // Re-initialize
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        dataLayer.push(arguments);
+                    }
+                    gtag("js", new Date());
+                    gtag("config", "AW-788220788");
+                    // Report conversion.
+                    const url = window.location.href;
+                    var callback = function () {
+                        if (typeof url != "undefined") {
+                            window.location = url;
+                        }
+                    };
+                    gtag("event", "conversion", {
+                        send_to: "AW-788220788/-f1CCO6Cm7UBEPSW7fcC",
+                        event_callback: callback,
+                    });
+                }
+            });
+        });
+    </script>
+</Layout>

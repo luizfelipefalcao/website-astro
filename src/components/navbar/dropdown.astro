@@ -1,0 +1,86 @@
+---
+import { Dropdown as NavDropdown, DropdownItems } from "astro-navbar";
+import { Image } from "astro:assets";
+import { enUS, getLangFromUrl, routes, translateSlug } from "strings/routing";
+const { title, lastItem, children, grid, flag, contact, languages } =
+  Astro.props;
+const language = getLangFromUrl(Astro.url);
+const url = Astro.url;
+const slug = Astro.url.pathname;
+const hostname = Astro.url.hostname;
+---
+
+<li class="relative z-50 isolate">
+  <NavDropdown class="group">
+    <button
+      class=`flex justify-end pr-10 lg:pr-0 lg:justify-start items-center gap-1 text-xl w-full lg:w-auto transition lg:px-3 py-3 text-night-sky hover:text-goose-pink focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-goose-pink focus-visible:outline-none focus-visible:shadow-outline-goose-pink rounded-full  `
+    >
+      {
+        flag && (
+          <Image
+            src={flag}
+            width={flag.width / 3}
+            alt=""
+            densities={[1.5, 2]}
+            class="mr-1"
+          />
+        )
+      }
+      <span>{title}</span>
+    </button>
+    <DropdownItems>
+      <div
+        class:list={[
+          "lg:absolute w-full z-50 lg:border-0 rounded lg:rounded-xl lg:shadow ",
+          lastItem && !grid
+            ? " lg:right-0 origin-top-right "
+            : " lg:left-0 origin-top-left ",
+          grid && ` lg:w-[650px] lg:-ml-[350px] lg:shadow-lg `,
+          !grid && " lg:w-auto lg:-ml-[100px] ",
+          contact && "lg:w-[370px] lg:-ml-[170px] lg:shadow-lg ",
+        ]}
+      >
+        <div
+          class=`p-2 lg:bg-white lg:rounded-xl lg:shadow lg:border flex flex-col  
+          ${grid && " lg:grid lg:grid-cols-3 lg:gap-4 lg:p-6"}
+          ${!grid && " lg:p-3 "}
+          ${contact && "lg:w-[325px] lg:p-6"}
+          `
+        >
+          {
+            children[language].map((item) => {
+              return (
+                <a
+                  href={
+                    item.path.includes(enUS) &&
+                    hostname.includes("gooseinsurance")
+                      ? `https://smartbunny.com/${item.path}/`
+                      : item.path
+                  }
+                  data-astro-reload
+                  target={
+                    item.path === routes[language].helpCenter
+                      ? "_blank"
+                      : "_self"
+                  }
+                  class="flex items-center p-2 text-sm lg:text-base text-grey-text hover:text-goose-pink focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-goose-pink focus-visible:outline-none focus-visible:shadow-outline-goose-pink rounded "
+                >
+                  {item.image && (
+                    <Image
+                      src={item.image}
+                      alt=""
+                      width={flag ? 40 : 80}
+                      class="px-2"
+                      densities={[1.5, 2]}
+                    />
+                  )}
+                  {item.title} {item.addArrow && <span class="ml-auto">→</span>}
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+    </DropdownItems>
+  </NavDropdown>
+</li>

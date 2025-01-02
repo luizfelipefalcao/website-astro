@@ -1,0 +1,371 @@
+---
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+import Layout from "@layouts/Layout.astro";
+import { enUS, enCA, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const canadalicenses = {
+    english: [
+        [
+            "British Columbia",
+            "General: LIC-2018-0008799-R01",
+            "Life, A&S: LIC-2019-0015533-R01",
+        ],
+        [
+            "Alberta",
+            "General: 7-11037379-2020",
+            "Life: 5-11037379-2020",
+            "A&S: 6-11037379-2020",
+        ],
+        ["Saskatchewan", "P&C: 07980", "Life, A&S: 08465"],
+        ["Manitoba", "P&C: K-25920-1901-2021", "Life: LIA-25920-1901-2021"],
+        ["Ontario", "General: 1076M", "Life, A&S: 36825M"],
+        [
+            "Québec",
+            "AMF Reg. No: 603913",
+            "Firm in the Insurance of Persons & Group Insurance of Persons",
+        ],
+        ["New Brunswick", "Life, A&S: 210028603"],
+        ["Nova Scotia", "General: 19256477400000", "Life, A&S: 20269353500000"],
+    ],
+    french: [
+        [
+            "Colombie-Britannique",
+            "Général : LIC-2018-0008799-R01",
+            "Vie, A&S : LIC-2019-0015533-R01",
+        ],
+        [
+            "Alberta",
+            "Général : 7-11037379-2020",
+            "Vie : 5-11037379-2020",
+            "A&S : 6-11037379-2020",
+        ],
+        ["Saskatchewan", "P&C : 07980", "Vie, A&S : 08465"],
+        ["Manitoba", "P&C : K-25920-1901-2021", "Vie : LIA-25920-1901-2021"],
+        ["Ontario", "Général : 1076M", "Vie, A&S : 36825M"],
+        [
+            "Québec",
+            "No de Reg. AMF : 603913",
+            "Firme en Assurance de Personnes & Assurance Collective de Personnes",
+        ],
+        ["Nouveau-Brunswick", "Vie, A&S : 210028603"],
+        [
+            "Nouvelle-Écosse",
+            "Général : 19256477400000",
+            "Vie, A&S : 20269353500000",
+        ],
+    ],
+};
+
+const usLicenses = {
+    english: [
+        ["Alabama", "#3001456446", "Accident and Health or Sickness, Life"],
+        [
+            "Arizona",
+            "#3001410757",
+            "Accident and Health or Sickness, Property, Casualty, Life",
+        ],
+        [
+            "California",
+            "#6002391",
+            "Accident and Health, Casualty, Life, Property",
+        ],
+        [
+            "Colorado",
+            "#702000",
+            "Accident and Health, Casualty, Life, Property",
+        ],
+        [
+            "Connecticut",
+            "#2734214",
+            "Life, Property, Casualty, Accident and Health or Sickness, Credit, Travel",
+        ],
+        [
+            "Florida",
+            "#L112457",
+            "General (Property & Casualty), Travel, Health, Life",
+        ],
+        [
+            "Georgia",
+            "#212820",
+            "Travel Accident & Sickness, Accident & Sickness, Property, Casualty, Life",
+        ],
+        ["Illinois", "#3000881321", "Casualty, Health, Fire, Life"],
+        [
+            "Indiana",
+            "#3699921",
+            "Accident and Health, Property, Casualty, Life",
+        ],
+        ["Kentucky", "#1147118", "Health, Property, Life and Casualty"],
+        [
+            "Louisiana",
+            "#923449",
+            "Accident and Health or Sickness, Casualty, Life, Property",
+        ],
+        ["Maryland", "#3001445683", "Health, Life and Property, Casualty"],
+        [
+            "Michigan",
+            "#133828",
+            "Accident and Health, Life, Property, Casualty",
+        ],
+        [
+            "Mississippi",
+            "#15041349",
+            "Accident and Health or Sickness, Casualty, Life and Property",
+        ],
+        [
+            "Missouri",
+            "#3001440236",
+            "Accident and Health or Sickness, Property, Casualty, Life",
+        ],
+        [
+            "North Carolina",
+            "#3001410765",
+            "Accident & Health or Sickness, Casualty, Life, Property",
+        ],
+        ["Nevada", "#3699738", "Health, Life, Property, Casualty"],
+        [
+            "New Jersey",
+            "#3000881243",
+            "Accident and Health or Sickness, Property, Casualty, Travel, Life",
+        ],
+        [
+            "New York",
+            "#1613401",
+            "Accident and Health, Life, Property, Casualty, Travel Accident, Personal Lines, Baggage",
+        ],
+        [
+            "Oklahoma",
+            "#3001410803",
+            "Accident & Health or Sickness, Property, Casualty, Life",
+        ],
+        ["Ohio", "#1402095", "Accident & Health, Casualty, Life, Property"],
+        ["Oregon", "#3000907539", "Property, Casualty, Health, Travel, Life"],
+        [
+            "Pennsylvania",
+            "#L112457",
+            "Accident and Health, Casualty, Property, Life",
+        ],
+        [
+            "South Carolina",
+            "#3001410823",
+            "Accident & Health or Sickness, Property, Casualty, Life",
+        ],
+        [
+            "Tennessee",
+            "#3001410753",
+            "Accident, Health, Casualty, Property, Life",
+        ],
+        [
+            "Texas",
+            "#2542530",
+            "Health and HMO, Accident, Property, Casualty, Life",
+        ],
+        [
+            "Utah",
+            "#865863",
+            "Accident and Health or Sickness, Casualty, Property, Life",
+        ],
+        ["Virginia", "#151841", "Health, Property and Casualty, Life"],
+        [
+            "Washington",
+            "#1047051",
+            "Property, Disability, Casualty, Travel, Life",
+        ],
+        [
+            "Wisconsin",
+            "#3001410809",
+            "Accident and Health, Casualty, Property, Life",
+        ],
+    ],
+    french: [
+        ["Alabama", "#3001456446", "Accident et Santé ou Maladie, Vie"],
+        [
+            "Arizona",
+            "#3001410757",
+            "Accident et Santé ou Maladie, Propriété, Dommages Corporels, Vie",
+        ],
+        [
+            "Californie",
+            "#6002391",
+            "Accident et Santé, Dommages Corporels, Vie, Propriété",
+        ],
+        [
+            "Colorado",
+            "#702000",
+            "Accident et Santé, Dommages Corporels, Vie, Propriété",
+        ],
+        [
+            "Connecticut",
+            "#2734214",
+            "Vie, Propriété, Dommages Corporels, Accident et Santé ou Maladie, Crédit, Voyage",
+        ],
+        [
+            "Floride",
+            "#L112457",
+            "Général (Propriété & Dommages Corporels), Voyage, Santé, Vie",
+        ],
+        [
+            "Géorgie",
+            "#212820",
+            "Accident de Voyage & Maladie, Accident & Maladie, Propriété, Dommages Corporels, Vie",
+        ],
+        ["Illinois", "#3000881321", "Dommages Corporels, Santé, Incendie, Vie"],
+        [
+            "Indiana",
+            "#3699921",
+            "Accident et Santé, Propriété, Dommages Corporels, Vie",
+        ],
+        ["Kentucky", "#1147118", "Santé, Propriété, Vie et Dommages Corporels"],
+        [
+            "Louisiane",
+            "#923449",
+            "Accident et Santé ou Maladie, Dommages Corporels, Vie, Propriété",
+        ],
+        [
+            "Maryland",
+            "#3001445683",
+            "Santé, Vie et Propriété, Dommages Corporels",
+        ],
+        [
+            "Michigan",
+            "#133828",
+            "Accident et Santé, Vie, Propriété, Dommages Corporels",
+        ],
+        [
+            "Mississippi",
+            "#15041349",
+            "Accident et Santé ou Maladie, Dommages Corporels, Vie et Propriété",
+        ],
+        [
+            "Missouri",
+            "#3001440236",
+            "Accident et Santé ou Maladie, Propriété, Dommages Corporels, Vie",
+        ],
+        [
+            "Caroline du Nord",
+            "#3001410765",
+            "Accident & Santé ou Maladie, Dommages Corporels, Vie, Propriété",
+        ],
+        ["Nevada", "#3699738", "Santé, Vie, Propriété, Dommages Corporels"],
+        [
+            "New Jersey",
+            "#3000881243",
+            "Accident et Santé ou Maladie, Propriété, Dommages Corporels, Voyage, Vie",
+        ],
+        [
+            "New York",
+            "#1613401",
+            "Accident et Santé, Vie, Propriété, Dommages Corporels, Accident de Voyage, Lignes Personnelles, Bagages",
+        ],
+        [
+            "Oklahoma",
+            "#3001410803",
+            "Accident & Santé ou Maladie, Propriété, Dommages Corporels, Vie",
+        ],
+        [
+            "Ohio",
+            "#1402095",
+            "Accident & Santé, Dommages Corporels, Vie, Propriété",
+        ],
+        [
+            "Oregon",
+            "#3000907539",
+            "Propriété, Dommages Corporels, Santé, Voyage, Vie",
+        ],
+        [
+            "Pennsylvanie",
+            "#L112457",
+            "Accident et Santé, Dommages Corporels, Propriété, Vie",
+        ],
+        [
+            "Caroline du Sud",
+            "#3001410823",
+            "Accident & Santé ou Maladie, Propriété, Dommages Corporels, Vie",
+        ],
+        [
+            "Tennessee",
+            "#3001410753",
+            "Accident, Santé, Dommages Corporels, Propriété, Vie",
+        ],
+        [
+            "Texas",
+            "#2542530",
+            "Santé et HMO, Accident, Propriété, Dommages Corporels, Vie",
+        ],
+        [
+            "Utah",
+            "#865863",
+            "Accident et Santé ou Maladie, Dommages Corporels, Propriété, Vie",
+        ],
+        ["Virginie", "#151841", "Santé, Propriété et Dommages Corporels, Vie"],
+        [
+            "Washington",
+            "#1047051",
+            "Propriété, Invalidité, Dommages Corporels, Voyage, Vie",
+        ],
+        [
+            "Wisconsin",
+            "#3001410809",
+            "Accident et Santé, Dommages Corporels, Propriété, Vie",
+        ],
+    ],
+};
+
+const s = {
+    [enCA]: {
+        licensing: "Licensing",
+        canada: "Canada",
+        usa: "United States of America",
+        p1: "Goose Insurance Services Inc. is headquarted in Vancouver British Columbia. Goose maintains corporate and individual agent licenses as required for each product we offer, and we are regulated by provincial regulators where applicable. Our currently active insurance licenses can be found below.",
+        licenses: canadalicenses.english,
+    },
+    [enUS]: {
+        licensing: "Licensing",
+        canada: "Canada",
+        usa: "United States of America",
+        p1: "Goose Insurance Services Inc. dba SmartBunny Insurance Services (“SmartBunny Insurance”) maintains corporate and individual agent licenses as required for each product we offer, and we are regulated by the state regulators, where applicable. Our currently active insurance licenses can be found below.",
+        licenses: usLicenses.english,
+    },
+    [frCA]: {
+        licensing: "Licences",
+        canada: "Canada",
+        usa: "États-Unis d'Amérique",
+        p1: "Goose Insurance Services Inc. est basé à Vancouver, en Colombie-Britannique. Goose détient des licences d'agent individuelles et d'entreprise comme requis pour chaque produit que nous offrons, et nous sommes réglementés par les régulateurs provinciaux lorsque cela est applicable. Nos licences d'assurance actuellement actives peuvent être trouvées ci-dessous.",
+        licenses: canadalicenses.french,
+    },
+}[language];
+---
+<Layout title={s.licensing}>
+    <ArtsaiPixelForNonProductPages />
+    <h1
+        class="w-full text-center p-6 pb-0 text-4xl lg:text-5xl font-bold lg:tracking-tight text-night-sky"
+    >
+        {s.licensing}
+    </h1>
+    <div class="flex flex-col w-full justify-center items-center text-center">
+        <p class="p-6 max-w-2xl">{s.p1}</p>
+    </div>
+    <div class="h-2"></div>
+    <div class="flex w-full justify-center">
+        <div
+            class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-24 max-w-4xl px-4 2xsm:px-8"
+        >
+            {
+                s.licenses.map(([province, ...rest]) => (
+                    <div class="rounded-2xl relative flex items-center flex-col p-6 group bg-white transition ring-2 ring-slate-200/50 shadow hover:ring-slate-200 hover:shadow-md">
+                        <h3 class="text-xl lg:text-2xl font-medium mt-4">
+                            {province}
+                        </h3>
+                        {rest.map((license) => (
+                            <p class="text-grey-text mt-2 text-center text-wrap:balance">
+                                {license}
+                            </p>
+                        ))}
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+    <div class="h-32"></div>
+</Layout>

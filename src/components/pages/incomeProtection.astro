@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProductHero from "@components/productHero.astro";
+import heroImage from "@assets/productHeros/MJ_income-protection-1.webp";
+import heroIcon from "@assets/products/Income-Protection3x.png";
+import { incomeProtectionStrings } from "strings/productHeros";
+import HowToGetIt from "@components/HowToGetIt.astro";
+import Faq from "@components/faq.astro";
+import Testimonials from "@components/testimonials.astro";
+import Cta from "@components/cta.astro";
+import { incomeProtectionFAQ } from "strings/faqs";
+import { getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink, title } = incomeProtectionStrings[language];
+---
+
+<Layout title={title} footerMargin={false}>
+  <ProductHero
+    strings={incomeProtectionStrings}
+    heroImage={heroImage}
+    heroIcon={heroIcon}
+  />
+  <Faq faq={incomeProtectionFAQ} image={null} />
+  <HowToGetIt />
+  <Testimonials />
+  <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>

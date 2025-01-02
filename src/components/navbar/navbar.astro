@@ -1,0 +1,417 @@
+---
+import Container from "@components/container.astro";
+import Dropdown from "./dropdown.astro";
+import { StickyHeader, Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import CanadaFlag from "@assets/Flag_Canada@3x.png";
+import USAFlag from "@assets/Flag_USA@3x.png";
+import { getLangFromUrl, routes } from "strings/routing";
+import GooseLogo from "@assets/goose_logo_new.svg";
+import BunnyLogo from "@assets/smartBunny/SmartBunny Logo.svg";
+import Life from "@assets/products/Life-Insurance3x.png";
+import Travel from "@assets/products/Travel@3x.webp";
+import ADDImage from "@assets/products/ADD3x.png";
+import Kids from "@assets/products/Kids3x.png";
+import HospitalCash from "@assets/products/Hospital-Cash3x.png";
+import Identity from "@assets/products/IdentityProtection3x.png";
+import PhoneInsurance from "@assets/products/Phone-Protection3x.png";
+import CriticalIllness from "@assets/products/Critical-Illness3x.png";
+import FinalExpense from "@assets/products/Final Expenses Big@3x.png";
+import Renters from "@assets/products/Renters.png";
+import VTC from "@assets/products/vtc.png";
+import { enCA, enUS, frCA, routes as r, translateSlug } from "strings/routing";
+import { Image } from "astro:assets";
+
+type Props = { extraLogo?: ImageMetadata };
+const { extraLogo } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+
+const slug = Astro.url.pathname;
+
+const baseUrl = `/${lang}`;
+const s = {
+  [enCA]: {
+    insurance: "Insurance",
+    lifeInsurance: "Life Insurance",
+    travelinsurance: "Travel Insurance",
+    ADD: "AD&D Insurance",
+    kidsInsurance: "Kids Insurance",
+    hospitalCash: "Hospital Cash",
+    identityProtection: "Identity Protection",
+    phoneInsurance: "Phone Insurance",
+    criticalIllness: "Critical Illness",
+    blog: "Blog",
+    contact: "Contact",
+    language: "En",
+    flag: CanadaFlag,
+    contactPage: "Contact us",
+    claims: "Claims",
+    helpCenter: "Help Center",
+    policyWordings: "Policy Wordings",
+  },
+  [enUS]: {
+    insurance: "Insurance",
+    lifeInsurance: "Life Insurance",
+    travelinsurance: "Travel Insurance",
+    ADD: "AD&D Insurance",
+    kidsInsurance: "Kids Insurance",
+    hospitalCash: "Hospital Cash",
+    identityProtection: "Identity Protection",
+    phoneInsurance: "Phone Insurance",
+    criticalIllness: "Critical Illness",
+    renters: "Renters Insurance",
+    finalExpenses: "Final Expenses",
+    blog: "Blog",
+    contact: "Contact",
+    language: "En",
+    flag: USAFlag,
+    contactPage: "Contact us",
+    claims: "Claims",
+    helpCenter: "Help Center",
+    policyWordings: "Policy Wordings",
+  },
+  [frCA]: {
+    insurance: "Assurance",
+    lifeInsurance: "Assurance vie",
+    travelinsurance: "Assurance voyage",
+    ADD: "Assurance D&MA",
+    kidsInsurance: "Assurance enfants",
+    hospitalCash: "Prestation hospitalière",
+    identityProtection: "Assurance d'identité",
+    phoneInsurance: "Assurance téléphone",
+    criticalIllness: "Maladies graves",
+    blog: "Blog",
+    contact: "Nous contacter",
+    language: "Fr",
+    flag: CanadaFlag,
+    contactPage: "Page de Contacte",
+    claims: "Réclamations",
+    helpCenter: "Centre d'aide",
+    policyWordings: "Libellé de polices",
+  },
+}[lang];
+
+const i = {
+  [enUS]: {
+    mainLogo: BunnyLogo,
+  },
+  [enCA]: {
+    mainLogo: GooseLogo,
+  },
+  [frCA]: {
+    mainLogo: GooseLogo,
+  },
+}[lang];
+
+const menuitems = [
+  {
+    title: s.insurance,
+    path: "#",
+    grid: true,
+    children: {
+      [enUS]: [
+        {
+          title: s.lifeInsurance,
+          image: Life,
+          path: `${baseUrl}/${r[enUS].lifeInsurance}`,
+        },
+        {
+          title: s.renters,
+          image: Renters,
+          path: `${baseUrl}/${r[enUS].rentersInsurance}`,
+        },
+        {
+          title: s.travelinsurance,
+          image: Travel,
+          path: `${baseUrl}/${r[enUS].travelInsurance}`,
+        },
+        {
+          title: s.finalExpenses,
+          image: FinalExpense,
+          path: `${baseUrl}/${r[enUS].finalExpense}`,
+        },
+        {
+          title: s.phoneInsurance,
+          image: PhoneInsurance,
+          path: `${baseUrl}/${r[enUS].phoneInsurance}`,
+        },
+      ].sort((a, b) => a.title?.localeCompare(b.title)),
+      [enCA]: [
+        {
+          title: s.ADD,
+          image: ADDImage,
+          path: `${baseUrl}/${r[enCA].ADD}`,
+        },
+        {
+          title: s.criticalIllness,
+          image: CriticalIllness,
+          path: `${baseUrl}/${r[enCA].criticalIllness}`,
+        },
+        {
+          title: s.hospitalCash,
+          image: HospitalCash,
+          path: `${baseUrl}/${r[enCA].hospitalCash}`,
+        },
+        {
+          title: s.kidsInsurance,
+          image: Kids,
+          path: `${baseUrl}/${r[enCA].kidsInsurance}`,
+        },
+        {
+          title: s.lifeInsurance,
+          image: Life,
+          path: `${baseUrl}/${r[enCA].lifeInsurance}`,
+        },
+        {
+          title: s.travelinsurance,
+          image: Travel,
+          path: `${baseUrl}/${r[enCA].travelInsurance}`,
+        },
+        {
+          title: "Visitors To Canada",
+          image: VTC,
+          path: `${baseUrl}/${r[enCA].vtc}`,
+        },
+      ].sort((a, b) => a.title?.localeCompare(b.title)),
+      [frCA]: [
+        {
+          title: s.lifeInsurance,
+          image: Life,
+          path: `${baseUrl}/${r[frCA].lifeInsurance}`,
+        },
+        {
+          title: s.criticalIllness,
+          image: CriticalIllness,
+          path: `${baseUrl}/${r[frCA].criticalIllness}`,
+        },
+        {
+          title: s.ADD,
+          image: ADDImage,
+          path: `${baseUrl}/${r[frCA].ADD}`,
+        },
+        {
+          title: s.kidsInsurance,
+          image: Kids,
+          path: `${baseUrl}/${r[frCA].kidsInsurance}`,
+        },
+        {
+          title: s.hospitalCash,
+          image: HospitalCash,
+          path: `${baseUrl}/${r[frCA].hospitalCash}`,
+        },
+        {
+          title: s.travelinsurance,
+          image: Travel,
+          path: `${baseUrl}/${r[frCA].travelInsurance}`,
+        },
+        {
+          title: "Visiteurs au Canada",
+          image: VTC,
+          path: `${baseUrl}/${r[frCA].vtc}`,
+        },
+      ].sort((a, b) => a.title?.localeCompare(b.title)),
+    },
+  },
+  {
+    title: s.contact,
+    contact: true,
+    children: {
+      [enCA]: [
+        {
+          title: "📞 +1 (888) 374-6673",
+          image: null,
+          path: `tel:+1 (888) 374-6673`,
+        },
+        {
+          title: "📧 support@gooseinsurance.com",
+          image: null,
+          path: `mailto:support@gooseinsurance.com`,
+        },
+        {
+          title: `${s.contactPage}`,
+          image: null,
+          addArrow: true,
+          path: `${baseUrl}/${r[lang].contact}`,
+        },
+        {
+          title: `${s.claims}`,
+          image: null,
+          addArrow: true,
+          path: `${baseUrl}/${r[lang].claims}`,
+        },
+        {
+          title: `${s.helpCenter}`,
+          image: null,
+          addArrow: true,
+          path: routes[lang].helpCenter,
+        },
+      ],
+      [enUS]: [
+        {
+          title: "📞 +1 (888) 388-0009",
+          image: null,
+          path: `tel:+1 (888) 388-0009`,
+        },
+        {
+          title: "📧 support@smartbunny.com",
+          image: null,
+          path: `mailto:support@smartbunny.com`,
+        },
+        {
+          title: `${s.contactPage}`,
+          image: null,
+          addArrow: true,
+          path: `${baseUrl}/${r[lang].contact}`,
+        },
+        {
+          title: `${s.claims}`,
+          image: null,
+          addArrow: true,
+          path: `${baseUrl}/${r[lang].claims}`,
+        },
+        {
+          title: `${s.helpCenter}`,
+          image: null,
+          addArrow: true,
+          path: routes[lang].helpCenter,
+        },
+      ],
+      [frCA]: [
+        {
+          title: "📞 +1 (888) 374-6673",
+          image: null,
+          path: `tel:+1 (888) 374-6673`,
+        },
+        {
+          title: "📧 support@gooseinsurance.com",
+          image: null,
+          path: `mailto:support@gooseinsurance.com`,
+        },
+        {
+          title: `${s.contactPage}`,
+          image: null,
+          addArrow: true,
+          path: `${baseUrl}/${r[lang].contact}`,
+        },
+        {
+          title: `${s.claims}`,
+          image: null,
+          addArrow: true,
+          path: `${baseUrl}/${r[lang].claims}`,
+        },
+        {
+          title: `${s.helpCenter}`,
+          image: null,
+          addArrow: true,
+          path: routes[lang].helpCenter,
+        },
+      ],
+    },
+  },
+  {
+    title: s.language,
+    path: "#",
+    grid: false,
+    flag: s.flag,
+    children: {
+      [enCA]: [
+        {
+          title: "Français",
+          image: CanadaFlag,
+          path: translateSlug(frCA, slug),
+        },
+        {
+          title: "SmartBunny Insurance",
+          image: USAFlag,
+          // path: "/en-us/",
+          path: translateSlug(enUS, slug),
+        },
+      ],
+      [enUS]: [
+        // {
+        //   title: "Spanish",
+        //   image: CanadaFlag,
+        //   path: translateSlug(enCA, slug),
+        // },
+      ],
+      [frCA]: [
+        {
+          title: "English",
+          image: CanadaFlag,
+          path: translateSlug(enCA, slug),
+        },
+        {
+          title: "SmartBunny Insurance",
+          image: USAFlag,
+          // path: "/en-us/",
+          path: translateSlug(enUS, slug),
+        },
+      ],
+    },
+  },
+];
+---
+
+<StickyHeader
+  class="sticky top-0 border-b z-20 transition-all"
+  scrollY={50}
+  defaultClass="py-5 border-transparent"
+  activeClass="py-2 bg-white/80 border-gray-200 backdrop-blur-lg"
+>
+  <Container>
+    <div
+      class="flex flex-col lg:flex-row justify-between items-center relative z-10"
+      transition:animate="none"
+    >
+      <Astronav>
+        <div class="flex w-full lg:w-auto items-center justify-between">
+          <a
+            href={baseUrl}
+            class="flex z-20 transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-goose-pink focus-visible:outline-none focus-visible:shadow-outline-goose-pink rounded-full px-2 -ml-2"
+          >
+            <Image src={i.mainLogo} alt="" height={50} densities={[1.5, 2]} />
+            {
+              extraLogo && (
+                <div class="hidden sm:flex ">
+                  <div class="border h-full border-gray-400 mx-6" />
+                  <Image
+                    class="object-contain"
+                    src={extraLogo}
+                    alt=""
+                    height={40}
+                    densities={[1.5, 2]}
+                  />
+                </div>
+              )
+            }
+          </a>
+          <div class="flex pr-2 lg:hidden">
+            <MenuIcon class="w-8 h-8 text-night-sky" />
+          </div>
+        </div>
+        <MenuItems
+          class="hidden w-full lg:w-auto mt-2 lg:flex lg:pr-16 lg:mt-0"
+        >
+          <ul class="flex flex-col lg:flex-row lg:gap-10">
+            {
+              menuitems.map((item, index) => (
+                <>
+                  {!!item.children[lang].length && (
+                    <Dropdown
+                      title={item.title}
+                      grid={item.grid}
+                      flag={item.flag}
+                      contact={item.contact}
+                      children={item.children}
+                      lastItem={index === menuitems.length - 1}
+                    />
+                  )}
+                </>
+              ))
+            }
+          </ul>
+        </MenuItems>
+      </Astronav>
+    </div>
+  </Container>
+</StickyHeader>

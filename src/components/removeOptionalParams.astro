@@ -1,0 +1,12 @@
+---
+
+---
+
+<script is:inline>
+    document.addEventListener("astro:page-load", function () {
+        const url = new URL(window.location);
+        url.searchParams.delete("_gl");
+        url.searchParams.delete("_gcl_au");
+        window.history.replaceState({}, document.title, url.pathname);
+    });
+</script>

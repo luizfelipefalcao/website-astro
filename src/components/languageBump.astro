@@ -1,0 +1,23 @@
+---
+
+---
+
+<script>
+    import { languageBump, translateSlug, frCA, enCA } from "strings/routing";
+    const lastBump = window.localStorage.getItem(languageBump);
+    const now = Date.now();
+    const twentyFourHours = 24 * 60 * 60 * 1000;
+
+    const isPromotion = window.location.pathname.includes("promotions");
+    const frenchPref = navigator.language.includes("fr");
+    const isCA = window.location.pathname.includes(enCA);
+    const requiresLanguagesBump =
+        isCA &&
+        frenchPref &&
+        !isPromotion &&
+        (!lastBump || now - parseInt(lastBump) > twentyFourHours);
+    if (requiresLanguagesBump) {
+        window.localStorage.setItem(languageBump, now.toString());
+        window.location.href = translateSlug(frCA, window.location.pathname);
+    }
+</script>

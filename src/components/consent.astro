@@ -1,0 +1,284 @@
+---
+import { Image } from "astro:assets";
+import { enCA, enUS, frCA, getLangFromUrl, routes } from "strings/routing";
+import GooseCookie from "@assets/gooseCookie.png";
+
+const language = getLangFromUrl(Astro.url);
+const { privacy } = routes[language];
+const s = {
+  [enCA]: {
+    title: "Cookie Consent",
+    body: 'We use cookies to serve you a more personalized experience on the Goose Insurance website and mobile app and to serve you relevant content. By clicking "Accept", you consent to our use of cookies. For more information, please read our',
+    link: "privacy policy.",
+    accept: "Accept",
+    decline: "Decline",
+    close: "close",
+  },
+  [frCA]: {
+    title: "Consentement aux Cookies",
+    body: `Nous utilisons des cookies pour vous offrir une expérience plus personnalisée sur le site web et l'application mobile de Goose Insurance et pour vous proposer du contenu pertinent. En cliquant sur "Accepter", vous consentez à notre utilisation des cookies. Pour plus d'informations, veuillez lire notre`,
+    link: "politique de confidentialité.",
+    accept: "Accepter",
+    decline: "Refuser",
+    close: "fermer",
+  },
+  [enUS]: {
+    title: "Cookie Consent",
+    body: 'We use cookies to serve you a more personalized experience on the Goose Insurance website and mobile app and to serve you relevant content. By clicking "Accept", you consent to our use of cookies. For more information, please read our',
+    link: "privacy policy.",
+    accept: "Accept",
+    decline: "Decline",
+    close: "close",
+  },
+}[language];
+---
+
+<div
+  id="cookie-consent-banner"
+  class="hidden fixed bottom-0 left-0 w-full bg-pale-yellow border-t border-dark-yelow p-3 md:p-3 z-50"
+>
+  {
+    language === enUS ? (
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-PD4N3K43"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        />
+      </noscript>
+    ) : (
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-TVR3DPD"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        />
+      </noscript>
+    )
+  }
+
+  <Image
+    class="lg:hidden absolute ml-3 -mt-[118px] sm:-mt:[100px]"
+    src={GooseCookie}
+    height={100}
+    width={100}
+    alt=""
+  />
+  <div class="absolute right-3 top-1 justify-end">
+    <button
+      id="cookie-consent-banner-close"
+      class="mt-3 mr-1 px-2 rounded-lg border"
+    >
+      X
+      <span class="sr-only">{s.close}</span>
+    </button>
+  </div>
+  <div
+    class="container mx-auto flex flex-col py-2 md:flex-row items-start justify-start gap-4 md:gap-6"
+  >
+    <div class="flex justify-start">
+      <div class="hidden w-[420px] lg:block lg:w-[300px] h-10"></div>
+      <div class="absolute left-10 top-10 hidden lg:block">
+        <Image
+          class="-ml-20 mt-[10px] lg:-mt-[10px]"
+          src={GooseCookie}
+          height={230}
+          width={230}
+          alt=""
+        />
+      </div>
+      <div class="flex flex-col sm:flex-row">
+        <div class="flex flex-col px-2 pr-8">
+          <h2 class="text-lg text-deep-yellow md:text-xl font-bold pb-2">
+            {s.title}
+          </h2>
+          <p class="text-sm md:text-base pb-2 text-grey-text">
+            {s.body}
+            <a
+              class="underline underline-offset-2"
+              href=`/${language}/${privacy}`
+            >
+              {s.link}
+            </a>
+          </p>
+        </div>
+        <div
+          class="flex items-center justify-end sm:justify-start pt-2 pr-4 lg:pr-8"
+        >
+          <button
+            id="cookie-accept"
+            class="sm border rounded-md px-4 py-2 bg-deep-yellow text-white"
+            >{s.accept}</button
+          >
+          <button
+            id="cookie-decline"
+            class="sm text-deep-yellow rounded-md px-4 py-2">{s.decline}</button
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <script define:vars={{ language, enCA, frCA, enUS }}>
+    document.addEventListener("astro:page-load", function () {
+      const cookieConsent = "cookie-consent";
+      window.localStorage.setItem(cookieConsent, Date.now().toString());
+      const banner = document.getElementById("cookie-consent-banner");
+      const closeButton = document.getElementById(
+        "cookie-consent-banner-close"
+      );
+      const acceptButton = document.getElementById("cookie-accept");
+      const declineButton = document.getElementById("cookie-decline");
+      const consent = window.localStorage.getItem(cookieConsent);
+
+      function initZDChat() {
+        var script = document.createElement("script");
+        script.id = "ze-snippet";
+        script.src =
+          "https://static.zdassets.com/ekr/snippet.js?key=877e486d-5ab9-4d8d-b244-ab4a7ed81fbc";
+        document.head.appendChild(script);
+      }
+
+      function initAll() {
+        // Initialize Zendesk with the correct language.
+        var script = document.createElement("script");
+        script.id = "ze-snippet";
+        const source = {
+          [enCA]:
+            "https://static.zdassets.com/ekr/snippet.js?key=c01cd239-29ef-41a1-b7f9-ca3ccdc587c2",
+          [frCA]:
+            "https://static.zdassets.com/ekr/snippet.js?key=09e0b6bb-5883-42d3-864d-783f8b6723cd",
+          [enUS]:
+            "https://static.zdassets.com/ekr/snippet.js?key=877e486d-5ab9-4d8d-b244-ab4a7ed81fbc",
+        }[language];
+        script.src = source;
+        document.head.appendChild(script);
+
+        // Initialize the google tracking, this is deprecated and should be removed at some point.
+        const parts = {
+          [enCA]: {
+            source: "https://www.googletagmanager.com/gtag/js?id=AW-788220788",
+          },
+          [frCA]: {
+            source: "https://www.googletagmanager.com/gtag/js?id=AW-788220788",
+          },
+          [enUS]: {
+            source: "https://www.googletagmanager.com/gtag/js?id=G-N4HKK6H0CD",
+          },
+        };
+        var gtmScript = document.createElement("script");
+        gtmScript.src = parts[language].source;
+        gtmScript.async = true;
+        document.head.appendChild(gtmScript);
+        gtmScript.onload = function () {
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () {
+            dataLayer.push(arguments);
+          };
+          gtag("js", new Date());
+
+          language === enUS
+            ? gtag("config", "G-4K9GCSZ0VW")
+            : gtag("config", "G-N4HKK6H0CD");
+        };
+
+        // Initialize meta pixel.
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod
+              ? n.callMethod.apply(n, arguments)
+              : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = "2.0";
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(
+          window,
+          document,
+          "script",
+          "https://connect.facebook.net/en_US/fbevents.js"
+        );
+        fbq("init", "1740069356072921");
+        fbq("track", "PageView");
+
+        // Create a noscript tag
+        var noscript = document.createElement("noscript");
+        // Create an img tag
+        var img = document.createElement("img");
+        img.height = 1;
+        img.width = 1;
+        img.style.display = "none";
+        img.src =
+          "https://www.facebook.com/tr?id=1740069356072921&ev=PageView&noscript=1";
+
+        // Append the img tag to the noscript tag
+        noscript.appendChild(img);
+        // Append the noscript tag to the body of the document
+        document.body.appendChild(noscript);
+        // Initialize Smartlook
+        window.smartlook ||
+          (function (d) {
+            var o = (smartlook = function () {
+                o.api.push(arguments);
+              }),
+              h = d.getElementsByTagName("head")[0];
+            var c = d.createElement("script");
+            o.api = new Array();
+            c.async = true;
+            c.type = "text/javascript";
+            c.charset = "utf-8";
+            c.src = "https://web-sdk.smartlook.com/recorder.js";
+            h.appendChild(c);
+          })(document);
+        const smartlookProjectId =
+          language === enUS
+            ? "a478819ab28e774c2dbd54bf809437e82594deeb"
+            : "0ab8ffbdfd4f0dcde8938fe94c74c36505bde785";
+        smartlook("init", smartlookProjectId, { region: "eu" });
+        smartlook("record", { emails: true });
+      }
+
+      function hideBanner() {
+        if (banner) banner.style.display = "none";
+      }
+      function showBanner() {
+        if (banner) banner.style.display = "block";
+      }
+
+      if (!consent) showBanner();
+      if (consent === "false") {
+        initZDChat();
+        hideBanner();
+      }
+      if (consent && consent !== "false") {
+        initAll();
+        hideBanner();
+      }
+
+      closeButton?.addEventListener("click", () => {
+        hideBanner();
+      });
+
+      acceptButton?.addEventListener("click", () => {
+        window.localStorage.setItem(cookieConsent, Date.now().toString());
+        initAll();
+        hideBanner();
+      });
+
+      declineButton?.addEventListener("click", () => {
+        window.localStorage.setItem(cookieConsent, "false");
+        initZDChat();
+        hideBanner();
+      });
+    });
+  </script>
+</div>

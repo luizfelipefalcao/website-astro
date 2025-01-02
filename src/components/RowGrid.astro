@@ -1,0 +1,107 @@
+---
+import { Image } from "astro:assets";
+import { miscellaneousStrings } from "strings/miscellaneous";
+
+type Props = {
+    attributes: Array<[ImageMetadata | null, string]>;
+    title: string;
+    subtitle?: string;
+    tracking: {
+        conversionName: string;
+        leadName: string;
+        downloadLink: string;
+    };
+};
+
+const { attributes, subtitle, title, tracking } = Astro.props;
+const [hasIcon, _] = attributes[0];
+const { conversionName, leadName, downloadLink } = tracking;
+---
+
+<div class="flex flex-col bg-pale-yellow items-center p-10 large:p-20">
+    <div class="max-w-[800px]">
+        <p
+            class="text-[2rem] lg:text-5xl text-deep-yellow font-medium text-center"
+        >
+            {title && title}
+        </p>
+        <div class="h-4"></div>
+        {subtitle && <p class="">{subtitle}</p>}
+        <div class={`${hasIcon ? "h-16 " : "h-4 "}`}></div>
+        <div
+            class={`flex flex-col ${hasIcon ? "lg:flex-row " : " "} ${hasIcon ? "gap-12 " : "gap-4 "}`}
+        >
+            <div class="flex flex-col items-center">
+                <div class="flex flex-col items-start gap-4">
+                    {
+                        attributes.map(([icon, text]) => (
+                            <div
+                                class={`flex flex-col ${hasIcon ? "items-center " : "items-start"} justify-center`}
+                            >
+                                {icon && (
+                                    <Image src={icon} width={100} alt={text} />
+                                )}
+                                <div
+                                    class={`flex flex-row ${hasIcon ? "" : "justify-start gap-2 "}`}
+                                >
+                                    {!hasIcon && "•"}
+                                    <p
+                                        class={`${hasIcon ? "text-center " : " "} text-grey-text font-medium`}
+                                    >
+                                        {text}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class={`${hasIcon ? "h-16 " : "h-4 "}`}></div>
+    <div class="flex justify-center lg:hidden pt-[1.25rem]">
+        <a
+            id="track-conversion2"
+            href={downloadLink}
+            target="_blank"
+            class="flex items-center justify-center"
+            rel="noopener"
+        >
+            <div
+                class="px-6 py-4 text-white font-medium rounded-lg bg-goose-pink"
+            >
+                <p>{miscellaneousStrings["en-us"].quoteNow}</p>
+            </div>
+        </a>
+    </div>
+</div>
+<script is:inline define:vars={{ leadName, conversionName }}>
+    document.addEventListener("astro:page-load", function () {
+        var button = document.getElementById("track-conversion2");
+        button?.addEventListener("click", function () {
+            if (window.localStorage.getItem("cookie-consent")) {
+                // Re-initialize Google Tag
+                window.dataLayer = window.dataLayer || [];
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag("js", new Date());
+                gtag("config", "AW-788220788");
+                // Report conversion.
+                const url = window.location.href;
+                var callback = function () {
+                    if (typeof url != "undefined") {
+                        window.location = `${url}?${conversionName ? conversionName : ""}`;
+                    }
+                };
+                gtag("event", "conversion", {
+                    send_to: "AW-788220788/-f1CCO6Cm7UBEPSW7fcC",
+                    event_callback: callback,
+                });
+
+                // Meta Pixel Tracking
+                if (leadName) fbq("track", "Lead", { content_name: leadName });
+            }
+        });
+    });
+</script>

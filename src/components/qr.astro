@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import QRContainerEn from "@assets/landingPage/QRCodes/getTheAppNow.svg";
+import QRContainerFr from "@assets/landingPage/QRCodes/getTheAppContainerFr.svg";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const QRContainer = language === frCA ? QRContainerFr : QRContainerEn;
+
+type Props = {
+    qrCode: ImageMetadata;
+    qrHeight?: number;
+    containerWidth?: number;
+};
+const { qrCode, qrHeight = 120, containerWidth = 160 } = Astro.props;
+
+const s = {
+    [enCA]: {
+        alt: "QR code to download the app",
+    },
+    [enUS]: {
+        alt: "QR code to download the app",
+    },
+    [frCA]: {
+        alt: "Code QR pour télécharger l'application",
+    },
+}[language];
+---
+
+<div class="hidden lg:flex">
+    <div class="border-4 border-goose-turquoise rounded-md">
+        <Image
+            class="hidden lg:block"
+            src={qrCode}
+            height={qrHeight}
+            alt={s.alt}
+        />
+    </div>
+    <div class="w-6"></div>
+    <Image
+        class="-mt-4 -mr-6"
+        src={QRContainer}
+        alt=""
+        width={containerWidth}
+    />
+</div>

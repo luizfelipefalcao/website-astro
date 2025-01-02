@@ -1,0 +1,53 @@
+<style is:global>
+    /* Register your custom font family and tell the browser where to find it. */
+    @font-face {
+        font-family: "Graphik";
+        src: url("/fonts/Graphik-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+        letter-spacing: -0.07813rem;
+        line-height: 4.125rem;
+    }
+    @font-face {
+        font-family: "Graphik";
+        src: url("/fonts/Graphik-Medium.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+        letter-spacing: -0.07813rem;
+        line-height: 4.125rem;
+    }
+    @font-face {
+        font-family: "Graphik";
+        src: url("/fonts/Graphik-Semibold.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+        letter-spacing: -0.07813rem;
+        line-height: 4.125rem;
+    }
+    .mylheight {
+        line-height: 4.125rem;
+    }
+    /* Improve Page speed */
+    /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+    img {
+        content-visibility: auto;
+    }
+    @media screen and (min-width: 1024px) {
+        .astronav-dropdown:hover .dropdown-toggle {
+            display: block; /* Show on hover on large screens */
+        }
+    }
+</style>
+
+<!-- This is required to remove the default arrow which shows up in the detail html tag on Safari and maybe Firefox -->
+<style is:global>
+    details > summary {
+        list-style: none;
+    }
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+</style>

@@ -1,0 +1,194 @@
+---
+import Cta from "@components/cta.astro";
+import Layout from "@layouts/Layout.astro";
+import { enCA, enUS, frCA, getLangFromUrl, routes } from "strings/routing";
+import { defaultQR } from "strings/productHeros";
+import { Image } from "astro:assets";
+import HealthBenefits from "@assets/healthCare.svg";
+import ArtsaiPixelForNonProductPages from "@components/artsaiPixelForNonProductPages.astro";
+
+const language = getLangFromUrl(Astro.url);
+const { QR, downloadLink } = defaultQR[language];
+
+const s = {
+    [enCA]: {
+        contact: "Contact",
+        subtitle:
+            "The Goose team and our insurance partners are always ready to help, whatever you need.",
+        email: "🌐 E-mail",
+        sales: "Sales",
+        salesEmail: "sales@gooseinsurance.com",
+        refunds: "Refunds",
+        refundsEmail: "refunds@gooseinsurance.com",
+        generalInquiries: "General Inquiries",
+        generalEmail: "support@gooseinsurance.com",
+        phone: "📞 Phone",
+        northAmerica: "North America",
+        northAmericaNumber: "+1 (888) 374-6673",
+        international: "International",
+        internationalNumber: "+1 (360) 375-4360",
+        post: "📮 Mail",
+        companyName: "Goose Insurance Services Inc.",
+        address1: "1281 West Georgia Street, Suite 800,",
+        address2: "Vancouver, BC",
+        address3: "V6B 5N6",
+        chat: "💬 Chat",
+        availability: "Available during business hours.",
+        chatNow: "Chat Now",
+        claims: "Claims",
+        needToMakeAClaim:
+            "Need to make a claim? Rest assured our partners are here to help. Visit the Claims page for more info.",
+        goToClaims: "Go To Claims",
+    },
+    [enUS]: {
+        contact: "Contact",
+        subtitle:
+            "The SmartBunny team and our insurance partners are always ready to help, whatever you need.",
+        email: "🌐 E-mail",
+        sales: "Sales",
+        salesEmail: "sales@smartbunny.com",
+        refunds: "Refunds",
+        refundsEmail: "refunds@smartbunny.com",
+        generalInquiries: "General Inquiries",
+        generalEmail: "support@smartbunny.com",
+        phone: "📞 Phone",
+        northAmerica: "North America",
+        northAmericaNumber: "+1 (888) 388-0009",
+        international: "International",
+        internationalNumber: "+1 (360) 375-4360",
+        post: "📮 Mail",
+        companyName: "SmartBunny Insurance Services",
+        address1: "2219 Rimland Drive, Suite 301,",
+        address2: "Bellingham, WA",
+        address3: "98226",
+        chat: "💬 Chat",
+        availability: "Available during business hours.",
+        chatNow: "Chat Now",
+        claims: "Claims",
+        needToMakeAClaim:
+            "Need to make a claim? Rest assured our partners are here to help. Visit the Claims page for more info.",
+        goToClaims: "Go To Claims",
+    },
+    [frCA]: {
+        contact: "Contact",
+        subtitle:
+            "L'équipe de Goose et nos partenaires en assurance sont toujours prêts à vous aider, quoi que vous ayez besoin.",
+        email: "🌐 E-mail",
+        sales: "Ventes",
+        salesEmail: "sales@gooseinsurance.com",
+        refunds: "remboursements",
+        refundsEmail: "refunds@gooseinsurance.com",
+        generalInquiries: "Demandes générales",
+        generalEmail: "support@gooseinsurance.com",
+        phone: "📞 Téléphone",
+        northAmerica: "Amérique du Nord",
+        northAmericaNumber: "+1 (888) 374-6673",
+        international: "internationale",
+        internationalNumber: "+1 (360) 375-4360",
+        post: "📮 Poste",
+        companyName: "Goose Insurance Services Inc.",
+        address1: "1281 West Georgia Street, Suite 800,",
+        address2: "Vancouver, BC",
+        address3: "V6B 5N6",
+        chat: "💬 Chat",
+        availability: "Disponible pendant les heures d'ouverture",
+        chatNow: "Chat en direct maintenant",
+        claims: "Réclamations",
+        needToMakeAClaim:
+            "Besoin de déposer une réclamation? Soyez assuré que nos partenaires sont là pour vous aider. Visitez la page des réclamations pour plus d'informations.",
+        goToClaims: "Aller aux réclamations.",
+    },
+}[language];
+const baseUrl = `${language}`;
+const { claims } = routes[language];
+---
+<Layout title={s.contact} footerMargin={false}>
+    <ArtsaiPixelForNonProductPages />
+    <h1
+        class="w-full text-center p-6 text-4xl lg:text-5xl font-bold lg:tracking-tight text-night-sky"
+    >
+        {s.contact}
+    </h1>
+    <h2
+        class="w-full text-center text-base lg:text-blg lg:tracking-tight text-night-sky"
+    >
+        {s.subtitle}
+    </h2>
+    <div
+        class="mx-auto max-w-screen-lg grid grid-cols-1 p-10 md:grid-cols-2 gap-20 gap-y-14 gap-x-10 md:p-20 md:pt-14"
+    >
+        <div
+            class="flex flex-col border-2 rounded-[24px] p-[56px] text-grey-text px-[56px] py-[48px]"
+        >
+            <p class="text-[2rem] font-medium">{s.email}</p>
+            <div class="h-6"></div>
+            <p class="font-medium">{s.sales}</p>
+            <a href=`mailto:${s.salesEmail}` class="">{s.salesEmail}</a>
+            <!-- <div class="h-6"></div>
+            <p class="font-medium">{s.refunds}</p>
+            <a href=`mailto:${s.refundsEmail}` class="">{s.refundsEmail}</a> -->
+            <div class="h-6"></div>
+            <p class="font-medium">{s.generalInquiries}</p>
+            <a href=`mailto:${s.generalEmail}` class="">{s.generalEmail}</a>
+        </div>
+        <div
+            class="flex flex-col border-2 rounded-[24px] p-[56px] text-grey-text px-[56px] py-[48px]"
+        >
+            <p class="text-[2rem] font-medium">{s.phone}</p>
+            <div class="h-6"></div>
+            <p class="font-medium">{s.northAmerica}</p>
+            <a href=`tel:${s.northAmericaNumber}` class=""
+                >{s.northAmericaNumber}</a
+            >
+            <div class="h-6"></div>
+            <p class="font-medium">{s.international}</p>
+            <a href=`tel:${s.internationalNumber}` class=""
+                >{s.internationalNumber}</a
+            >
+        </div>
+        <div
+            class="flex flex-col border-2 rounded-[24px] p-[56px] text-grey-text px-[56px] py-[48px]"
+        >
+            <p class="text-[2rem] font-medium">{s.post}</p>
+            <div class="h-6"></div>
+            <p class="font-medium">{s.companyName}</p>
+            <p class="">{s.address1}</p>
+            <p class="">{s.address2}</p>
+            <p class="">{s.address3}</p>
+        </div>
+        <div
+            class="flex flex-col border-2 rounded-[24px] p-[56px] text-grey-text px-[56px] py-[48px]"
+        >
+            <p class="text-[2rem] font-medium">{s.chat}</p>
+            <div class="h-6"></div>
+            <p class="">{s.availability}</p>
+            <a
+                href="javascript:void(0);"
+                onclick="zE('messenger', 'open');"
+                class="flex w-fit py-2"
+            >
+                <p class="text-blg text-center font-medium">
+                    {s.chatNow} >
+                </p>
+            </a>
+        </div>
+    </div>
+    <div
+        class="flex flex-col lg:flex-row w-full bg-pale-yellow items-center justify-center gap-10 lg:gap-28 p-20"
+    >
+        <Image src={HealthBenefits} width={100} alt="" />
+        <div class="flex flex-col max-w-lg">
+            <h2 class="text-deep-yellow text-[3rem] font-semibold text-left">
+                {s.claims}
+            </h2>
+            <p class="text-blg text-grey-text">
+                {s.needToMakeAClaim}
+            </p>
+            <a
+                href=`/${baseUrl}/${claims}`
+                class="text-deep-yellow font-medium pt-8">{s.goToClaims} →</a
+            >
+        </div>
+    </div>
+    <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>
