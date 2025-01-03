@@ -1,0 +1,36 @@
+---
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Layout from "./Layout.astro";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+
+const language = getLangFromUrl(Astro.url);
+const strings = {
+  [enCA]: {
+    lastUpdatedOn: "Last updated on ",
+  },
+  [enUS]: {
+    lastUpdatedOn: "Last updated on ",
+  },
+  [frCA]: {
+    lastUpdatedOn: "Dernière mise à jour le ",
+  },
+} as const;
+const s = strings[language];
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">{frontmatter.title}</Fragment>
+      <Fragment slot="desc">
+        {`${s.lastUpdatedOn} ${frontmatter.date}`}
+      </Fragment>
+    </Sectionhead>
+
+    <div class="mx-auto prose mt-10">
+      <slot />
+    </div>
+  </Container>
+</Layout>
