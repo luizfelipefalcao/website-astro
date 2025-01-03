@@ -1,0 +1,27 @@
+---
+import LandingPage from "@components/pages/promotions/landingPage.astro";
+import { enCA, getLangFromUrl } from "strings/routing";
+import { travelInsuranceFAQ } from "strings/faqs";
+import PhoneGif from "@assets/landingPage/3-2021-Ca-Travel.gif";
+import QRCode from "@assets/landingPage/QRCodes/3-ca-travel.png";
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+  [enCA]: {
+    title: "The world has changed, don’t travel without Goose",
+    paragraph:
+      "We are all excited to travel again, but don’t travel without medical insurance! Get up to $10 million of travel medical insurance and COVID-19 insurance in less than 60 seconds. Policies start as low as $4.",
+    bullets: null,
+    QRAlt: "Qr code to scan",
+    QR: QRCode,
+    downloadLink: "https://gooseinsurance.onelink.me/FVvL/7819f6fa",
+  },
+}[language];
+---
+
+<LandingPage
+  strings={s}
+  heroImage={PhoneGif}
+  faqStrings={travelInsuranceFAQ}
+  productGridOmit={["Travel Insurance"]}
+/>

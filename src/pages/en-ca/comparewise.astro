@@ -1,0 +1,51 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Faq from "@components/faq.astro";
+import FeatureGrid from "@components/feature-grid.astro";
+import Hero from "@components/hero.astro";
+import Logos from "@components/logos.astro";
+import Testimonials from "@components/testimonials.astro";
+import Layout from "@layouts/Layout.astro";
+import { mainHero } from "strings/faqs.ts";
+import Geese from "@assets/Geese-in-water-cropped.png";
+import Bunnies from "@assets/smartBunny/Bunnies-on-grass2.png";
+import { enCA, enUS, frCA, getLangFromUrl } from "strings/routing";
+import QR from "@assets/landingPage/QRCodes/comparewise_qr_code.png"
+
+const language = getLangFromUrl(Astro.url);
+const images = {
+    [enUS]: {
+        FAQImage: Bunnies,
+    },
+    [enCA]: {
+        FAQImage: Geese,
+    },
+    [frCA]: {
+        FAQImage: Geese,
+    },
+}[language];
+const downloadLink = 'https://gooseaffiliate.onelink.me/K7VE/comparewise'
+---
+
+<Layout footerMargin={false}>
+    <Hero QR={QR} downloadLink={downloadLink} />
+    {
+        language !== enUS && (
+            <Container>
+                <Logos />
+            </Container>
+        )
+    }
+    <Testimonials />
+    <Container>
+        <FeatureGrid />
+    </Container>
+    <Faq
+        faq={mainHero}
+        image={{ src: images.FAQImage, alt: "" }}
+        textColour="text-deep-yellow"
+        bgColour="bg-pale-yellow"
+    />
+    <Cta QR={QR} downloadLink={downloadLink} />
+</Layout>
