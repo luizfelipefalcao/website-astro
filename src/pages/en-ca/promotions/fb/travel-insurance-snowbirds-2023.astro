@@ -1,0 +1,32 @@
+---
+import LandingPage from "@components/pages/promotions/landingPage.astro";
+import { getLangFromUrl } from "strings/routing";
+import { travelInsuranceFAQ } from "strings/faqs";
+import Image from "@assets/landingPage/snowbirds.png";
+import QRCode from "@assets/landingPage/QRCodes/17-snowbirds.png";
+
+const language = getLangFromUrl(Astro.url);
+const s = {
+  title: "Planning on Escaping the Canadian Winter?",
+  paragraph: "Travel with peace of mind with Goose Insurance.",
+  bullets: [
+    "Get up to $10 million of worldwide travel medical insurance coverage in 60 seconds.",
+    "Option to add unstable pre-existing medical conditions rider*.",
+    "Only 8 medical questions for travellers over 60.",
+    "Reputable claims management partner with over 60 years of experience.",
+    "Option to purchase single-trip or multi-trip annual policies.",
+    "Special Offer: 5% companion discount.",
+  ],
+  notes: ["*Available as an additional coverage. All policies sold by Goose Insurance Services have limitations, exclusions, and eligibility criteria that must be met at the time of application. For more information, contact us at support@gooseinsurance.com."],
+  QRAlt: "Qr code to scan",
+  QR: QRCode,
+  downloadLink: "https://go.onelink.me/LJT5/vzwvh84e",
+};
+---
+
+<LandingPage
+  strings={s}
+  heroImage={Image}
+  faqStrings={travelInsuranceFAQ}
+  productGridOmit={["Travel Insurance"]}
+/>
