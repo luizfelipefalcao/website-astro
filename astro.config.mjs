@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import storyblok from '@storyblok/astro';
 import vercel from "@astrojs/vercel/static";
 import tailwind from "@astrojs/tailwind";
-import storyblok from '@storyblok/astro';
 import mdx from "@astrojs/mdx";
 import { loadEnv } from 'vite';
 
